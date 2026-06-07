@@ -1,0 +1,17 @@
+[project]
+name = "layer-composition"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "torch",
+    "transformers",
+]
+
+[dependency-groups]
+dev = [
+    "pytest",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

@@ -1,0 +1,9 @@
+keep_strategy: embedding_norm
+keep_kwargs:
+  chunk: true
+  chunk_size: 32
+  percentage: 0.3
+  norm: l2
+  keep_high: true
+look_ahead_cnt: 1
+pool_kernel_size: null

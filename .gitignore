@@ -1,0 +1,41 @@
+# macOS/editor noise
+.DS_Store
+*.swp
+*.swo
+
+# Python caches and local environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Secrets/local env
+.env
+.env.*
+!.env.example
+
+# Generated experiment outputs
+runs/
+benchmark_results/
+local/
+outputs/
+artifacts/
+
+# Generated vendored docs
+unstructured-to-structured/external/brevitas-qronos/docs/
+
+# Large model/checkpoint/tensor artifacts
+*.pt
+!unstructured-to-structured/external/brevitas-qronos/src/brevitas/graph/hadamard_tensors.pt
+*.pth
+*.ckpt
+*.safetensors
+*.bin
+*.npy
+*.npz
+
+# Local nested repository metadata backups
+.local-git-backups/
