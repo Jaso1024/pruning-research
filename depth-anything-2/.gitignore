@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.py[cod]
+
+checkpoints/
+datasets/
+depth_vis*/
+video_depth_vis/
+eval_outputs/
+beam_outputs/
