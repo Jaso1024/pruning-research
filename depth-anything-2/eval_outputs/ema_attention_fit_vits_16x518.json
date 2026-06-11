@@ -1,0 +1,292 @@
+{
+  "metadata": {
+    "encoder": "vits",
+    "checkpoint": "checkpoints/depth_anything_v2_vits.pth",
+    "device": "cuda",
+    "image_source": "datasets/DA-2K/extracted/DA-2K",
+    "images": 16,
+    "input_size": 518,
+    "target": "post_ls1",
+    "sources": [
+      "norm1",
+      "prenorm"
+    ],
+    "tokens": "all",
+    "alpha_mode": "unconstrained",
+    "beta_min": 0.0,
+    "beta_max": 0.99,
+    "beta_values": 54,
+    "elapsed_seconds": 135.1152265071869,
+    "note": "For each fixed beta, alpha is the closed-form least-squares optimum for target ~= alpha * causal_ema(source)."
+  },
+  "results": {
+    "norm1": {
+      "global": {
+        "alpha": 9.61119327545758e-05,
+        "beta": 0.99,
+        "mse": 0.11100037499799241,
+        "relative_mse_vs_zero": 0.9992276499274418,
+        "explained_energy_vs_zero": 0.0007723500725581589,
+        "cosine": 0.027791186958423728,
+        "target_rms": 0.3332959231843595,
+        "count": 145847808
+      },
+      "blocks": [
+        {
+          "alpha": -0.015110881253843644,
+          "beta": 0.0,
+          "mse": 0.005794495637081959,
+          "relative_mse_vs_zero": 0.9775931906623153,
+          "explained_energy_vs_zero": 0.022406809337684686,
+          "cosine": -0.1496890421429864,
+          "target_rms": 0.07698901019227507,
+          "count": 12153984
+        },
+        {
+          "alpha": -0.00928720742579797,
+          "beta": 0.0,
+          "mse": 0.0023674387098769284,
+          "relative_mse_vs_zero": 0.9276813737340424,
+          "explained_energy_vs_zero": 0.07231862626595764,
+          "cosine": -0.2689212268787232,
+          "target_rms": 0.050517279421298786,
+          "count": 12153984
+        },
+        {
+          "alpha": -0.002669084332270905,
+          "beta": 0.1212244898,
+          "mse": 0.00041614070232390217,
+          "relative_mse_vs_zero": 0.9460318602225132,
+          "explained_energy_vs_zero": 0.05396813977748682,
+          "cosine": -0.2323104383739284,
+          "target_rms": 0.02097332161330097,
+          "count": 12153984
+        },
+        {
+          "alpha": -0.0006268619983001121,
+          "beta": 0.0,
+          "mse": 0.0005009012585014445,
+          "relative_mse_vs_zero": 0.9964766912543019,
+          "explained_energy_vs_zero": 0.0035233087456980616,
+          "cosine": -0.05935746579578614,
+          "target_rms": 0.022420355222699008,
+          "count": 12153984
+        },
+        {
+          "alpha": -0.001478226086541214,
+          "beta": 0.2828571429,
+          "mse": 0.00046750684585959885,
+          "relative_mse_vs_zero": 0.973429983410022,
+          "explained_energy_vs_zero": 0.02657001658997804,
+          "cosine": -0.16300311834433748,
+          "target_rms": 0.02191500771105239,
+          "count": 12153984
+        },
+        {
+          "alpha": -0.00020799207804242674,
+          "beta": 0.8687755102,
+          "mse": 0.0011542801037881395,
+          "relative_mse_vs_zero": 0.9965781118293132,
+          "explained_energy_vs_zero": 0.003421888170686782,
+          "cosine": -0.05849690736002152,
+          "target_rms": 0.03403297641204742,
+          "count": 12153984
+        },
+        {
+          "alpha": -0.007069218963825476,
+          "beta": 0.1616326531,
+          "mse": 0.0018089709256773065,
+          "relative_mse_vs_zero": 0.8979518394177785,
+          "explained_energy_vs_zero": 0.10204816058222155,
+          "cosine": -0.319449777871611,
+          "target_rms": 0.04488376410547821,
+          "count": 12153984
+        },
+        {
+          "alpha": 3.0597907205821274e-05,
+          "beta": 0.99,
+          "mse": 0.005353167942748529,
+          "relative_mse_vs_zero": 0.9984490516161464,
+          "explained_energy_vs_zero": 0.001550948383853612,
+          "cosine": 0.039382082015219984,
+          "target_rms": 0.07322215051914996,
+          "count": 12153984
+        },
+        {
+          "alpha": -0.0021670536794060214,
+          "beta": 0.0404081633,
+          "mse": 0.010038578507483874,
+          "relative_mse_vs_zero": 0.9981619707304843,
+          "explained_energy_vs_zero": 0.0018380292695157063,
+          "cosine": -0.04287224357921725,
+          "target_rms": 0.10028491254870847,
+          "count": 12153984
+        },
+        {
+          "alpha": -0.002529578912786537,
+          "beta": 0.3636734694,
+          "mse": 0.020159451269260012,
+          "relative_mse_vs_zero": 0.9972197931707911,
+          "explained_energy_vs_zero": 0.0027802068292088755,
+          "cosine": -0.052727666639145895,
+          "target_rms": 0.14218176736581967,
+          "count": 12153984
+        },
+        {
+          "alpha": -0.007442284791931802,
+          "beta": 0.0,
+          "mse": 0.039705962460403595,
+          "relative_mse_vs_zero": 0.9942344946197054,
+          "explained_energy_vs_zero": 0.005765505380294633,
+          "cosine": -0.07593092505886237,
+          "target_rms": 0.1998404736844049,
+          "count": 12153984
+        },
+        {
+          "alpha": 0.000849914809674435,
+          "beta": 0.99,
+          "mse": 1.2332180933195669,
+          "relative_mse_vs_zero": 0.9910231912824365,
+          "explained_energy_vs_zero": 0.008976808717563456,
+          "cosine": 0.09474602217277256,
+          "target_rms": 1.1155217312744337,
+          "count": 12153984
+        }
+      ]
+    },
+    "prenorm": {
+      "global": {
+        "alpha": 0.0011019036227839323,
+        "beta": 0.99,
+        "mse": 0.11098893068916212,
+        "relative_mse_vs_zero": 0.9991246280248786,
+        "explained_energy_vs_zero": 0.0008753719751214417,
+        "cosine": 0.029586685774540638,
+        "target_rms": 0.3332959231843595,
+        "count": 145847808
+      },
+      "blocks": [
+        {
+          "alpha": -0.10652861565719822,
+          "beta": 0.0,
+          "mse": 0.0057978030838681804,
+          "relative_mse_vs_zero": 0.9781511921967365,
+          "explained_energy_vs_zero": 0.02184880780326348,
+          "cosine": -0.1478134222703188,
+          "target_rms": 0.07698901019227507,
+          "count": 12153984
+        },
+        {
+          "alpha": -0.031534821201999706,
+          "beta": 0.9697959184,
+          "mse": 0.0009339906411908064,
+          "relative_mse_vs_zero": 0.36598443603199704,
+          "explained_energy_vs_zero": 0.634015563968003,
+          "cosine": -0.7962509428364923,
+          "target_rms": 0.050517279421298786,
+          "count": 12153984
+        },
+        {
+          "alpha": -0.12666940349157932,
+          "beta": 0.606122449,
+          "mse": 0.0003538680774986499,
+          "relative_mse_vs_zero": 0.8044646288140408,
+          "explained_energy_vs_zero": 0.1955353711859592,
+          "cosine": -0.44219381631356985,
+          "target_rms": 0.02097332161330097,
+          "count": 12153984
+        },
+        {
+          "alpha": -0.00437801653568848,
+          "beta": 0.99,
+          "mse": 0.0004352460189152296,
+          "relative_mse_vs_zero": 0.8658642905146635,
+          "explained_energy_vs_zero": 0.13413570948533649,
+          "cosine": -0.36624542247697284,
+          "target_rms": 0.022420355222699008,
+          "count": 12153984
+        },
+        {
+          "alpha": -0.08128424686134436,
+          "beta": 0.4646938776,
+          "mse": 0.00046124467013961934,
+          "relative_mse_vs_zero": 0.960391052191802,
+          "explained_energy_vs_zero": 0.039608947808198014,
+          "cosine": -0.1990199683654835,
+          "target_rms": 0.02191500771105239,
+          "count": 12153984
+        },
+        {
+          "alpha": -0.0047423708496312665,
+          "beta": 0.9697959184,
+          "mse": 0.0011469392304356383,
+          "relative_mse_vs_zero": 0.990240175585931,
+          "explained_energy_vs_zero": 0.009759824414068974,
+          "cosine": -0.0987918236195129,
+          "target_rms": 0.03403297641204742,
+          "count": 12153984
+        },
+        {
+          "alpha": -0.21734750423693616,
+          "beta": 0.2424489796,
+          "mse": 0.0017539631039160046,
+          "relative_mse_vs_zero": 0.8706466052474545,
+          "explained_energy_vs_zero": 0.12935339475254548,
+          "cosine": -0.35965732962438773,
+          "target_rms": 0.04488376410547821,
+          "count": 12153984
+        },
+        {
+          "alpha": -0.0045947763572744375,
+          "beta": 0.99,
+          "mse": 0.005080708741868945,
+          "relative_mse_vs_zero": 0.9476311744952132,
+          "explained_energy_vs_zero": 0.05236882550478683,
+          "cosine": -0.22884235950712223,
+          "target_rms": 0.07322215051914996,
+          "count": 12153984
+        },
+        {
+          "alpha": -0.020395836544534203,
+          "beta": 0.9293877551,
+          "mse": 0.00974537829953007,
+          "relative_mse_vs_zero": 0.9690083114577522,
+          "explained_energy_vs_zero": 0.030991688542247764,
+          "cosine": -0.1760445640803707,
+          "target_rms": 0.10028491254870847,
+          "count": 12153984
+        },
+        {
+          "alpha": -0.002937929937802636,
+          "beta": 0.99,
+          "mse": 0.019328580139200607,
+          "relative_mse_vs_zero": 0.9561194117465781,
+          "explained_energy_vs_zero": 0.04388058825342189,
+          "cosine": -0.20947693966979253,
+          "target_rms": 0.14218176736581967,
+          "count": 12153984
+        },
+        {
+          "alpha": -0.07331375131487118,
+          "beta": 0.5253061224,
+          "mse": 0.03875547058020214,
+          "relative_mse_vs_zero": 0.9704342450956035,
+          "explained_energy_vs_zero": 0.029565754904396502,
+          "cosine": -0.17194695375143054,
+          "target_rms": 0.1998404736844049,
+          "count": 12153984
+        },
+        {
+          "alpha": 0.011897970166250226,
+          "beta": 0.9697959184,
+          "mse": 1.234943484813419,
+          "relative_mse_vs_zero": 0.9924097286627358,
+          "explained_energy_vs_zero": 0.007590271337264198,
+          "cosine": 0.08712216329536468,
+          "target_rms": 1.1155217312744337,
+          "count": 12153984
+        }
+      ]
+    }
+  }
+}

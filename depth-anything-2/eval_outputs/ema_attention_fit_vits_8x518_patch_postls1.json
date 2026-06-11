@@ -1,0 +1,292 @@
+{
+  "metadata": {
+    "encoder": "vits",
+    "checkpoint": "checkpoints/depth_anything_v2_vits.pth",
+    "device": "cuda",
+    "image_source": "datasets/DA-2K/extracted/DA-2K",
+    "images": 8,
+    "input_size": 518,
+    "target": "post_ls1",
+    "sources": [
+      "norm1",
+      "prenorm"
+    ],
+    "tokens": "patch",
+    "alpha_mode": "unconstrained",
+    "beta_min": 0.0,
+    "beta_max": 0.99,
+    "beta_values": 39,
+    "elapsed_seconds": 58.37554597854614,
+    "note": "For each fixed beta, alpha is the closed-form least-squares optimum for target ~= alpha * causal_ema(source)."
+  },
+  "results": {
+    "norm1": {
+      "global": {
+        "alpha": 9.42822194008743e-05,
+        "beta": 0.99,
+        "mse": 0.11256685109312559,
+        "relative_mse_vs_zero": 0.9992911985277125,
+        "explained_energy_vs_zero": 0.000708801472287468,
+        "cosine": 0.026623325718011553,
+        "target_rms": 0.3356288057312089,
+        "count": 71949312
+      },
+      "blocks": [
+        {
+          "alpha": -0.015072612835690906,
+          "beta": 0.0,
+          "mse": 0.005869632245176134,
+          "relative_mse_vs_zero": 0.9772308460655362,
+          "explained_energy_vs_zero": 0.02276915393446377,
+          "cosine": -0.1508945126055415,
+          "target_rms": 0.07750092080575131,
+          "count": 5995776
+        },
+        {
+          "alpha": -0.009275159439812452,
+          "beta": 0.0,
+          "mse": 0.0023955527483159227,
+          "relative_mse_vs_zero": 0.927937972858633,
+          "explained_energy_vs_zero": 0.072062027141367,
+          "cosine": -0.26844371317162025,
+          "target_rms": 0.05080932150413222,
+          "count": 5995776
+        },
+        {
+          "alpha": -0.0027255715298395104,
+          "beta": 0.0873529412,
+          "mse": 0.000416658296187576,
+          "relative_mse_vs_zero": 0.9464075125887792,
+          "explained_energy_vs_zero": 0.0535924874112208,
+          "cosine": -0.2315005127666478,
+          "target_rms": 0.020982195405627718,
+          "count": 5995776
+        },
+        {
+          "alpha": -0.0006633756355580309,
+          "beta": 0.0,
+          "mse": 0.000512073965804919,
+          "relative_mse_vs_zero": 0.9961657704649896,
+          "explained_energy_vs_zero": 0.003834229535010447,
+          "cosine": -0.06192115579517695,
+          "target_rms": 0.02267255901008459,
+          "count": 5995776
+        },
+        {
+          "alpha": -0.001493868860025437,
+          "beta": 0.2620588235,
+          "mse": 0.0004673936863237147,
+          "relative_mse_vs_zero": 0.9740604807337303,
+          "explained_energy_vs_zero": 0.025939519266269695,
+          "cosine": -0.16105750298036342,
+          "target_rms": 0.02190526235184955,
+          "count": 5995776
+        },
+        {
+          "alpha": -0.00023262181872715735,
+          "beta": 0.8444117647,
+          "mse": 0.0011579541459898369,
+          "relative_mse_vs_zero": 0.9968040701974104,
+          "explained_energy_vs_zero": 0.0031959298025896477,
+          "cosine": -0.05653255524553672,
+          "target_rms": 0.03408323270145092,
+          "count": 5995776
+        },
+        {
+          "alpha": -0.007178738048215154,
+          "beta": 0.1455882353,
+          "mse": 0.0018257957961914256,
+          "relative_mse_vs_zero": 0.8984761794635552,
+          "explained_energy_vs_zero": 0.10152382053644482,
+          "cosine": -0.31862802848532445,
+          "target_rms": 0.045078848894555816,
+          "count": 5995776
+        },
+        {
+          "alpha": 3.289371135926335e-05,
+          "beta": 0.99,
+          "mse": 0.0053482655652265275,
+          "relative_mse_vs_zero": 0.9982318808495271,
+          "explained_energy_vs_zero": 0.0017681191504729243,
+          "cosine": 0.04204900891189845,
+          "target_rms": 0.07319657564121265,
+          "count": 5995776
+        },
+        {
+          "alpha": -0.002073002154163901,
+          "beta": 0.0,
+          "mse": 0.009945339567674122,
+          "relative_mse_vs_zero": 0.9983967248938024,
+          "explained_energy_vs_zero": 0.0016032751061976214,
+          "cosine": -0.04004091789903894,
+          "target_rms": 0.09980636396785908,
+          "count": 5995776
+        },
+        {
+          "alpha": -0.002440758345589627,
+          "beta": 0.3494117647,
+          "mse": 0.019874872649824044,
+          "relative_mse_vs_zero": 0.9974569641905907,
+          "explained_energy_vs_zero": 0.0025430358094092886,
+          "cosine": -0.05042852178489232,
+          "target_rms": 0.14115786914583764,
+          "count": 5995776
+        },
+        {
+          "alpha": -0.007161015653962809,
+          "beta": 0.0,
+          "mse": 0.039826198206158646,
+          "relative_mse_vs_zero": 0.9946886099684102,
+          "explained_energy_vs_zero": 0.005311390031589758,
+          "cosine": -0.07287928396732464,
+          "target_rms": 0.20009712693876877,
+          "count": 5995776
+        },
+        {
+          "alpha": 0.0008125356252641051,
+          "beta": 0.99,
+          "mse": 1.2534580228548418,
+          "relative_mse_vs_zero": 0.9922399412799072,
+          "explained_energy_vs_zero": 0.007760058720092777,
+          "cosine": 0.08809119547430845,
+          "target_rms": 1.123948843325338,
+          "count": 5995776
+        }
+      ]
+    },
+    "prenorm": {
+      "global": {
+        "alpha": 0.0010770125710520446,
+        "beta": 0.99,
+        "mse": 0.11255614211238307,
+        "relative_mse_vs_zero": 0.9991961315510913,
+        "explained_energy_vs_zero": 0.0008038684489086734,
+        "cosine": 0.028352573937981632,
+        "target_rms": 0.3356288057312089,
+        "count": 71949312
+      },
+      "blocks": [
+        {
+          "alpha": -0.10249294319260986,
+          "beta": 0.0,
+          "mse": 0.0058801609439802765,
+          "relative_mse_vs_zero": 0.9789837615482391,
+          "explained_energy_vs_zero": 0.021016238451760927,
+          "cosine": -0.1449697846165222,
+          "target_rms": 0.07750092080575131,
+          "count": 5995776
+        },
+        {
+          "alpha": -0.040858074270709546,
+          "beta": 0.9608823529,
+          "mse": 0.0009273422650511327,
+          "relative_mse_vs_zero": 0.3592140069479269,
+          "explained_energy_vs_zero": 0.6407859930520732,
+          "cosine": -0.8004910949236558,
+          "target_rms": 0.05080932150413222,
+          "count": 5995776
+        },
+        {
+          "alpha": -0.1308928774938549,
+          "beta": 0.5823529412,
+          "mse": 0.00035687863553255365,
+          "relative_mse_vs_zero": 0.8106225769194532,
+          "explained_energy_vs_zero": 0.18937742308054684,
+          "cosine": -0.4351751636761303,
+          "target_rms": 0.020982195405627718,
+          "count": 5995776
+        },
+        {
+          "alpha": -0.004460200704487783,
+          "beta": 0.99,
+          "mse": 0.00044554375006157824,
+          "relative_mse_vs_zero": 0.866740866933738,
+          "explained_energy_vs_zero": 0.13325913306626203,
+          "cosine": -0.3650467546305022,
+          "target_rms": 0.02267255901008459,
+          "count": 5995776
+        },
+        {
+          "alpha": -0.07984950979291203,
+          "beta": 0.4658823529,
+          "mse": 0.00046140887403340605,
+          "relative_mse_vs_zero": 0.961587977772786,
+          "explained_energy_vs_zero": 0.03841202222721396,
+          "cosine": -0.19598985235775362,
+          "target_rms": 0.02190526235184955,
+          "count": 5995776
+        },
+        {
+          "alpha": -0.0061115036424681315,
+          "beta": 0.9608823529,
+          "mse": 0.0011501510321618436,
+          "relative_mse_vs_zero": 0.9900868995297338,
+          "explained_energy_vs_zero": 0.009913100470266167,
+          "cosine": -0.09956455428648293,
+          "target_rms": 0.03408323270145092,
+          "count": 5995776
+        },
+        {
+          "alpha": -0.2185921369770264,
+          "beta": 0.2329411765,
+          "mse": 0.0017730409794009985,
+          "relative_mse_vs_zero": 0.8725154743633265,
+          "explained_energy_vs_zero": 0.12748452563667345,
+          "cosine": -0.35704975232686187,
+          "target_rms": 0.045078848894555816,
+          "count": 5995776
+        },
+        {
+          "alpha": -0.004582225322972156,
+          "beta": 0.99,
+          "mse": 0.005085137083842335,
+          "relative_mse_vs_zero": 0.949120026609339,
+          "explained_energy_vs_zero": 0.05087997339066097,
+          "cosine": -0.2255658958944394,
+          "target_rms": 0.07319657564121265,
+          "count": 5995776
+        },
+        {
+          "alpha": -0.02600409152527254,
+          "beta": 0.9026470588,
+          "mse": 0.009677146469790548,
+          "relative_mse_vs_zero": 0.9714732489537341,
+          "explained_energy_vs_zero": 0.028526751046265897,
+          "cosine": -0.16889864133931323,
+          "target_rms": 0.09980636396785908,
+          "count": 5995776
+        },
+        {
+          "alpha": -0.0028371942519955125,
+          "beta": 0.99,
+          "mse": 0.019122049351546367,
+          "relative_mse_vs_zero": 0.959675145161997,
+          "explained_energy_vs_zero": 0.040324854838002966,
+          "cosine": -0.20081049484029193,
+          "target_rms": 0.14115786914583764,
+          "count": 5995776
+        },
+        {
+          "alpha": -0.07454877609015426,
+          "beta": 0.5,
+          "mse": 0.038934069275316625,
+          "relative_mse_vs_zero": 0.972407033365534,
+          "explained_energy_vs_zero": 0.027592966634465976,
+          "cosine": -0.1661113079668749,
+          "target_rms": 0.20009712693876877,
+          "count": 5995776
+        },
+        {
+          "alpha": 0.014443183103146124,
+          "beta": 0.9608823529,
+          "mse": 1.2548218109544311,
+          "relative_mse_vs_zero": 0.9933195187361772,
+          "explained_energy_vs_zero": 0.006680481263822813,
+          "cosine": 0.08173421109806378,
+          "target_rms": 1.123948843325338,
+          "count": 5995776
+        }
+      ]
+    }
+  }
+}

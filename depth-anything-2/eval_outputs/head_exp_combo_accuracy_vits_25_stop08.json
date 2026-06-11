@@ -1,0 +1,3728 @@
+{
+  "metadata": {
+    "encoder": "vits",
+    "checkpoint": "checkpoints/depth_anything_v2_vits.pth",
+    "dataset_root": "datasets/DA-2K/extracted/DA-2K",
+    "coefficients": "eval_outputs/head_exp_combo_fit_vits_16x518_patch_v.json",
+    "source": "v",
+    "device": "cuda",
+    "input_size": 518,
+    "max_images": 25,
+    "images": 25,
+    "scene_type": "",
+    "elapsed_seconds": 1871.9629089832306,
+    "complete": true,
+    "note": "Selected pre-proj attention heads are replaced by fitted EMA combinations of v_h; heads are then concatenated and passed through the original attention output projection so the rest of the model is unchanged."
+  },
+  "baseline": {
+    "label": "baseline",
+    "overall": {
+      "pairs": 55,
+      "smaller_correct": 4,
+      "larger_correct": 51,
+      "ties": 0,
+      "smaller_is_closer_accuracy": 0.07272727272727272,
+      "larger_is_closer_accuracy": 0.9272727272727272,
+      "best_direction": "larger",
+      "best_accuracy": 0.9272727272727272,
+      "tie_fraction": 0.0
+    },
+    "by_scene": {
+      "indoor": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      }
+    },
+    "missing_images": [],
+    "elapsed_seconds": 1.3194918632507324
+  },
+  "single_heads": [
+    {
+      "label": "single_head_0_0",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 5,
+        "larger_correct": 50,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.09090909090909091,
+        "larger_is_closer_accuracy": 0.9090909090909091,
+        "best_direction": "larger",
+        "best_accuracy": 0.9090909090909091,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 5,
+          "larger_correct": 50,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.09090909090909091,
+          "larger_is_closer_accuracy": 0.9090909090909091,
+          "best_direction": "larger",
+          "best_accuracy": 0.9090909090909091,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.793180227279663,
+      "block": 0,
+      "head": 0,
+      "fit_explained": 0.5856621969181588,
+      "accuracy_delta_vs_baseline": -0.018181818181818188
+    },
+    {
+      "label": "single_head_0_1",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.7974464893341064,
+      "block": 0,
+      "head": 1,
+      "fit_explained": 0.40802995330180436,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_0_2",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.797184705734253,
+      "block": 0,
+      "head": 2,
+      "fit_explained": 0.5518990172199356,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_0_3",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.793957471847534,
+      "block": 0,
+      "head": 3,
+      "fit_explained": 0.5621712437269192,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_0_4",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.774787664413452,
+      "block": 0,
+      "head": 4,
+      "fit_explained": 0.5305257620311465,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_0_5",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.774361610412598,
+      "block": 0,
+      "head": 5,
+      "fit_explained": 0.27034016880585476,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_1_0",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.733252763748169,
+      "block": 1,
+      "head": 0,
+      "fit_explained": 0.5914120301725485,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_1_1",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 5,
+        "larger_correct": 50,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.09090909090909091,
+        "larger_is_closer_accuracy": 0.9090909090909091,
+        "best_direction": "larger",
+        "best_accuracy": 0.9090909090909091,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 5,
+          "larger_correct": 50,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.09090909090909091,
+          "larger_is_closer_accuracy": 0.9090909090909091,
+          "best_direction": "larger",
+          "best_accuracy": 0.9090909090909091,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.758938312530518,
+      "block": 1,
+      "head": 1,
+      "fit_explained": 0.4277701310218488,
+      "accuracy_delta_vs_baseline": -0.018181818181818188
+    },
+    {
+      "label": "single_head_1_2",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.728669166564941,
+      "block": 1,
+      "head": 2,
+      "fit_explained": 0.6071800135753633,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_1_3",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 5,
+        "larger_correct": 50,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.09090909090909091,
+        "larger_is_closer_accuracy": 0.9090909090909091,
+        "best_direction": "larger",
+        "best_accuracy": 0.9090909090909091,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 5,
+          "larger_correct": 50,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.09090909090909091,
+          "larger_is_closer_accuracy": 0.9090909090909091,
+          "best_direction": "larger",
+          "best_accuracy": 0.9090909090909091,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.748013019561768,
+      "block": 1,
+      "head": 3,
+      "fit_explained": 0.7114809927526997,
+      "accuracy_delta_vs_baseline": -0.018181818181818188
+    },
+    {
+      "label": "single_head_1_4",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.759927988052368,
+      "block": 1,
+      "head": 4,
+      "fit_explained": 0.6766059749534634,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_1_5",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.770677804946899,
+      "block": 1,
+      "head": 5,
+      "fit_explained": 0.8512462271312885,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_2_0",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.745802164077759,
+      "block": 2,
+      "head": 0,
+      "fit_explained": 0.6293825040846082,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_2_1",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.740921974182129,
+      "block": 2,
+      "head": 1,
+      "fit_explained": 0.5763079900852315,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_2_2",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.7298903465271,
+      "block": 2,
+      "head": 2,
+      "fit_explained": 0.7092466410709317,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_2_3",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.755533218383789,
+      "block": 2,
+      "head": 3,
+      "fit_explained": 0.8900770065258545,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_2_4",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.759387493133545,
+      "block": 2,
+      "head": 4,
+      "fit_explained": 0.6159214350154665,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_2_5",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.757340669631958,
+      "block": 2,
+      "head": 5,
+      "fit_explained": 0.8040832983895321,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_3_0",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.728649139404297,
+      "block": 3,
+      "head": 0,
+      "fit_explained": 0.4888144022952625,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_3_1",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.7249836921691895,
+      "block": 3,
+      "head": 1,
+      "fit_explained": 0.46993088576475417,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_3_2",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.741857051849365,
+      "block": 3,
+      "head": 2,
+      "fit_explained": 0.781845980287977,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_3_3",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 5,
+        "larger_correct": 50,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.09090909090909091,
+        "larger_is_closer_accuracy": 0.9090909090909091,
+        "best_direction": "larger",
+        "best_accuracy": 0.9090909090909091,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 5,
+          "larger_correct": 50,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.09090909090909091,
+          "larger_is_closer_accuracy": 0.9090909090909091,
+          "best_direction": "larger",
+          "best_accuracy": 0.9090909090909091,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.768082618713379,
+      "block": 3,
+      "head": 3,
+      "fit_explained": 0.7057988781132969,
+      "accuracy_delta_vs_baseline": -0.018181818181818188
+    },
+    {
+      "label": "single_head_3_4",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.769076108932495,
+      "block": 3,
+      "head": 4,
+      "fit_explained": 0.5669156189480826,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_3_5",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 5,
+        "larger_correct": 50,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.09090909090909091,
+        "larger_is_closer_accuracy": 0.9090909090909091,
+        "best_direction": "larger",
+        "best_accuracy": 0.9090909090909091,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 5,
+          "larger_correct": 50,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.09090909090909091,
+          "larger_is_closer_accuracy": 0.9090909090909091,
+          "best_direction": "larger",
+          "best_accuracy": 0.9090909090909091,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.765850782394409,
+      "block": 3,
+      "head": 5,
+      "fit_explained": 0.8229166265458573,
+      "accuracy_delta_vs_baseline": -0.018181818181818188
+    },
+    {
+      "label": "single_head_4_0",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.737323522567749,
+      "block": 4,
+      "head": 0,
+      "fit_explained": 0.4240997900913873,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_4_1",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.738988399505615,
+      "block": 4,
+      "head": 1,
+      "fit_explained": 0.648699583183677,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_4_2",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.726940631866455,
+      "block": 4,
+      "head": 2,
+      "fit_explained": 0.5902103432449151,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_4_3",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 5,
+        "larger_correct": 50,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.09090909090909091,
+        "larger_is_closer_accuracy": 0.9090909090909091,
+        "best_direction": "larger",
+        "best_accuracy": 0.9090909090909091,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 5,
+          "larger_correct": 50,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.09090909090909091,
+          "larger_is_closer_accuracy": 0.9090909090909091,
+          "best_direction": "larger",
+          "best_accuracy": 0.9090909090909091,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.730752944946289,
+      "block": 4,
+      "head": 3,
+      "fit_explained": 0.724119014074937,
+      "accuracy_delta_vs_baseline": -0.018181818181818188
+    },
+    {
+      "label": "single_head_4_4",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.72355580329895,
+      "block": 4,
+      "head": 4,
+      "fit_explained": 0.5783134610615883,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_4_5",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.7254767417907715,
+      "block": 4,
+      "head": 5,
+      "fit_explained": 0.43695245676165484,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_5_0",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.743551969528198,
+      "block": 5,
+      "head": 0,
+      "fit_explained": 0.3777688667706718,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_5_1",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 5,
+        "larger_correct": 50,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.09090909090909091,
+        "larger_is_closer_accuracy": 0.9090909090909091,
+        "best_direction": "larger",
+        "best_accuracy": 0.9090909090909091,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 5,
+          "larger_correct": 50,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.09090909090909091,
+          "larger_is_closer_accuracy": 0.9090909090909091,
+          "best_direction": "larger",
+          "best_accuracy": 0.9090909090909091,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.733356952667236,
+      "block": 5,
+      "head": 1,
+      "fit_explained": 0.5355908799799196,
+      "accuracy_delta_vs_baseline": -0.018181818181818188
+    },
+    {
+      "label": "single_head_5_2",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.730370759963989,
+      "block": 5,
+      "head": 2,
+      "fit_explained": 0.7030977700514568,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_5_3",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 1,
+        "larger_correct": 54,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.01818181818181818,
+        "larger_is_closer_accuracy": 0.9818181818181818,
+        "best_direction": "larger",
+        "best_accuracy": 0.9818181818181818,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 1,
+          "larger_correct": 54,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.01818181818181818,
+          "larger_is_closer_accuracy": 0.9818181818181818,
+          "best_direction": "larger",
+          "best_accuracy": 0.9818181818181818,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.729023218154907,
+      "block": 5,
+      "head": 3,
+      "fit_explained": 0.6721991622015545,
+      "accuracy_delta_vs_baseline": 0.054545454545454564
+    },
+    {
+      "label": "single_head_5_4",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.7279510498046875,
+      "block": 5,
+      "head": 4,
+      "fit_explained": 0.7587323761867469,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_5_5",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.7246270179748535,
+      "block": 5,
+      "head": 5,
+      "fit_explained": 0.7170170209786213,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_6_0",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 5,
+        "larger_correct": 50,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.09090909090909091,
+        "larger_is_closer_accuracy": 0.9090909090909091,
+        "best_direction": "larger",
+        "best_accuracy": 0.9090909090909091,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 5,
+          "larger_correct": 50,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.09090909090909091,
+          "larger_is_closer_accuracy": 0.9090909090909091,
+          "best_direction": "larger",
+          "best_accuracy": 0.9090909090909091,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.7238829135894775,
+      "block": 6,
+      "head": 0,
+      "fit_explained": 0.7382019021256903,
+      "accuracy_delta_vs_baseline": -0.018181818181818188
+    },
+    {
+      "label": "single_head_6_1",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.75653338432312,
+      "block": 6,
+      "head": 1,
+      "fit_explained": 0.8342294750924608,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_6_2",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 5,
+        "larger_correct": 50,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.09090909090909091,
+        "larger_is_closer_accuracy": 0.9090909090909091,
+        "best_direction": "larger",
+        "best_accuracy": 0.9090909090909091,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 5,
+          "larger_correct": 50,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.09090909090909091,
+          "larger_is_closer_accuracy": 0.9090909090909091,
+          "best_direction": "larger",
+          "best_accuracy": 0.9090909090909091,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.769474506378174,
+      "block": 6,
+      "head": 2,
+      "fit_explained": 0.5912510548581915,
+      "accuracy_delta_vs_baseline": -0.018181818181818188
+    },
+    {
+      "label": "single_head_6_3",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.743966341018677,
+      "block": 6,
+      "head": 3,
+      "fit_explained": 0.6984099663033885,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_6_4",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 5,
+        "larger_correct": 50,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.09090909090909091,
+        "larger_is_closer_accuracy": 0.9090909090909091,
+        "best_direction": "larger",
+        "best_accuracy": 0.9090909090909091,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 5,
+          "larger_correct": 50,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.09090909090909091,
+          "larger_is_closer_accuracy": 0.9090909090909091,
+          "best_direction": "larger",
+          "best_accuracy": 0.9090909090909091,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.725618124008179,
+      "block": 6,
+      "head": 4,
+      "fit_explained": 0.5950189095525086,
+      "accuracy_delta_vs_baseline": -0.018181818181818188
+    },
+    {
+      "label": "single_head_6_5",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.727306842803955,
+      "block": 6,
+      "head": 5,
+      "fit_explained": 0.7125287566925462,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_7_0",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 5,
+        "larger_correct": 50,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.09090909090909091,
+        "larger_is_closer_accuracy": 0.9090909090909091,
+        "best_direction": "larger",
+        "best_accuracy": 0.9090909090909091,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 5,
+          "larger_correct": 50,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.09090909090909091,
+          "larger_is_closer_accuracy": 0.9090909090909091,
+          "best_direction": "larger",
+          "best_accuracy": 0.9090909090909091,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.729878902435303,
+      "block": 7,
+      "head": 0,
+      "fit_explained": 0.6743157714126038,
+      "accuracy_delta_vs_baseline": -0.018181818181818188
+    },
+    {
+      "label": "single_head_7_1",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.731646299362183,
+      "block": 7,
+      "head": 1,
+      "fit_explained": 0.7317070021211419,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_7_2",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 5,
+        "larger_correct": 50,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.09090909090909091,
+        "larger_is_closer_accuracy": 0.9090909090909091,
+        "best_direction": "larger",
+        "best_accuracy": 0.9090909090909091,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 5,
+          "larger_correct": 50,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.09090909090909091,
+          "larger_is_closer_accuracy": 0.9090909090909091,
+          "best_direction": "larger",
+          "best_accuracy": 0.9090909090909091,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.728360414505005,
+      "block": 7,
+      "head": 2,
+      "fit_explained": 0.6651603409996377,
+      "accuracy_delta_vs_baseline": -0.018181818181818188
+    },
+    {
+      "label": "single_head_7_3",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.72741436958313,
+      "block": 7,
+      "head": 3,
+      "fit_explained": 0.4790247090537618,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_7_4",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.731569290161133,
+      "block": 7,
+      "head": 4,
+      "fit_explained": 0.5043314236851759,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_7_5",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 5,
+        "larger_correct": 50,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.09090909090909091,
+        "larger_is_closer_accuracy": 0.9090909090909091,
+        "best_direction": "larger",
+        "best_accuracy": 0.9090909090909091,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 5,
+          "larger_correct": 50,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.09090909090909091,
+          "larger_is_closer_accuracy": 0.9090909090909091,
+          "best_direction": "larger",
+          "best_accuracy": 0.9090909090909091,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.722663879394531,
+      "block": 7,
+      "head": 5,
+      "fit_explained": 0.5397708630745073,
+      "accuracy_delta_vs_baseline": -0.018181818181818188
+    },
+    {
+      "label": "single_head_8_0",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.729283809661865,
+      "block": 8,
+      "head": 0,
+      "fit_explained": 0.6021410848911453,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_8_1",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.72907018661499,
+      "block": 8,
+      "head": 1,
+      "fit_explained": 0.6228190923269907,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_8_2",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.728071928024292,
+      "block": 8,
+      "head": 2,
+      "fit_explained": 0.7064553185195688,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_8_3",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.725504636764526,
+      "block": 8,
+      "head": 3,
+      "fit_explained": 0.7573783903198595,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_8_4",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 5,
+        "larger_correct": 50,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.09090909090909091,
+        "larger_is_closer_accuracy": 0.9090909090909091,
+        "best_direction": "larger",
+        "best_accuracy": 0.9090909090909091,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 5,
+          "larger_correct": 50,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.09090909090909091,
+          "larger_is_closer_accuracy": 0.9090909090909091,
+          "best_direction": "larger",
+          "best_accuracy": 0.9090909090909091,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.739253044128418,
+      "block": 8,
+      "head": 4,
+      "fit_explained": 0.6616173542851986,
+      "accuracy_delta_vs_baseline": -0.018181818181818188
+    },
+    {
+      "label": "single_head_8_5",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 2,
+        "larger_correct": 53,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.03636363636363636,
+        "larger_is_closer_accuracy": 0.9636363636363636,
+        "best_direction": "larger",
+        "best_accuracy": 0.9636363636363636,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 2,
+          "larger_correct": 53,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.03636363636363636,
+          "larger_is_closer_accuracy": 0.9636363636363636,
+          "best_direction": "larger",
+          "best_accuracy": 0.9636363636363636,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.730258226394653,
+      "block": 8,
+      "head": 5,
+      "fit_explained": 0.6706911741054533,
+      "accuracy_delta_vs_baseline": 0.036363636363636376
+    },
+    {
+      "label": "single_head_9_0",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.732892274856567,
+      "block": 9,
+      "head": 0,
+      "fit_explained": 0.6589768232158125,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_9_1",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.735217571258545,
+      "block": 9,
+      "head": 1,
+      "fit_explained": 0.7766511543891979,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_9_2",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.7274861335754395,
+      "block": 9,
+      "head": 2,
+      "fit_explained": 0.6593674884385498,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_9_3",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.747116327285767,
+      "block": 9,
+      "head": 3,
+      "fit_explained": 0.6983476448528003,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_9_4",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.762297868728638,
+      "block": 9,
+      "head": 4,
+      "fit_explained": 0.44290824679030083,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_9_5",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 5,
+        "larger_correct": 50,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.09090909090909091,
+        "larger_is_closer_accuracy": 0.9090909090909091,
+        "best_direction": "larger",
+        "best_accuracy": 0.9090909090909091,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 5,
+          "larger_correct": 50,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.09090909090909091,
+          "larger_is_closer_accuracy": 0.9090909090909091,
+          "best_direction": "larger",
+          "best_accuracy": 0.9090909090909091,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.759819269180298,
+      "block": 9,
+      "head": 5,
+      "fit_explained": 0.6820341451484403,
+      "accuracy_delta_vs_baseline": -0.018181818181818188
+    },
+    {
+      "label": "single_head_10_0",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.760310649871826,
+      "block": 10,
+      "head": 0,
+      "fit_explained": 0.6760024032951886,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_10_1",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.745575666427612,
+      "block": 10,
+      "head": 1,
+      "fit_explained": 0.4200485830362274,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_10_2",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 3,
+        "larger_correct": 52,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.05454545454545454,
+        "larger_is_closer_accuracy": 0.9454545454545454,
+        "best_direction": "larger",
+        "best_accuracy": 0.9454545454545454,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 3,
+          "larger_correct": 52,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.05454545454545454,
+          "larger_is_closer_accuracy": 0.9454545454545454,
+          "best_direction": "larger",
+          "best_accuracy": 0.9454545454545454,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.756605386734009,
+      "block": 10,
+      "head": 2,
+      "fit_explained": 0.7830381875911157,
+      "accuracy_delta_vs_baseline": 0.018181818181818188
+    },
+    {
+      "label": "single_head_10_3",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 5,
+        "larger_correct": 50,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.09090909090909091,
+        "larger_is_closer_accuracy": 0.9090909090909091,
+        "best_direction": "larger",
+        "best_accuracy": 0.9090909090909091,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 5,
+          "larger_correct": 50,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.09090909090909091,
+          "larger_is_closer_accuracy": 0.9090909090909091,
+          "best_direction": "larger",
+          "best_accuracy": 0.9090909090909091,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.733416557312012,
+      "block": 10,
+      "head": 3,
+      "fit_explained": 0.5491280380899792,
+      "accuracy_delta_vs_baseline": -0.018181818181818188
+    },
+    {
+      "label": "single_head_10_4",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.750933885574341,
+      "block": 10,
+      "head": 4,
+      "fit_explained": 0.5903236047365774,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_10_5",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.739482879638672,
+      "block": 10,
+      "head": 5,
+      "fit_explained": 0.6021168364055641,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_11_0",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.742391347885132,
+      "block": 11,
+      "head": 0,
+      "fit_explained": 0.7581851374360074,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_11_1",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 5,
+        "larger_correct": 50,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.09090909090909091,
+        "larger_is_closer_accuracy": 0.9090909090909091,
+        "best_direction": "larger",
+        "best_accuracy": 0.9090909090909091,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 5,
+          "larger_correct": 50,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.09090909090909091,
+          "larger_is_closer_accuracy": 0.9090909090909091,
+          "best_direction": "larger",
+          "best_accuracy": 0.9090909090909091,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.745145320892334,
+      "block": 11,
+      "head": 1,
+      "fit_explained": 0.7738783372703405,
+      "accuracy_delta_vs_baseline": -0.018181818181818188
+    },
+    {
+      "label": "single_head_11_2",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.74796462059021,
+      "block": 11,
+      "head": 2,
+      "fit_explained": 0.8738506453639947,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_11_3",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.762667179107666,
+      "block": 11,
+      "head": 3,
+      "fit_explained": 0.650139674139089,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_11_4",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.747920513153076,
+      "block": 11,
+      "head": 4,
+      "fit_explained": 0.523439731025836,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "single_head_11_5",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.737191677093506,
+      "block": 11,
+      "head": 5,
+      "fit_explained": 0.5626171686347156,
+      "accuracy_delta_vs_baseline": 0.0
+    }
+  ],
+  "single_layers": [
+    {
+      "label": "layer_0",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 22.70000457763672,
+      "block": 0,
+      "heads_replaced": 6,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "layer_1",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 5,
+        "larger_correct": 50,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.09090909090909091,
+        "larger_is_closer_accuracy": 0.9090909090909091,
+        "best_direction": "larger",
+        "best_accuracy": 0.9090909090909091,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 5,
+          "larger_correct": 50,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.09090909090909091,
+          "larger_is_closer_accuracy": 0.9090909090909091,
+          "best_direction": "larger",
+          "best_accuracy": 0.9090909090909091,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 22.69839835166931,
+      "block": 1,
+      "heads_replaced": 6,
+      "accuracy_delta_vs_baseline": -0.018181818181818188
+    },
+    {
+      "label": "layer_2",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 22.713895559310913,
+      "block": 2,
+      "heads_replaced": 6,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "layer_3",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 3,
+        "larger_correct": 52,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.05454545454545454,
+        "larger_is_closer_accuracy": 0.9454545454545454,
+        "best_direction": "larger",
+        "best_accuracy": 0.9454545454545454,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 3,
+          "larger_correct": 52,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.05454545454545454,
+          "larger_is_closer_accuracy": 0.9454545454545454,
+          "best_direction": "larger",
+          "best_accuracy": 0.9454545454545454,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 22.64162826538086,
+      "block": 3,
+      "heads_replaced": 6,
+      "accuracy_delta_vs_baseline": 0.018181818181818188
+    },
+    {
+      "label": "layer_4",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 5,
+        "larger_correct": 50,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.09090909090909091,
+        "larger_is_closer_accuracy": 0.9090909090909091,
+        "best_direction": "larger",
+        "best_accuracy": 0.9090909090909091,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 5,
+          "larger_correct": 50,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.09090909090909091,
+          "larger_is_closer_accuracy": 0.9090909090909091,
+          "best_direction": "larger",
+          "best_accuracy": 0.9090909090909091,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 22.64012050628662,
+      "block": 4,
+      "heads_replaced": 6,
+      "accuracy_delta_vs_baseline": -0.018181818181818188
+    },
+    {
+      "label": "layer_5",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 5,
+        "larger_correct": 50,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.09090909090909091,
+        "larger_is_closer_accuracy": 0.9090909090909091,
+        "best_direction": "larger",
+        "best_accuracy": 0.9090909090909091,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 5,
+          "larger_correct": 50,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.09090909090909091,
+          "larger_is_closer_accuracy": 0.9090909090909091,
+          "best_direction": "larger",
+          "best_accuracy": 0.9090909090909091,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 22.663344860076904,
+      "block": 5,
+      "heads_replaced": 6,
+      "accuracy_delta_vs_baseline": -0.018181818181818188
+    },
+    {
+      "label": "layer_6",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 6,
+        "larger_correct": 49,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.10909090909090909,
+        "larger_is_closer_accuracy": 0.8909090909090909,
+        "best_direction": "larger",
+        "best_accuracy": 0.8909090909090909,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 6,
+          "larger_correct": 49,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.10909090909090909,
+          "larger_is_closer_accuracy": 0.8909090909090909,
+          "best_direction": "larger",
+          "best_accuracy": 0.8909090909090909,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 22.7403404712677,
+      "block": 6,
+      "heads_replaced": 6,
+      "accuracy_delta_vs_baseline": -0.036363636363636376
+    },
+    {
+      "label": "layer_7",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 5,
+        "larger_correct": 50,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.09090909090909091,
+        "larger_is_closer_accuracy": 0.9090909090909091,
+        "best_direction": "larger",
+        "best_accuracy": 0.9090909090909091,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 5,
+          "larger_correct": 50,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.09090909090909091,
+          "larger_is_closer_accuracy": 0.9090909090909091,
+          "best_direction": "larger",
+          "best_accuracy": 0.9090909090909091,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 22.634357929229736,
+      "block": 7,
+      "heads_replaced": 6,
+      "accuracy_delta_vs_baseline": -0.018181818181818188
+    },
+    {
+      "label": "layer_8",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 2,
+        "larger_correct": 53,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.03636363636363636,
+        "larger_is_closer_accuracy": 0.9636363636363636,
+        "best_direction": "larger",
+        "best_accuracy": 0.9636363636363636,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 2,
+          "larger_correct": 53,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.03636363636363636,
+          "larger_is_closer_accuracy": 0.9636363636363636,
+          "best_direction": "larger",
+          "best_accuracy": 0.9636363636363636,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 22.64462924003601,
+      "block": 8,
+      "heads_replaced": 6,
+      "accuracy_delta_vs_baseline": 0.036363636363636376
+    },
+    {
+      "label": "layer_9",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 22.733294010162354,
+      "block": 9,
+      "heads_replaced": 6,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "layer_10",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 22.735859394073486,
+      "block": 10,
+      "heads_replaced": 6,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "layer_11",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 22.674846649169922,
+      "block": 11,
+      "heads_replaced": 6,
+      "accuracy_delta_vs_baseline": 0.0
+    }
+  ],
+  "head_cumulative_least_damage": [
+    {
+      "label": "head_cumulative_least_damage_1",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 1,
+        "larger_correct": 54,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.01818181818181818,
+        "larger_is_closer_accuracy": 0.9818181818181818,
+        "best_direction": "larger",
+        "best_accuracy": 0.9818181818181818,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 1,
+          "larger_correct": 54,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.01818181818181818,
+          "larger_is_closer_accuracy": 0.9818181818181818,
+          "best_direction": "larger",
+          "best_accuracy": 0.9818181818181818,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 4.738914966583252,
+      "step": 1,
+      "added_block": 5,
+      "added_head": 3,
+      "heads_replaced": 1,
+      "accuracy_delta_vs_baseline": 0.054545454545454564
+    },
+    {
+      "label": "head_cumulative_least_damage_2",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 1,
+        "larger_correct": 54,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.01818181818181818,
+        "larger_is_closer_accuracy": 0.9818181818181818,
+        "best_direction": "larger",
+        "best_accuracy": 0.9818181818181818,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 1,
+          "larger_correct": 54,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.01818181818181818,
+          "larger_is_closer_accuracy": 0.9818181818181818,
+          "best_direction": "larger",
+          "best_accuracy": 0.9818181818181818,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 8.227638244628906,
+      "step": 2,
+      "added_block": 8,
+      "added_head": 5,
+      "heads_replaced": 2,
+      "accuracy_delta_vs_baseline": 0.054545454545454564
+    },
+    {
+      "label": "head_cumulative_least_damage_3",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 1,
+        "larger_correct": 54,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.01818181818181818,
+        "larger_is_closer_accuracy": 0.9818181818181818,
+        "best_direction": "larger",
+        "best_accuracy": 0.9818181818181818,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 1,
+          "larger_correct": 54,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.01818181818181818,
+          "larger_is_closer_accuracy": 0.9818181818181818,
+          "best_direction": "larger",
+          "best_accuracy": 0.9818181818181818,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 11.723639726638794,
+      "step": 3,
+      "added_block": 10,
+      "added_head": 2,
+      "heads_replaced": 3,
+      "accuracy_delta_vs_baseline": 0.054545454545454564
+    },
+    {
+      "label": "head_cumulative_least_damage_4",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 1,
+        "larger_correct": 54,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.01818181818181818,
+        "larger_is_closer_accuracy": 0.9818181818181818,
+        "best_direction": "larger",
+        "best_accuracy": 0.9818181818181818,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 1,
+          "larger_correct": 54,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.01818181818181818,
+          "larger_is_closer_accuracy": 0.9818181818181818,
+          "best_direction": "larger",
+          "best_accuracy": 0.9818181818181818,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 15.273314952850342,
+      "step": 4,
+      "added_block": 0,
+      "added_head": 1,
+      "heads_replaced": 4,
+      "accuracy_delta_vs_baseline": 0.054545454545454564
+    },
+    {
+      "label": "head_cumulative_least_damage_5",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 1,
+        "larger_correct": 54,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.01818181818181818,
+        "larger_is_closer_accuracy": 0.9818181818181818,
+        "best_direction": "larger",
+        "best_accuracy": 0.9818181818181818,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 1,
+          "larger_correct": 54,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.01818181818181818,
+          "larger_is_closer_accuracy": 0.9818181818181818,
+          "best_direction": "larger",
+          "best_accuracy": 0.9818181818181818,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 18.851205587387085,
+      "step": 5,
+      "added_block": 0,
+      "added_head": 2,
+      "heads_replaced": 5,
+      "accuracy_delta_vs_baseline": 0.054545454545454564
+    },
+    {
+      "label": "head_cumulative_least_damage_6",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 1,
+        "larger_correct": 54,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.01818181818181818,
+        "larger_is_closer_accuracy": 0.9818181818181818,
+        "best_direction": "larger",
+        "best_accuracy": 0.9818181818181818,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 1,
+          "larger_correct": 54,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.01818181818181818,
+          "larger_is_closer_accuracy": 0.9818181818181818,
+          "best_direction": "larger",
+          "best_accuracy": 0.9818181818181818,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 22.433402061462402,
+      "step": 6,
+      "added_block": 0,
+      "added_head": 3,
+      "heads_replaced": 6,
+      "accuracy_delta_vs_baseline": 0.054545454545454564
+    },
+    {
+      "label": "head_cumulative_least_damage_7",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 2,
+        "larger_correct": 53,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.03636363636363636,
+        "larger_is_closer_accuracy": 0.9636363636363636,
+        "best_direction": "larger",
+        "best_accuracy": 0.9636363636363636,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 2,
+          "larger_correct": 53,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.03636363636363636,
+          "larger_is_closer_accuracy": 0.9636363636363636,
+          "best_direction": "larger",
+          "best_accuracy": 0.9636363636363636,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 26.001640796661377,
+      "step": 7,
+      "added_block": 0,
+      "added_head": 4,
+      "heads_replaced": 7,
+      "accuracy_delta_vs_baseline": 0.036363636363636376
+    },
+    {
+      "label": "head_cumulative_least_damage_8",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 3,
+        "larger_correct": 52,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.05454545454545454,
+        "larger_is_closer_accuracy": 0.9454545454545454,
+        "best_direction": "larger",
+        "best_accuracy": 0.9454545454545454,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 3,
+          "larger_correct": 52,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.05454545454545454,
+          "larger_is_closer_accuracy": 0.9454545454545454,
+          "best_direction": "larger",
+          "best_accuracy": 0.9454545454545454,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 29.738092184066772,
+      "step": 8,
+      "added_block": 0,
+      "added_head": 5,
+      "heads_replaced": 8,
+      "accuracy_delta_vs_baseline": 0.018181818181818188
+    },
+    {
+      "label": "head_cumulative_least_damage_9",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 2,
+        "larger_correct": 53,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.03636363636363636,
+        "larger_is_closer_accuracy": 0.9636363636363636,
+        "best_direction": "larger",
+        "best_accuracy": 0.9636363636363636,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 2,
+          "larger_correct": 53,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.03636363636363636,
+          "larger_is_closer_accuracy": 0.9636363636363636,
+          "best_direction": "larger",
+          "best_accuracy": 0.9636363636363636,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 33.20934462547302,
+      "step": 9,
+      "added_block": 1,
+      "added_head": 0,
+      "heads_replaced": 9,
+      "accuracy_delta_vs_baseline": 0.036363636363636376
+    },
+    {
+      "label": "head_cumulative_least_damage_10",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 2,
+        "larger_correct": 53,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.03636363636363636,
+        "larger_is_closer_accuracy": 0.9636363636363636,
+        "best_direction": "larger",
+        "best_accuracy": 0.9636363636363636,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 2,
+          "larger_correct": 53,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.03636363636363636,
+          "larger_is_closer_accuracy": 0.9636363636363636,
+          "best_direction": "larger",
+          "best_accuracy": 0.9636363636363636,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 36.84093642234802,
+      "step": 10,
+      "added_block": 1,
+      "added_head": 2,
+      "heads_replaced": 10,
+      "accuracy_delta_vs_baseline": 0.036363636363636376
+    },
+    {
+      "label": "head_cumulative_least_damage_11",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 2,
+        "larger_correct": 53,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.03636363636363636,
+        "larger_is_closer_accuracy": 0.9636363636363636,
+        "best_direction": "larger",
+        "best_accuracy": 0.9636363636363636,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 2,
+          "larger_correct": 53,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.03636363636363636,
+          "larger_is_closer_accuracy": 0.9636363636363636,
+          "best_direction": "larger",
+          "best_accuracy": 0.9636363636363636,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 40.37009024620056,
+      "step": 11,
+      "added_block": 1,
+      "added_head": 4,
+      "heads_replaced": 11,
+      "accuracy_delta_vs_baseline": 0.036363636363636376
+    },
+    {
+      "label": "head_cumulative_least_damage_12",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 3,
+        "larger_correct": 52,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.05454545454545454,
+        "larger_is_closer_accuracy": 0.9454545454545454,
+        "best_direction": "larger",
+        "best_accuracy": 0.9454545454545454,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 3,
+          "larger_correct": 52,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.05454545454545454,
+          "larger_is_closer_accuracy": 0.9454545454545454,
+          "best_direction": "larger",
+          "best_accuracy": 0.9454545454545454,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 43.92947340011597,
+      "step": 12,
+      "added_block": 1,
+      "added_head": 5,
+      "heads_replaced": 12,
+      "accuracy_delta_vs_baseline": 0.018181818181818188
+    },
+    {
+      "label": "head_cumulative_least_damage_13",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 2,
+        "larger_correct": 53,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.03636363636363636,
+        "larger_is_closer_accuracy": 0.9636363636363636,
+        "best_direction": "larger",
+        "best_accuracy": 0.9636363636363636,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 2,
+          "larger_correct": 53,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.03636363636363636,
+          "larger_is_closer_accuracy": 0.9636363636363636,
+          "best_direction": "larger",
+          "best_accuracy": 0.9636363636363636,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 47.50106358528137,
+      "step": 13,
+      "added_block": 2,
+      "added_head": 0,
+      "heads_replaced": 13,
+      "accuracy_delta_vs_baseline": 0.036363636363636376
+    },
+    {
+      "label": "head_cumulative_least_damage_14",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 2,
+        "larger_correct": 53,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.03636363636363636,
+        "larger_is_closer_accuracy": 0.9636363636363636,
+        "best_direction": "larger",
+        "best_accuracy": 0.9636363636363636,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 2,
+          "larger_correct": 53,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.03636363636363636,
+          "larger_is_closer_accuracy": 0.9636363636363636,
+          "best_direction": "larger",
+          "best_accuracy": 0.9636363636363636,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 50.969364643096924,
+      "step": 14,
+      "added_block": 2,
+      "added_head": 1,
+      "heads_replaced": 14,
+      "accuracy_delta_vs_baseline": 0.036363636363636376
+    },
+    {
+      "label": "head_cumulative_least_damage_15",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 2,
+        "larger_correct": 53,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.03636363636363636,
+        "larger_is_closer_accuracy": 0.9636363636363636,
+        "best_direction": "larger",
+        "best_accuracy": 0.9636363636363636,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 2,
+          "larger_correct": 53,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.03636363636363636,
+          "larger_is_closer_accuracy": 0.9636363636363636,
+          "best_direction": "larger",
+          "best_accuracy": 0.9636363636363636,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 54.74486041069031,
+      "step": 15,
+      "added_block": 2,
+      "added_head": 2,
+      "heads_replaced": 15,
+      "accuracy_delta_vs_baseline": 0.036363636363636376
+    },
+    {
+      "label": "head_cumulative_least_damage_16",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 2,
+        "larger_correct": 53,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.03636363636363636,
+        "larger_is_closer_accuracy": 0.9636363636363636,
+        "best_direction": "larger",
+        "best_accuracy": 0.9636363636363636,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 2,
+          "larger_correct": 53,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.03636363636363636,
+          "larger_is_closer_accuracy": 0.9636363636363636,
+          "best_direction": "larger",
+          "best_accuracy": 0.9636363636363636,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 58.148659467697144,
+      "step": 16,
+      "added_block": 2,
+      "added_head": 3,
+      "heads_replaced": 16,
+      "accuracy_delta_vs_baseline": 0.036363636363636376
+    },
+    {
+      "label": "head_cumulative_least_damage_17",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 2,
+        "larger_correct": 53,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.03636363636363636,
+        "larger_is_closer_accuracy": 0.9636363636363636,
+        "best_direction": "larger",
+        "best_accuracy": 0.9636363636363636,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 2,
+          "larger_correct": 53,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.03636363636363636,
+          "larger_is_closer_accuracy": 0.9636363636363636,
+          "best_direction": "larger",
+          "best_accuracy": 0.9636363636363636,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 61.71654653549194,
+      "step": 17,
+      "added_block": 2,
+      "added_head": 4,
+      "heads_replaced": 17,
+      "accuracy_delta_vs_baseline": 0.036363636363636376
+    },
+    {
+      "label": "head_cumulative_least_damage_18",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 4,
+        "larger_correct": 51,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.07272727272727272,
+        "larger_is_closer_accuracy": 0.9272727272727272,
+        "best_direction": "larger",
+        "best_accuracy": 0.9272727272727272,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 4,
+          "larger_correct": 51,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.07272727272727272,
+          "larger_is_closer_accuracy": 0.9272727272727272,
+          "best_direction": "larger",
+          "best_accuracy": 0.9272727272727272,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 65.36370182037354,
+      "step": 18,
+      "added_block": 2,
+      "added_head": 5,
+      "heads_replaced": 18,
+      "accuracy_delta_vs_baseline": 0.0
+    },
+    {
+      "label": "head_cumulative_least_damage_19",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 5,
+        "larger_correct": 50,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.09090909090909091,
+        "larger_is_closer_accuracy": 0.9090909090909091,
+        "best_direction": "larger",
+        "best_accuracy": 0.9090909090909091,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 5,
+          "larger_correct": 50,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.09090909090909091,
+          "larger_is_closer_accuracy": 0.9090909090909091,
+          "best_direction": "larger",
+          "best_accuracy": 0.9090909090909091,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 68.81328058242798,
+      "step": 19,
+      "added_block": 3,
+      "added_head": 0,
+      "heads_replaced": 19,
+      "accuracy_delta_vs_baseline": -0.018181818181818188
+    },
+    {
+      "label": "head_cumulative_least_damage_20",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 5,
+        "larger_correct": 50,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.09090909090909091,
+        "larger_is_closer_accuracy": 0.9090909090909091,
+        "best_direction": "larger",
+        "best_accuracy": 0.9090909090909091,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 5,
+          "larger_correct": 50,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.09090909090909091,
+          "larger_is_closer_accuracy": 0.9090909090909091,
+          "best_direction": "larger",
+          "best_accuracy": 0.9090909090909091,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 72.48401141166687,
+      "step": 20,
+      "added_block": 3,
+      "added_head": 1,
+      "heads_replaced": 20,
+      "accuracy_delta_vs_baseline": -0.018181818181818188
+    },
+    {
+      "label": "head_cumulative_least_damage_21",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 6,
+        "larger_correct": 49,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.10909090909090909,
+        "larger_is_closer_accuracy": 0.8909090909090909,
+        "best_direction": "larger",
+        "best_accuracy": 0.8909090909090909,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 6,
+          "larger_correct": 49,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.10909090909090909,
+          "larger_is_closer_accuracy": 0.8909090909090909,
+          "best_direction": "larger",
+          "best_accuracy": 0.8909090909090909,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 76.20486164093018,
+      "step": 21,
+      "added_block": 3,
+      "added_head": 2,
+      "heads_replaced": 21,
+      "accuracy_delta_vs_baseline": -0.036363636363636376
+    },
+    {
+      "label": "head_cumulative_least_damage_22",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 12,
+        "larger_correct": 43,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.21818181818181817,
+        "larger_is_closer_accuracy": 0.7818181818181819,
+        "best_direction": "larger",
+        "best_accuracy": 0.7818181818181819,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 12,
+          "larger_correct": 43,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.21818181818181817,
+          "larger_is_closer_accuracy": 0.7818181818181819,
+          "best_direction": "larger",
+          "best_accuracy": 0.7818181818181819,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 80.16651511192322,
+      "step": 22,
+      "added_block": 3,
+      "added_head": 4,
+      "heads_replaced": 22,
+      "accuracy_delta_vs_baseline": -0.1454545454545454
+    }
+  ],
+  "head_cumulative_best_fit": [],
+  "layer_cumulative_least_damage": [
+    {
+      "label": "layer_cumulative_1",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 2,
+        "larger_correct": 53,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.03636363636363636,
+        "larger_is_closer_accuracy": 0.9636363636363636,
+        "best_direction": "larger",
+        "best_accuracy": 0.9636363636363636,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 2,
+          "larger_correct": 53,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.03636363636363636,
+          "larger_is_closer_accuracy": 0.9636363636363636,
+          "best_direction": "larger",
+          "best_accuracy": 0.9636363636363636,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 22.77156352996826,
+      "step": 1,
+      "added_block": 8,
+      "heads_replaced": 6,
+      "accuracy_delta_vs_baseline": 0.036363636363636376
+    },
+    {
+      "label": "layer_cumulative_2",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 7,
+        "larger_correct": 48,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.12727272727272726,
+        "larger_is_closer_accuracy": 0.8727272727272727,
+        "best_direction": "larger",
+        "best_accuracy": 0.8727272727272727,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 7,
+          "larger_correct": 48,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.12727272727272726,
+          "larger_is_closer_accuracy": 0.8727272727272727,
+          "best_direction": "larger",
+          "best_accuracy": 0.8727272727272727,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 44.36249232292175,
+      "step": 2,
+      "added_block": 3,
+      "heads_replaced": 12,
+      "accuracy_delta_vs_baseline": -0.054545454545454564
+    },
+    {
+      "label": "layer_cumulative_3",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 8,
+        "larger_correct": 47,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.14545454545454545,
+        "larger_is_closer_accuracy": 0.8545454545454545,
+        "best_direction": "larger",
+        "best_accuracy": 0.8545454545454545,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 8,
+          "larger_correct": 47,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.14545454545454545,
+          "larger_is_closer_accuracy": 0.8545454545454545,
+          "best_direction": "larger",
+          "best_accuracy": 0.8545454545454545,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 66.04055142402649,
+      "step": 3,
+      "added_block": 0,
+      "heads_replaced": 18,
+      "accuracy_delta_vs_baseline": -0.07272727272727275
+    },
+    {
+      "label": "layer_cumulative_4",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 10,
+        "larger_correct": 45,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.18181818181818182,
+        "larger_is_closer_accuracy": 0.8181818181818182,
+        "best_direction": "larger",
+        "best_accuracy": 0.8181818181818182,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 10,
+          "larger_correct": 45,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.18181818181818182,
+          "larger_is_closer_accuracy": 0.8181818181818182,
+          "best_direction": "larger",
+          "best_accuracy": 0.8181818181818182,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 87.04026460647583,
+      "step": 4,
+      "added_block": 2,
+      "heads_replaced": 24,
+      "accuracy_delta_vs_baseline": -0.10909090909090902
+    },
+    {
+      "label": "layer_cumulative_5",
+      "overall": {
+        "pairs": 55,
+        "smaller_correct": 19,
+        "larger_correct": 36,
+        "ties": 0,
+        "smaller_is_closer_accuracy": 0.34545454545454546,
+        "larger_is_closer_accuracy": 0.6545454545454545,
+        "best_direction": "larger",
+        "best_accuracy": 0.6545454545454545,
+        "tie_fraction": 0.0
+      },
+      "by_scene": {
+        "indoor": {
+          "pairs": 55,
+          "smaller_correct": 19,
+          "larger_correct": 36,
+          "ties": 0,
+          "smaller_is_closer_accuracy": 0.34545454545454546,
+          "larger_is_closer_accuracy": 0.6545454545454545,
+          "best_direction": "larger",
+          "best_accuracy": 0.6545454545454545,
+          "tie_fraction": 0.0
+        }
+      },
+      "missing_images": [],
+      "elapsed_seconds": 108.72843956947327,
+      "step": 5,
+      "added_block": 9,
+      "heads_replaced": 30,
+      "accuracy_delta_vs_baseline": -0.2727272727272727
+    }
+  ]
+}

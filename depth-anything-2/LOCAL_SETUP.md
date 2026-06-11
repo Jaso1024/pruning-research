@@ -398,3 +398,145 @@ without block_09_mlp + block_10_attn: 1885/2068 = 0.9115087040618955
 without block_02_attn + block_10_mlp: 1877/2068 = 0.9076402321083172
 without block_09_mlp + block_10_attn + block_10_mlp + block_11_mlp: 1858/2068 = 0.8984526112185687
 ```
+
+## EMA Attention Head Approximation
+
+Fit scalar causal EMA approximations to Depth Anything V2 ViT-S attention outputs:
+
+```bash
+python fit_ema_attention_da2k.py \
+  --max-images 16 \
+  --input-size 518 \
+  --beta-values 50 \
+  --output-json eval_outputs/ema_attention_fit_vits_16x518.json
+```
+
+This fits the whole post-projection attention residual branch as:
+
+```text
+ls1(attn(norm1(x))) ~= alpha * causal_ema_beta(source)
+```
+
+Whole-attention scalar EMA was a poor global approximation:
+
+```text
+source=norm1 global: alpha=9.61119e-05, beta=0.99, explained_energy=0.00077235
+source=prenorm global: alpha=0.0011019, beta=0.99, explained_energy=0.000875372
+best individual block: source=prenorm, block=1, alpha=-0.0315348, beta=0.969796, explained_energy=0.634016
+```
+
+Fit per-head EMA approximations before the attention output projection:
+
+```bash
+python fit_head_ema_attention_da2k.py \
+  --max-images 16 \
+  --input-size 518 \
+  --beta-values 50 \
+  --output-json eval_outputs/head_ema_attention_fit_vits_16x518_patch_v.json
+```
+
+This fits each head as:
+
+```text
+attn_weights @ v_h ~= alpha_h * causal_ema_beta_h(v_h)
+```
+
+Per-head EMA is much stronger:
+
+```text
+mean explained energy over 72 block-heads: 0.5803044260217468
+median explained energy: 0.5784475923312233
+best block/head: block=11, head=2, alpha=0.59853, beta=0.262653, explained=0.852881, cosine=0.923516
+positive fitted alpha: 71/72 heads
+```
+
+Using hidden chunks directly instead of the value projection fails:
+
+```text
+source=x_head mean explained energy over block-heads: 0.0011484628201490364
+best source=x_head block/head explained energy: 0.006545728091563507
+```
+
+Fit a multi-exponential linear combination per head:
+
+```bash
+python fit_head_exp_combo_attention_da2k.py \
+  --max-images 16 \
+  --input-size 518 \
+  --basis-betas 0,0.25,0.5,0.75,0.9,0.97,0.99 \
+  --output-json eval_outputs/head_exp_combo_fit_vits_16x518_patch_v.json
+```
+
+The multi-exponential fit improves the offline head approximation:
+
+```text
+mean explained energy over 72 block-heads: 0.6315065575361748
+median explained energy: 0.649419628661383
+best block/head: block=2, head=3, explained=0.890077, cosine=0.94344
+```
+
+Evaluate task accuracy after replacing selected pre-projection heads with fitted EMA outputs and then applying the original attention output projection:
+
+```bash
+python eval_head_exp_combo_da2k.py \
+  --coefficients eval_outputs/head_ema_attention_fit_vits_16x518_patch_v.json \
+  --max-images 25 \
+  --input-size 518 \
+  --run-best-fit-cumulative \
+  --run-layer-cumulative \
+  --output-json eval_outputs/head_ema_scalar_accuracy_vits_25.json
+```
+
+Scalar per-head EMA on 25 DA-2K calibration/eval images:
+
+```text
+baseline: 0.9272727272727272
+single-head replacement range: 0.9090909090909091 to 0.9818181818181818
+single-layer replacement range: 0.9090909090909091 to 0.9818181818181818
+least-damage cumulative heads >= 0.90 through 19 heads
+least-damage cumulative heads >= 0.80 through 21 heads
+least-damage cumulative all 72 heads: 0.6000000000000000
+best-fit cumulative heads >= 0.90 through 23 heads
+best-fit cumulative heads >= 0.80 through 27 heads
+layer cumulative >= 0.80 through 3 layers / 18 heads
+layer cumulative 4 layers / 24 heads: 0.7454545454545455
+```
+
+Multi-exponential task evaluation:
+
+```bash
+python eval_head_exp_combo_da2k.py \
+  --coefficients eval_outputs/head_exp_combo_fit_vits_16x518_patch_v.json \
+  --max-images 25 \
+  --input-size 518 \
+  --stop-accuracy 0.8 \
+  --run-layer-cumulative \
+  --output-json eval_outputs/head_exp_combo_accuracy_vits_25_stop08.json
+```
+
+Multi-exponential replacement improves offline fit, but only weakly moves the head-wise DA-2K break point:
+
+```text
+baseline: 0.9272727272727272
+single-head replacement range: 0.9090909090909091 to 0.9818181818181818
+single-layer replacement range: 0.8909090909090909 to 0.9636363636363636
+least-damage cumulative heads >= 0.90 through 20 heads
+least-damage cumulative heads >= 0.80 through 21 heads
+least-damage cumulative step 22 / 22 heads: 0.7818181818181819
+layer cumulative >= 0.80 through 4 layers / 24 heads
+layer cumulative step 5 / 30 heads: 0.6545454545454545
+```
+
+Saved result artifacts:
+
+```text
+eval_outputs/ema_attention_fit_vits_16x518.json
+eval_outputs/ema_attention_fit_vits_8x518_patch_postls1.json
+eval_outputs/ema_attention_fit_vits_8x518_patch_postls1_nonneg.json
+eval_outputs/ema_attention_fit_vits_8x518_patch_rawattn.json
+eval_outputs/head_ema_attention_fit_vits_16x518_patch_v.json
+eval_outputs/head_ema_attention_fit_vits_16x518_patch_xhead.json
+eval_outputs/head_ema_scalar_accuracy_vits_25.json
+eval_outputs/head_exp_combo_fit_vits_16x518_patch_v.json
+eval_outputs/head_exp_combo_accuracy_vits_25_stop08.json
+```
