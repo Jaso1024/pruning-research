@@ -1,0 +1,91 @@
+{
+  "benchmarks": [
+    {
+      "iters": 200,
+      "max_ms": 0.4748480021953583,
+      "mean_ms": 0.4670540814101696,
+      "median_ms": 0.4665279984474182,
+      "min_ms": 0.46243199706077576,
+      "name": "DFQ_cross_layer_equalize_all12",
+      "p90_ms": 0.47071999311447144,
+      "passes_1ms_median": true
+    },
+    {
+      "iters": 200,
+      "max_ms": 0.5549439787864685,
+      "mean_ms": 0.5468977624177933,
+      "median_ms": 0.5465759932994843,
+      "min_ms": 0.5432000160217285,
+      "name": "bias_correction_weight_only_all12",
+      "p90_ms": 0.5487040281295776,
+      "passes_1ms_median": true
+    },
+    {
+      "iters": 100,
+      "max_ms": 0.8701760172843933,
+      "mean_ms": 0.7979574400186539,
+      "median_ms": 0.7969279885292053,
+      "min_ms": 0.7893120050430298,
+      "name": "SQuant_CASE_proxy_all12",
+      "p90_ms": 0.8020480275154114,
+      "passes_1ms_median": true
+    },
+    {
+      "iters": 100,
+      "max_ms": 2.6447041034698486,
+      "mean_ms": 2.637144973278046,
+      "median_ms": 2.6374399662017822,
+      "min_ms": 2.6269121170043945,
+      "name": "HQQ_proxy_all12",
+      "p90_ms": 2.6407999992370605,
+      "passes_1ms_median": false
+    },
+    {
+      "iters": 50,
+      "max_ms": 5.03107213973999,
+      "mean_ms": 5.005674867630005,
+      "median_ms": 5.004528045654297,
+      "min_ms": 4.97324800491333,
+      "name": "HIGGS_Hadamard_grid_all12",
+      "p90_ms": 5.018400192260742,
+      "passes_1ms_median": false
+    },
+    {
+      "iters": 100,
+      "max_ms": 3.3588480949401855,
+      "mean_ms": 3.3004572868347166,
+      "median_ms": 3.2995200157165527,
+      "min_ms": 3.288800001144409,
+      "name": "SINQ_8iter_all12",
+      "p90_ms": 3.3068480491638184,
+      "passes_1ms_median": false
+    },
+    {
+      "iters": 100,
+      "max_ms": 0.8268479704856873,
+      "mean_ms": 0.8123871982097626,
+      "median_ms": 0.8124639987945557,
+      "min_ms": 0.8011519908905029,
+      "name": "CafeQ_one_proxy_step_all12",
+      "p90_ms": 0.8196799755096436,
+      "passes_1ms_median": true
+    },
+    {
+      "iters": 50,
+      "max_ms": 7.881760120391846,
+      "mean_ms": 7.863566093444824,
+      "median_ms": 7.8616321086883545,
+      "min_ms": 7.845312118530273,
+      "name": "MLP_forward_4096_tokens_all12_lower_bound",
+      "p90_ms": 7.876287937164307,
+      "passes_1ms_median": false
+    }
+  ],
+  "device": "cuda",
+  "scope": "all 12 vits transformer MLPs synthetic weights, CUDA event time, no model load/eval",
+  "shapes": {
+    "D": 384,
+    "H": 1536,
+    "blocks": 12
+  }
+}

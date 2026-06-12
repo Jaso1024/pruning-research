@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import json
 import time
 from collections import defaultdict
@@ -26,8 +27,10 @@ from eval_da2k import (
 
 
 TargetKind = Literal["transformer", "all-linear"]
-PruningScope = Literal["per-matrix", "global"]
+PruningScope = Literal["per-matrix", "per-column", "global"]
 ScoreNormalization = Literal["none", "matrix-mean"]
+AffineRepairMode = Literal["none", "after-each-chunk"]
+AffineRepairScope = Literal["all-selected", "output-only"]
 
 
 @dataclass(frozen=True)
@@ -49,6 +52,9 @@ class UnstructuredWandaConfig:
     exclude_calibration_from_eval: bool = False
     repair_steps: int = 0
     repair_lr: float = 1e-5
+    affine_repair: AffineRepairMode = "none"
+    affine_repair_tokens: int = 4096
+    affine_repair_scope: AffineRepairScope = "all-selected"
     scene_type: str = ""
     max_images: int = 0
     log_every: int = 50
@@ -62,8 +68,8 @@ class UnstructuredWandaConfig:
             raise ValueError(f"unknown encoder: {self.encoder}")
         if self.target not in {"transformer", "all-linear"}:
             raise ValueError("target must be transformer or all-linear")
-        if self.pruning_scope not in {"per-matrix", "global"}:
-            raise ValueError("pruning_scope must be per-matrix or global")
+        if self.pruning_scope not in {"per-matrix", "per-column", "global"}:
+            raise ValueError("pruning_scope must be per-matrix, per-column, or global")
         if self.score_normalization not in {"none", "matrix-mean"}:
             raise ValueError("score_normalization must be none or matrix-mean")
         if not 0.0 < self.prune_fraction < 1.0:
@@ -78,6 +84,12 @@ class UnstructuredWandaConfig:
             raise ValueError("repair_steps must be non-negative")
         if self.repair_lr <= 0.0:
             raise ValueError("repair_lr must be positive")
+        if self.affine_repair not in {"none", "after-each-chunk"}:
+            raise ValueError("affine_repair must be none or after-each-chunk")
+        if self.affine_repair_tokens <= 0:
+            raise ValueError("affine_repair_tokens must be positive")
+        if self.affine_repair_scope not in {"all-selected", "output-only"}:
+            raise ValueError("affine_repair_scope must be all-selected or output-only")
         if self.max_images < 0:
             raise ValueError("max_images must be non-negative")
         if self.log_every < 0:
@@ -266,6 +278,216 @@ def collect_wanda_scores(
     return scores, stats
 
 
+def collect_linear_inputs(
+    model: torch.nn.Module,
+    module_name: str,
+    image_tensors: list[torch.Tensor],
+    device: torch.device,
+    max_tokens: int,
+) -> torch.Tensor:
+    module = model.get_submodule(module_name)
+    if not isinstance(module, torch.nn.Linear):
+        raise TypeError(f"{module_name} is not a Linear module")
+
+    captured: list[torch.Tensor] = []
+    token_count = 0
+
+    def hook(linear: torch.nn.Module, inputs: tuple[torch.Tensor, ...], _output: torch.Tensor) -> None:
+        nonlocal token_count
+        if token_count >= max_tokens:
+            return
+        if not isinstance(linear, torch.nn.Linear):
+            return
+        x = inputs[0].detach()
+        if x.shape[-1] != linear.in_features:
+            raise RuntimeError(f"input feature mismatch for {module_name}: {x.shape[-1]} != {linear.in_features}")
+        flat = x.reshape(-1, x.shape[-1]).float().cpu()
+        remaining = max_tokens - token_count
+        if flat.shape[0] > remaining:
+            flat = flat[:remaining]
+        captured.append(flat)
+        token_count += int(flat.shape[0])
+
+    handle = module.register_forward_hook(hook)
+    was_training = model.training
+    model.eval()
+    try:
+        with torch.inference_mode():
+            for image_tensor in image_tensors:
+                if token_count >= max_tokens:
+                    break
+                model(image_tensor.to(device=device, non_blocking=True))
+    finally:
+        handle.remove()
+        model.train(was_training)
+
+    if not captured:
+        raise RuntimeError(f"no inputs captured for module {module_name}")
+    return torch.cat(captured, dim=0).contiguous()
+
+
+def should_affine_repair_module(module_name: str, scope: AffineRepairScope) -> bool:
+    if scope == "all-selected":
+        return True
+    if scope == "output-only":
+        return module_name.endswith(".attn.proj") or module_name.endswith(".mlp.fc2")
+    raise ValueError(f"unknown affine repair scope: {scope}")
+
+
+@torch.no_grad()
+def fit_affine_output_repair_(
+    sparse_module: torch.nn.Linear,
+    dense_module: torch.nn.Linear,
+    x: torch.Tensor,
+    max_tokens: int,
+) -> dict[str, float | int]:
+    device = sparse_module.weight.device
+    sample = x[:max_tokens].to(device=device, dtype=torch.float32, non_blocking=True)
+    if sample.numel() == 0:
+        raise RuntimeError("affine repair received an empty calibration input tensor")
+
+    dense_weight = dense_module.weight.detach().to(device=device, dtype=torch.float32)
+    dense_bias = dense_module.bias.detach().to(device=device, dtype=torch.float32) if dense_module.bias is not None else None
+    sparse_weight = sparse_module.weight.detach().to(device=device, dtype=torch.float32)
+    sparse_bias = (
+        sparse_module.bias.detach().to(device=device, dtype=torch.float32)
+        if sparse_module.bias is not None
+        else None
+    )
+
+    target = F.linear(sample, dense_weight, dense_bias)
+    pred = F.linear(sample, sparse_weight, sparse_bias)
+    before_mse = F.mse_loss(pred, target)
+    target_power = target.pow(2).mean().clamp_min(1e-12)
+    before_rel_mse = before_mse / target_power
+
+    pred_mean = pred.mean(dim=0)
+    target_mean = target.mean(dim=0)
+    pred_centered = pred - pred_mean
+    target_centered = target - target_mean
+    denom = pred_centered.pow(2).mean(dim=0).clamp_min(1e-12)
+    scale = (pred_centered * target_centered).mean(dim=0) / denom
+    shift = target_mean - scale * pred_mean
+    repaired_pred = pred * scale + shift
+
+    after_mse = F.mse_loss(repaired_pred, target)
+    after_rel_mse = after_mse / target_power
+
+    weight_dtype = sparse_module.weight.dtype
+    sparse_module.weight.mul_(scale.to(dtype=weight_dtype).view(-1, 1))
+    if sparse_module.bias is None:
+        sparse_module.bias = torch.nn.Parameter(
+            shift.to(device=device, dtype=weight_dtype),
+            requires_grad=sparse_module.weight.requires_grad,
+        )
+    else:
+        bias_dtype = sparse_module.bias.dtype
+        sparse_module.bias.mul_(scale.to(dtype=bias_dtype))
+        sparse_module.bias.add_(shift.to(dtype=bias_dtype))
+
+    return {
+        "tokens": int(sample.shape[0]),
+        "before_mse": float(before_mse.detach().cpu().item()),
+        "after_mse": float(after_mse.detach().cpu().item()),
+        "before_rel_mse": float(before_rel_mse.detach().cpu().item()),
+        "after_rel_mse": float(after_rel_mse.detach().cpu().item()),
+        "scale_mean": float(scale.mean().detach().cpu().item()),
+        "scale_min": float(scale.min().detach().cpu().item()),
+        "scale_max": float(scale.max().detach().cpu().item()),
+        "shift_abs_mean": float(shift.abs().mean().detach().cpu().item()),
+    }
+
+
+def repair_selected_linears_affine_(
+    *,
+    model: torch.nn.Module,
+    dense_model: torch.nn.Module,
+    module_names: list[str],
+    calibration_tensors: list[torch.Tensor],
+    pruned_masks: dict[str, torch.Tensor],
+    config: UnstructuredWandaConfig,
+    device: torch.device,
+    step: int,
+) -> dict[str, Any]:
+    started = time.monotonic()
+    records: list[dict[str, Any]] = []
+    candidate_names = [
+        name for name in module_names if should_affine_repair_module(name, config.affine_repair_scope)
+    ]
+
+    for module_index, module_name in enumerate(
+        tqdm(candidate_names, desc=f"affine repair {step}", unit="module"),
+        start=1,
+    ):
+        sparse_module = model.get_submodule(module_name)
+        dense_module = dense_model.get_submodule(module_name)
+        if not isinstance(sparse_module, torch.nn.Linear) or not isinstance(dense_module, torch.nn.Linear):
+            continue
+
+        module_started = time.monotonic()
+        x = collect_linear_inputs(
+            model,
+            module_name,
+            calibration_tensors,
+            device,
+            config.affine_repair_tokens,
+        )
+        stats = fit_affine_output_repair_(
+            sparse_module=sparse_module,
+            dense_module=dense_module,
+            x=x,
+            max_tokens=config.affine_repair_tokens,
+        )
+        reapply_pruned_masks_(model=model, pruned_masks=pruned_masks)
+        record = {
+            "step": step,
+            "module_index": module_index,
+            "module_count": len(candidate_names),
+            "module_name": module_name,
+            "affine_repair": config.affine_repair,
+            "affine_repair_scope": config.affine_repair_scope,
+            "affine_repair_tokens": config.affine_repair_tokens,
+            "elapsed_seconds": time.monotonic() - module_started,
+            **stats,
+        }
+        records.append(record)
+        print(json.dumps(record, sort_keys=True, default=str), flush=True)
+        del x
+        if device.type == "cuda":
+            torch.cuda.empty_cache()
+
+    reapply_pruned_masks_(model=model, pruned_masks=pruned_masks)
+    module_count = len(records)
+    return {
+        "step": step,
+        "affine_repair": config.affine_repair,
+        "affine_repair_scope": config.affine_repair_scope,
+        "affine_repair_tokens": config.affine_repair_tokens,
+        "candidate_module_count": len(candidate_names),
+        "repaired_module_count": module_count,
+        "elapsed_seconds": time.monotonic() - started,
+        "mean_before_mse": (
+            sum(float(row["before_mse"]) for row in records) / module_count if module_count else None
+        ),
+        "mean_after_mse": (
+            sum(float(row["after_mse"]) for row in records) / module_count if module_count else None
+        ),
+        "mean_before_rel_mse": (
+            sum(float(row["before_rel_mse"]) for row in records) / module_count if module_count else None
+        ),
+        "mean_after_rel_mse": (
+            sum(float(row["after_rel_mse"]) for row in records) / module_count if module_count else None
+        ),
+        "mean_scale": (
+            sum(float(row["scale_mean"]) for row in records) / module_count if module_count else None
+        ),
+        "mean_shift_abs": (
+            sum(float(row["shift_abs_mean"]) for row in records) / module_count if module_count else None
+        ),
+        "module_records": records,
+    }
+
+
 def apply_incremental_per_matrix_pruning_(
     *,
     model: torch.nn.Module,
@@ -352,6 +574,111 @@ def apply_incremental_per_matrix_pruning_(
         "weights_zeroed_total": weights_zeroed_total,
         "actual_zero_fraction": weights_zeroed_total / max(weights_seen, 1),
         "target_reached": weights_zeroed_total >= int(weights_seen * target_fraction),
+        "pruned_tensors": rows,
+    }
+
+
+def apply_incremental_per_column_pruning_(
+    *,
+    model: torch.nn.Module,
+    module_names: list[str],
+    saliency_scores: dict[str, torch.Tensor],
+    pruned_masks: dict[str, torch.Tensor],
+    target_fraction: float,
+    chunk_fraction: float,
+    step: int,
+) -> dict[str, Any]:
+    rows: list[dict[str, Any]] = []
+    weights_seen = 0
+    weights_zeroed_total = 0
+    weights_zeroed_this_step = 0
+    target_zero_count = 0
+
+    with torch.no_grad():
+        for name in module_names:
+            module = model.get_submodule(name)
+            if not isinstance(module, torch.nn.Linear):
+                continue
+            param = module.weight
+            if param.ndim != 2:
+                continue
+            out_features, in_features = int(param.shape[0]), int(param.shape[1])
+            weights_seen += int(param.numel())
+            score = saliency_scores.get(name)
+            if score is None:
+                raise RuntimeError(f"missing saliency for {name}")
+            if tuple(score.shape) != tuple(param.shape):
+                raise ValueError(f"saliency shape mismatch for {name}: {tuple(score.shape)} != {tuple(param.shape)}")
+
+            cumulative = pruned_masks.get(name)
+            if cumulative is None:
+                cumulative = torch.zeros(tuple(param.shape), dtype=torch.bool, device="cpu")
+                pruned_masks[name] = cumulative
+
+            per_column_target = int(out_features * target_fraction)
+            per_column_chunk = max(1, int(out_features * chunk_fraction))
+            target_zero_count += per_column_target * in_features
+            add_mask = torch.zeros(tuple(param.shape), dtype=torch.bool, device=param.device)
+
+            for column_index in range(in_features):
+                column_cumulative = cumulative[:, column_index]
+                already = int(column_cumulative.sum().item())
+                remaining = max(per_column_target - already, 0)
+                if remaining == 0:
+                    continue
+
+                chunk_count = min(per_column_chunk, remaining)
+                column_score = score[:, column_index].detach().to(device=param.device, dtype=torch.float32)
+                column_cumulative_device = column_cumulative.to(device=param.device)
+                column_score = column_score.masked_fill(column_cumulative_device, torch.inf)
+                indices = torch.topk(column_score, k=chunk_count, largest=False).indices
+                add_mask[:, column_index][indices] = True
+
+            zeroed_this_module = int(add_mask.sum().item())
+            if zeroed_this_module:
+                param.masked_fill_(add_mask, 0)
+                cumulative |= add_mask.to(device="cpu")
+
+            zeroed_total = int(cumulative.sum().item())
+            column_zero_counts = cumulative.sum(dim=0)
+            columns_at_current_target = (
+                int((column_zero_counts == per_column_target).sum().item())
+                if per_column_target > 0
+                else int((column_zero_counts == 0).sum().item())
+            )
+            weights_zeroed_total += zeroed_total
+            weights_zeroed_this_step += zeroed_this_module
+            rows.append(
+                {
+                    "name": name,
+                    "shape": list(param.shape),
+                    "rows": out_features,
+                    "columns": in_features,
+                    "weights": int(param.numel()),
+                    "per_column_target": per_column_target,
+                    "per_column_chunk": per_column_chunk,
+                    "zeroed_this_step": zeroed_this_module,
+                    "zeroed_total": zeroed_total,
+                    "actual_zero_fraction": zeroed_total / max(int(param.numel()), 1),
+                    "column_zero_min": int(column_zero_counts.min().item()) if in_features else 0,
+                    "column_zero_max": int(column_zero_counts.max().item()) if in_features else 0,
+                    "column_zero_exact_target": columns_at_current_target,
+                    "columns_at_current_target": columns_at_current_target,
+                }
+            )
+
+    return {
+        "step": step,
+        "pruning_scope": "per_column_iterative",
+        "target_fraction": target_fraction,
+        "chunk_fraction": chunk_fraction,
+        "matrix_tensors_pruned": len(rows),
+        "weights_seen": weights_seen,
+        "target_zero_count": target_zero_count,
+        "weights_zeroed_this_step": weights_zeroed_this_step,
+        "weights_zeroed_total": weights_zeroed_total,
+        "actual_zero_fraction": weights_zeroed_total / max(weights_seen, 1),
+        "target_reached": weights_zeroed_total >= target_zero_count,
         "pruned_tensors": rows,
     }
 
@@ -479,6 +806,27 @@ def reapply_pruned_masks_(
             module.weight.masked_fill_(mask.to(device=module.weight.device), 0)
 
 
+def pruning_target_zero_count(
+    *,
+    model: torch.nn.Module,
+    module_names: list[str],
+    pruning_scope: PruningScope,
+    target_fraction: float,
+    total_matrix_weights: int,
+) -> int:
+    if pruning_scope != "per-column":
+        return int(total_matrix_weights * target_fraction)
+
+    target_count = 0
+    for name in module_names:
+        module = model.get_submodule(name)
+        if not isinstance(module, torch.nn.Linear):
+            continue
+        out_features, in_features = int(module.weight.shape[0]), int(module.weight.shape[1])
+        target_count += int(out_features * target_fraction) * in_features
+    return target_count
+
+
 def repair_with_depth_distillation_(
     *,
     model: torch.nn.Module,
@@ -569,6 +917,7 @@ def repair_with_depth_distillation_(
 def prune_with_iterative_wanda(
     *,
     model: torch.nn.Module,
+    dense_model: torch.nn.Module | None,
     module_names: list[str],
     calibration_tensors: list[torch.Tensor],
     dense_outputs: list[torch.Tensor] | None,
@@ -583,15 +932,23 @@ def prune_with_iterative_wanda(
     )
     if chunk_fraction <= 0.0:
         raise ValueError("resolved prune chunk fraction must be positive")
+    final_target_zero_count = pruning_target_zero_count(
+        model=model,
+        module_names=module_names,
+        pruning_scope=config.pruning_scope,
+        target_fraction=config.prune_fraction,
+        total_matrix_weights=total_matrix_weights,
+    )
 
     masks: dict[str, torch.Tensor] = {}
     step_summaries: list[dict[str, Any]] = []
     repair_summaries: list[dict[str, Any]] = []
+    affine_repair_summaries: list[dict[str, Any]] = []
     started = time.monotonic()
     step = 0
     while True:
         current_zeroed = sum(int(mask.sum().item()) for mask in masks.values())
-        if current_zeroed >= int(total_matrix_weights * config.prune_fraction):
+        if current_zeroed >= final_target_zero_count:
             break
         step += 1
         scores, activation_stats = collect_wanda_scores(
@@ -613,6 +970,16 @@ def prune_with_iterative_wanda(
                 step=step,
                 score_normalization=config.score_normalization,
             )
+        elif config.pruning_scope == "per-column":
+            step_summary = apply_incremental_per_column_pruning_(
+                model=model,
+                module_names=module_names,
+                saliency_scores=scores,
+                pruned_masks=masks,
+                target_fraction=step_target_fraction,
+                chunk_fraction=chunk_fraction,
+                step=step,
+            )
         else:
             step_summary = apply_incremental_per_matrix_pruning_(
                 model=model,
@@ -624,9 +991,7 @@ def prune_with_iterative_wanda(
                 step=step,
             )
         reapply_pruned_masks_(model=model, pruned_masks=masks)
-        final_target_reached = step_summary["weights_zeroed_total"] >= int(
-            total_matrix_weights * config.prune_fraction
-        )
+        final_target_reached = step_summary["weights_zeroed_total"] >= final_target_zero_count
         step_summary["final_target_reached"] = final_target_reached
         step_summary["elapsed_seconds"] = time.monotonic() - started
         step_summary["activation_stats"] = {
@@ -636,6 +1001,23 @@ def prune_with_iterative_wanda(
             "mean_input_rms": sum(float(row["mean_input_rms"]) for row in activation_stats.values())
             / max(len(activation_stats), 1),
         }
+        if config.affine_repair == "after-each-chunk" and step_summary["weights_zeroed_this_step"] > 0:
+            if dense_model is None:
+                raise RuntimeError("affine repair requested without a dense model")
+            affine_summary = repair_selected_linears_affine_(
+                model=model,
+                dense_model=dense_model,
+                module_names=module_names,
+                calibration_tensors=calibration_tensors,
+                pruned_masks=masks,
+                config=config,
+                device=device,
+                step=step,
+            )
+            step_summary["affine_repair"] = {
+                key: value for key, value in affine_summary.items() if key != "module_records"
+            }
+            affine_repair_summaries.append(affine_summary)
         if config.repair_steps > 0 and step_summary["weights_zeroed_this_step"] > 0:
             if dense_outputs is None:
                 raise RuntimeError("repair requested without dense calibration outputs")
@@ -655,6 +1037,8 @@ def prune_with_iterative_wanda(
             }
             repair_summaries.append(repair_summary)
         append_jsonl(config.output_dir / "steps.jsonl", step_summary)
+        if affine_repair_summaries and affine_repair_summaries[-1]["step"] == step:
+            append_jsonl(config.output_dir / "affine_repair_steps.jsonl", affine_repair_summaries[-1])
         if repair_summaries and repair_summaries[-1]["step"] == step:
             append_jsonl(config.output_dir / "repair_steps.jsonl", repair_summaries[-1])
         compact = {key: value for key, value in step_summary.items() if key not in {"pruned_tensors"}}
@@ -663,7 +1047,10 @@ def prune_with_iterative_wanda(
         del scores
         if device.type == "cuda":
             torch.cuda.empty_cache()
-        if final_target_reached or step_summary["weights_zeroed_this_step"] == 0:
+        no_progress_at_reachable_target = step_summary["weights_zeroed_this_step"] == 0 and (
+            config.pruning_scope != "per-column" or step_target_fraction >= config.prune_fraction
+        )
+        if final_target_reached or no_progress_at_reachable_target:
             break
 
     final_zeroed = sum(int(mask.sum().item()) for mask in masks.values())
@@ -680,19 +1067,56 @@ def prune_with_iterative_wanda(
     (config.output_dir / "pruned_tensors.json").write_text(
         json.dumps(final_pruned_tensors, indent=2, sort_keys=True, default=str) + "\n"
     )
+    if config.pruning_scope == "global":
+        pruning_scope_name = "global_iterative"
+        pruning_rule = (
+            "iterative global WANDA: recompute abs(weight) * input_activation_rms on the current pruned "
+            "Depth Anything model, then rank all remaining target linear weights together and zero the next "
+            "lowest-score unstructured global chunk until target_fraction is reached; prune masks are reapplied "
+            f"after each chunk; score_normalization={config.score_normalization}"
+        )
+    elif config.pruning_scope == "per-column":
+        pruning_scope_name = "per_column_iterative"
+        pruning_rule = (
+            "iterative per-column WANDA: recompute abs(weight) * input_activation_rms on the current pruned "
+            "Depth Anything model, then for each selected linear matrix and each input column independently, "
+            "zero the next lowest-score unstructured column chunk until each column reaches "
+            "int(out_features * target_fraction); prune masks are reapplied after each chunk"
+        )
+    else:
+        pruning_scope_name = "per_matrix_iterative"
+        pruning_rule = (
+            "iterative per-matrix WANDA: recompute abs(weight) * input_activation_rms on the current pruned "
+            "Depth Anything model, then zero the next lowest-score unstructured chunk in each linear matrix "
+            "until target_fraction is reached; prune masks are reapplied after each chunk"
+        )
+    if config.affine_repair != "none":
+        pruning_rule += "; after each pruning chunk, fit and fold per-output affine linear repair into selected Linears"
+    if config.repair_steps > 0:
+        pruning_rule += "; after each pruning chunk, run SGD repair on calibration images to match dense depth outputs"
+
     return {
         "method": "wanda",
-        "pruning_scope": "global_iterative" if config.pruning_scope == "global" else "per_matrix_iterative",
+        "pruning_scope": pruning_scope_name,
         "target": config.target,
         "score_normalization": config.score_normalization,
         "repair_steps_per_pruning_step": config.repair_steps,
         "repair_lr": config.repair_lr,
         "repair_objective": "dense_depth_mse_on_calibration_images" if config.repair_steps > 0 else "none",
+        "affine_repair": config.affine_repair,
+        "affine_repair_tokens": config.affine_repair_tokens,
+        "affine_repair_scope": config.affine_repair_scope,
+        "affine_repair_objective": (
+            "per_linear_output_affine_regression_on_calibration_activations"
+            if config.affine_repair != "none"
+            else "none"
+        ),
         "target_fraction": config.prune_fraction,
         "chunk_fraction": chunk_fraction,
         "recompute_every_weights": int(total_matrix_weights * chunk_fraction),
         "steps": len(step_summaries),
         "weights_seen": total_matrix_weights,
+        "target_zero_count": final_target_zero_count,
         "weights_zeroed": final_zeroed,
         "actual_zero_fraction": final_zeroed / max(total_matrix_weights, 1),
         "step_summaries": [
@@ -700,26 +1124,9 @@ def prune_with_iterative_wanda(
             for row in step_summaries
         ],
         "repair_summaries": repair_summaries,
+        "affine_repair_summaries": affine_repair_summaries,
         "pruned_tensors": final_pruned_tensors,
-        "rule": (
-            ((
-                "iterative global WANDA: recompute abs(weight) * input_activation_rms on the current pruned "
-                "Depth Anything model, then rank all remaining target linear weights together and zero the next "
-                "lowest-score unstructured global chunk until target_fraction is reached; prune masks are reapplied "
-                f"after each chunk; score_normalization={config.score_normalization}"
-            )
-            if config.pruning_scope == "global"
-            else (
-                "iterative per-matrix WANDA: recompute abs(weight) * input_activation_rms on the current pruned "
-                "Depth Anything model, then zero the next lowest-score unstructured chunk in each linear matrix "
-                "until target_fraction is reached; prune masks are reapplied after each chunk"
-            ))
-            + (
-                "; after each pruning chunk, run SGD repair on calibration images to match dense depth outputs"
-                if config.repair_steps > 0
-                else ""
-            )
-        ),
+        "rule": pruning_rule,
     }
 
 
@@ -858,8 +1265,15 @@ def run(config: UnstructuredWandaConfig) -> dict[str, Any]:
             image_tensors=calibration_tensors,
             device=device,
         )
+    dense_model = None
+    if config.affine_repair != "none":
+        dense_model = copy.deepcopy(model).to(device=device)
+        dense_model.eval()
+        for param in dense_model.parameters():
+            param.requires_grad_(False)
     pruning = prune_with_iterative_wanda(
         model=model,
+        dense_model=dense_model,
         module_names=module_names,
         calibration_tensors=calibration_tensors,
         dense_outputs=dense_outputs,
@@ -904,7 +1318,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--input-size", type=int, default=518)
     parser.add_argument("--device", default="auto")
     parser.add_argument("--target", choices=["transformer", "all-linear"], default="transformer")
-    parser.add_argument("--pruning-scope", choices=["per-matrix", "global"], default="per-matrix")
+    parser.add_argument("--pruning-scope", choices=["per-matrix", "per-column", "global"], default="per-matrix")
     parser.add_argument(
         "--score-normalization",
         choices=["none", "matrix-mean"],
@@ -919,6 +1333,9 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--exclude-calibration-from-eval", action="store_true")
     parser.add_argument("--repair-steps", type=int, default=0)
     parser.add_argument("--repair-lr", type=float, default=1e-5)
+    parser.add_argument("--affine-repair", choices=["none", "after-each-chunk"], default="none")
+    parser.add_argument("--affine-repair-tokens", type=int, default=4096)
+    parser.add_argument("--affine-repair-scope", choices=["all-selected", "output-only"], default="all-selected")
     parser.add_argument(
         "--scene-type",
         default="",
@@ -950,6 +1367,9 @@ def main(argv: list[str] | None = None) -> None:
         exclude_calibration_from_eval=args.exclude_calibration_from_eval,
         repair_steps=args.repair_steps,
         repair_lr=args.repair_lr,
+        affine_repair=args.affine_repair,
+        affine_repair_tokens=args.affine_repair_tokens,
+        affine_repair_scope=args.affine_repair_scope,
         scene_type=args.scene_type,
         max_images=args.max_images,
         log_every=args.log_every,
@@ -964,7 +1384,7 @@ def main(argv: list[str] | None = None) -> None:
                 "pruning": {
                     key: value
                     for key, value in summary["pruning"].items()
-                    if key not in {"step_summaries", "repair_summaries", "pruned_tensors"}
+                    if key not in {"step_summaries", "repair_summaries", "affine_repair_summaries", "pruned_tensors"}
                 },
                 "output_dir": str(config.output_dir),
             },

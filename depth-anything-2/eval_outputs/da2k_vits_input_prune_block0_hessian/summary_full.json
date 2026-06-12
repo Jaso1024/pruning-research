@@ -1,0 +1,558 @@
+{
+  "full": {
+    "fc1_diag_gn": {
+      "by_scene": {
+        "adverse_style": {
+          "best_accuracy": 0.8719512195121951,
+          "best_direction": "larger",
+          "larger_correct": 286,
+          "larger_is_closer_accuracy": 0.8719512195121951,
+          "pairs": 328,
+          "smaller_correct": 42,
+          "smaller_is_closer_accuracy": 0.12804878048780488,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "aerial": {
+          "best_accuracy": 0.9123711340206185,
+          "best_direction": "larger",
+          "larger_correct": 177,
+          "larger_is_closer_accuracy": 0.9123711340206185,
+          "pairs": 194,
+          "smaller_correct": 17,
+          "smaller_is_closer_accuracy": 0.08762886597938144,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "indoor": {
+          "best_accuracy": 0.85,
+          "best_direction": "larger",
+          "larger_correct": 357,
+          "larger_is_closer_accuracy": 0.85,
+          "pairs": 420,
+          "smaller_correct": 63,
+          "smaller_is_closer_accuracy": 0.15,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "non_real": {
+          "best_accuracy": 0.9141914191419142,
+          "best_direction": "larger",
+          "larger_correct": 277,
+          "larger_is_closer_accuracy": 0.9141914191419142,
+          "pairs": 303,
+          "smaller_correct": 26,
+          "smaller_is_closer_accuracy": 0.0858085808580858,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "object": {
+          "best_accuracy": 0.8851351351351351,
+          "best_direction": "larger",
+          "larger_correct": 131,
+          "larger_is_closer_accuracy": 0.8851351351351351,
+          "pairs": 148,
+          "smaller_correct": 17,
+          "smaller_is_closer_accuracy": 0.11486486486486487,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "outdoor": {
+          "best_accuracy": 0.813953488372093,
+          "best_direction": "larger",
+          "larger_correct": 280,
+          "larger_is_closer_accuracy": 0.813953488372093,
+          "pairs": 344,
+          "smaller_correct": 63,
+          "smaller_is_closer_accuracy": 0.18313953488372092,
+          "tie_fraction": 0.0029069767441860465,
+          "ties": 1
+        },
+        "transparent_reflective": {
+          "best_accuracy": 0.8457943925233645,
+          "best_direction": "larger",
+          "larger_correct": 181,
+          "larger_is_closer_accuracy": 0.8457943925233645,
+          "pairs": 214,
+          "smaller_correct": 33,
+          "smaller_is_closer_accuracy": 0.1542056074766355,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "underwater": {
+          "best_accuracy": 0.7777777777777778,
+          "best_direction": "larger",
+          "larger_correct": 91,
+          "larger_is_closer_accuracy": 0.7777777777777778,
+          "pairs": 117,
+          "smaller_correct": 26,
+          "smaller_is_closer_accuracy": 0.2222222222222222,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "elapsed_total_seconds": 28.678780946996994,
+      "extra": {
+        "calibration_images": 8,
+        "calibration_tokens": 4096,
+        "repairs": [
+          {
+            "after_mse": 0.00046587566612288356,
+            "before_mse": 0.0008624786860309541,
+            "damp": 0.01,
+            "elapsed_seconds": 0.014998688013292849,
+            "mse": 0.00046587566612288356,
+            "repair": "fc1_diagonal_gauss_newton_line_search",
+            "step_scale": 0.01,
+            "tokens": 4096
+          }
+        ]
+      },
+      "metadata": {
+        "elapsed_seconds": 28.678759386006277,
+        "images_requested": 1033,
+        "missing_images": []
+      },
+      "overall": {
+        "best_accuracy": 0.8607350096711799,
+        "best_direction": "larger",
+        "larger_correct": 1780,
+        "larger_is_closer_accuracy": 0.8607350096711799,
+        "pairs": 2068,
+        "smaller_correct": 287,
+        "smaller_is_closer_accuracy": 0.1387814313346228,
+        "tie_fraction": 0.00048355899419729207,
+        "ties": 1
+      },
+      "variant": "fc1_diag_gn_full"
+    },
+    "fc1_diag_then_fc2_gn_lstsq": {
+      "by_scene": {
+        "adverse_style": {
+          "best_accuracy": 0.8536585365853658,
+          "best_direction": "larger",
+          "larger_correct": 280,
+          "larger_is_closer_accuracy": 0.8536585365853658,
+          "pairs": 328,
+          "smaller_correct": 48,
+          "smaller_is_closer_accuracy": 0.14634146341463414,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "aerial": {
+          "best_accuracy": 0.8969072164948454,
+          "best_direction": "larger",
+          "larger_correct": 174,
+          "larger_is_closer_accuracy": 0.8969072164948454,
+          "pairs": 194,
+          "smaller_correct": 20,
+          "smaller_is_closer_accuracy": 0.10309278350515463,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "indoor": {
+          "best_accuracy": 0.8547619047619047,
+          "best_direction": "larger",
+          "larger_correct": 359,
+          "larger_is_closer_accuracy": 0.8547619047619047,
+          "pairs": 420,
+          "smaller_correct": 61,
+          "smaller_is_closer_accuracy": 0.14523809523809525,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "non_real": {
+          "best_accuracy": 0.9108910891089109,
+          "best_direction": "larger",
+          "larger_correct": 276,
+          "larger_is_closer_accuracy": 0.9108910891089109,
+          "pairs": 303,
+          "smaller_correct": 27,
+          "smaller_is_closer_accuracy": 0.0891089108910891,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "object": {
+          "best_accuracy": 0.8716216216216216,
+          "best_direction": "larger",
+          "larger_correct": 129,
+          "larger_is_closer_accuracy": 0.8716216216216216,
+          "pairs": 148,
+          "smaller_correct": 19,
+          "smaller_is_closer_accuracy": 0.12837837837837837,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "outdoor": {
+          "best_accuracy": 0.811046511627907,
+          "best_direction": "larger",
+          "larger_correct": 279,
+          "larger_is_closer_accuracy": 0.811046511627907,
+          "pairs": 344,
+          "smaller_correct": 64,
+          "smaller_is_closer_accuracy": 0.18604651162790697,
+          "tie_fraction": 0.0029069767441860465,
+          "ties": 1
+        },
+        "transparent_reflective": {
+          "best_accuracy": 0.8691588785046729,
+          "best_direction": "larger",
+          "larger_correct": 186,
+          "larger_is_closer_accuracy": 0.8691588785046729,
+          "pairs": 214,
+          "smaller_correct": 28,
+          "smaller_is_closer_accuracy": 0.1308411214953271,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "underwater": {
+          "best_accuracy": 0.7692307692307693,
+          "best_direction": "larger",
+          "larger_correct": 90,
+          "larger_is_closer_accuracy": 0.7692307692307693,
+          "pairs": 117,
+          "smaller_correct": 27,
+          "smaller_is_closer_accuracy": 0.23076923076923078,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "elapsed_total_seconds": 28.651697299967054,
+      "extra": {
+        "calibration_images": 8,
+        "calibration_tokens": 4096,
+        "repairs": [
+          {
+            "after_mse": 0.00046587566612288356,
+            "before_mse": 0.0008624786860309541,
+            "damp": 0.01,
+            "elapsed_seconds": 0.01504011801443994,
+            "mse": 0.00046587566612288356,
+            "repair": "fc1_diagonal_gauss_newton_line_search",
+            "step_scale": 0.01,
+            "tokens": 4096
+          },
+          {
+            "after_mse": 0.00022233472554944456,
+            "before_mse": 0.00046587566612288356,
+            "elapsed_seconds": 0.0069225309998728335,
+            "repair": "fc2_exact_gauss_newton_ridge_lstsq",
+            "ridge": 0.001,
+            "tokens": 4096
+          }
+        ]
+      },
+      "metadata": {
+        "elapsed_seconds": 28.65167646104237,
+        "images_requested": 1033,
+        "missing_images": []
+      },
+      "overall": {
+        "best_accuracy": 0.8573500967117988,
+        "best_direction": "larger",
+        "larger_correct": 1773,
+        "larger_is_closer_accuracy": 0.8573500967117988,
+        "pairs": 2068,
+        "smaller_correct": 294,
+        "smaller_is_closer_accuracy": 0.14216634429400388,
+        "tie_fraction": 0.00048355899419729207,
+        "ties": 1
+      },
+      "variant": "fc1_diag_then_fc2_gn_lstsq_full"
+    },
+    "fc2_gn_lstsq": {
+      "by_scene": {
+        "adverse_style": {
+          "best_accuracy": 0.8323170731707317,
+          "best_direction": "larger",
+          "larger_correct": 273,
+          "larger_is_closer_accuracy": 0.8323170731707317,
+          "pairs": 328,
+          "smaller_correct": 55,
+          "smaller_is_closer_accuracy": 0.1676829268292683,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "aerial": {
+          "best_accuracy": 0.8917525773195877,
+          "best_direction": "larger",
+          "larger_correct": 173,
+          "larger_is_closer_accuracy": 0.8917525773195877,
+          "pairs": 194,
+          "smaller_correct": 21,
+          "smaller_is_closer_accuracy": 0.10824742268041238,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "indoor": {
+          "best_accuracy": 0.8476190476190476,
+          "best_direction": "larger",
+          "larger_correct": 356,
+          "larger_is_closer_accuracy": 0.8476190476190476,
+          "pairs": 420,
+          "smaller_correct": 64,
+          "smaller_is_closer_accuracy": 0.1523809523809524,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "non_real": {
+          "best_accuracy": 0.9108910891089109,
+          "best_direction": "larger",
+          "larger_correct": 276,
+          "larger_is_closer_accuracy": 0.9108910891089109,
+          "pairs": 303,
+          "smaller_correct": 27,
+          "smaller_is_closer_accuracy": 0.0891089108910891,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "object": {
+          "best_accuracy": 0.8783783783783784,
+          "best_direction": "larger",
+          "larger_correct": 130,
+          "larger_is_closer_accuracy": 0.8783783783783784,
+          "pairs": 148,
+          "smaller_correct": 18,
+          "smaller_is_closer_accuracy": 0.12162162162162163,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "outdoor": {
+          "best_accuracy": 0.8255813953488372,
+          "best_direction": "larger",
+          "larger_correct": 284,
+          "larger_is_closer_accuracy": 0.8255813953488372,
+          "pairs": 344,
+          "smaller_correct": 59,
+          "smaller_is_closer_accuracy": 0.17151162790697674,
+          "tie_fraction": 0.0029069767441860465,
+          "ties": 1
+        },
+        "transparent_reflective": {
+          "best_accuracy": 0.8644859813084113,
+          "best_direction": "larger",
+          "larger_correct": 185,
+          "larger_is_closer_accuracy": 0.8644859813084113,
+          "pairs": 214,
+          "smaller_correct": 29,
+          "smaller_is_closer_accuracy": 0.13551401869158877,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "underwater": {
+          "best_accuracy": 0.7948717948717948,
+          "best_direction": "larger",
+          "larger_correct": 93,
+          "larger_is_closer_accuracy": 0.7948717948717948,
+          "pairs": 117,
+          "smaller_correct": 24,
+          "smaller_is_closer_accuracy": 0.20512820512820512,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "elapsed_total_seconds": 28.677044705022126,
+      "extra": {
+        "calibration_images": 8,
+        "calibration_tokens": 4096,
+        "repairs": [
+          {
+            "after_mse": 0.0002195331617258489,
+            "before_mse": 0.0008624786860309541,
+            "elapsed_seconds": 0.013595415046438575,
+            "repair": "fc2_exact_gauss_newton_ridge_lstsq",
+            "ridge": 0.001,
+            "tokens": 4096
+          }
+        ]
+      },
+      "metadata": {
+        "elapsed_seconds": 28.6770205089706,
+        "images_requested": 1033,
+        "missing_images": []
+      },
+      "overall": {
+        "best_accuracy": 0.8558994197292069,
+        "best_direction": "larger",
+        "larger_correct": 1770,
+        "larger_is_closer_accuracy": 0.8558994197292069,
+        "pairs": 2068,
+        "smaller_correct": 297,
+        "smaller_is_closer_accuracy": 0.14361702127659576,
+        "tie_fraction": 0.00048355899419729207,
+        "ties": 1
+      },
+      "variant": "fc2_gn_lstsq_full"
+    }
+  },
+  "metadata": {
+    "calibration_images": 8,
+    "calibration_token_limit": 4096,
+    "checkpoint": "checkpoints/depth_anything_v2_vits.pth",
+    "device": "cuda",
+    "full_reference_input_prune_only": "eval_outputs/da2k_vits_input_prune_block0_dfq/summary_full.json",
+    "patch_input_pruning": {
+      "fill_mode": "zero",
+      "keep_high": true,
+      "keep_percentage": 0.5,
+      "norm": "l2"
+    },
+    "scope": "block0 MLP only after patch input pruning",
+    "target": "dense teacher block0 MLP outputs on kept patch tokens and cls token"
+  },
+  "smoke64": {
+    "fc1_diag_gn": {
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.8208955223880597,
+          "best_direction": "larger",
+          "larger_correct": 110,
+          "larger_is_closer_accuracy": 0.8208955223880597,
+          "pairs": 134,
+          "smaller_correct": 24,
+          "smaller_is_closer_accuracy": 0.1791044776119403,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "elapsed_total_seconds": 1.8136805510148406,
+      "extra": {
+        "calibration_images": 8,
+        "calibration_tokens": 4096,
+        "repairs": [
+          {
+            "after_mse": 0.00046587566612288356,
+            "before_mse": 0.0008624786860309541,
+            "damp": 0.01,
+            "elapsed_seconds": 0.03701106202788651,
+            "mse": 0.00046587566612288356,
+            "repair": "fc1_diagonal_gauss_newton_line_search",
+            "step_scale": 0.01,
+            "tokens": 4096
+          }
+        ]
+      },
+      "metadata": {
+        "elapsed_seconds": 1.8131398989935406,
+        "images_requested": 64,
+        "missing_images": []
+      },
+      "overall": {
+        "best_accuracy": 0.8208955223880597,
+        "best_direction": "larger",
+        "larger_correct": 110,
+        "larger_is_closer_accuracy": 0.8208955223880597,
+        "pairs": 134,
+        "smaller_correct": 24,
+        "smaller_is_closer_accuracy": 0.1791044776119403,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "variant": "fc1_diag_gn_smoke64"
+    },
+    "fc1_diag_then_fc2_gn_lstsq": {
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.8283582089552238,
+          "best_direction": "larger",
+          "larger_correct": 111,
+          "larger_is_closer_accuracy": 0.8283582089552238,
+          "pairs": 134,
+          "smaller_correct": 23,
+          "smaller_is_closer_accuracy": 0.17164179104477612,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "elapsed_total_seconds": 1.782070824992843,
+      "extra": {
+        "calibration_images": 8,
+        "calibration_tokens": 4096,
+        "repairs": [
+          {
+            "after_mse": 0.00046587566612288356,
+            "before_mse": 0.0008624786860309541,
+            "damp": 0.01,
+            "elapsed_seconds": 0.015068009961396456,
+            "mse": 0.00046587566612288356,
+            "repair": "fc1_diagonal_gauss_newton_line_search",
+            "step_scale": 0.01,
+            "tokens": 4096
+          },
+          {
+            "after_mse": 0.00022233472554944456,
+            "before_mse": 0.00046587566612288356,
+            "elapsed_seconds": 0.006907451956067234,
+            "repair": "fc2_exact_gauss_newton_ridge_lstsq",
+            "ridge": 0.001,
+            "tokens": 4096
+          }
+        ]
+      },
+      "metadata": {
+        "elapsed_seconds": 1.782056538038887,
+        "images_requested": 64,
+        "missing_images": []
+      },
+      "overall": {
+        "best_accuracy": 0.8283582089552238,
+        "best_direction": "larger",
+        "larger_correct": 111,
+        "larger_is_closer_accuracy": 0.8283582089552238,
+        "pairs": 134,
+        "smaller_correct": 23,
+        "smaller_is_closer_accuracy": 0.17164179104477612,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "variant": "fc1_diag_then_fc2_gn_lstsq_smoke64"
+    },
+    "fc2_gn_lstsq": {
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.835820895522388,
+          "best_direction": "larger",
+          "larger_correct": 112,
+          "larger_is_closer_accuracy": 0.835820895522388,
+          "pairs": 134,
+          "smaller_correct": 22,
+          "smaller_is_closer_accuracy": 0.16417910447761194,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "elapsed_total_seconds": 1.8352001620223746,
+      "extra": {
+        "calibration_images": 8,
+        "calibration_tokens": 4096,
+        "repairs": [
+          {
+            "after_mse": 0.0002195331617258489,
+            "before_mse": 0.0008624786860309541,
+            "elapsed_seconds": 0.033374549995642155,
+            "repair": "fc2_exact_gauss_newton_ridge_lstsq",
+            "ridge": 0.001,
+            "tokens": 4096
+          }
+        ]
+      },
+      "metadata": {
+        "elapsed_seconds": 1.8349195350310765,
+        "images_requested": 64,
+        "missing_images": []
+      },
+      "overall": {
+        "best_accuracy": 0.835820895522388,
+        "best_direction": "larger",
+        "larger_correct": 112,
+        "larger_is_closer_accuracy": 0.835820895522388,
+        "pairs": 134,
+        "smaller_correct": 22,
+        "smaller_is_closer_accuracy": 0.16417910447761194,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "variant": "fc2_gn_lstsq_smoke64"
+    }
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "by_scene": {
+    "adverse_style": {
+      "best_accuracy": 0.9542682926829268,
+      "best_direction": "larger",
+      "larger_correct": 313,
+      "larger_is_closer_accuracy": 0.9542682926829268,
+      "pairs": 328,
+      "smaller_correct": 15,
+      "smaller_is_closer_accuracy": 0.04573170731707317,
+      "tie_fraction": 0.0,
+      "ties": 0
+    },
+    "aerial": {
+      "best_accuracy": 0.9639175257731959,
+      "best_direction": "larger",
+      "larger_correct": 187,
+      "larger_is_closer_accuracy": 0.9639175257731959,
+      "pairs": 194,
+      "smaller_correct": 7,
+      "smaller_is_closer_accuracy": 0.03608247422680412,
+      "tie_fraction": 0.0,
+      "ties": 0
+    },
+    "indoor": {
+      "best_accuracy": 0.9238095238095239,
+      "best_direction": "larger",
+      "larger_correct": 388,
+      "larger_is_closer_accuracy": 0.9238095238095239,
+      "pairs": 420,
+      "smaller_correct": 32,
+      "smaller_is_closer_accuracy": 0.0761904761904762,
+      "tie_fraction": 0.0,
+      "ties": 0
+    },
+    "non_real": {
+      "best_accuracy": 0.976897689768977,
+      "best_direction": "larger",
+      "larger_correct": 296,
+      "larger_is_closer_accuracy": 0.976897689768977,
+      "pairs": 303,
+      "smaller_correct": 7,
+      "smaller_is_closer_accuracy": 0.0231023102310231,
+      "tie_fraction": 0.0,
+      "ties": 0
+    },
+    "object": {
+      "best_accuracy": 0.972972972972973,
+      "best_direction": "larger",
+      "larger_correct": 144,
+      "larger_is_closer_accuracy": 0.972972972972973,
+      "pairs": 148,
+      "smaller_correct": 4,
+      "smaller_is_closer_accuracy": 0.02702702702702703,
+      "tie_fraction": 0.0,
+      "ties": 0
+    },
+    "outdoor": {
+      "best_accuracy": 0.9331395348837209,
+      "best_direction": "larger",
+      "larger_correct": 321,
+      "larger_is_closer_accuracy": 0.9331395348837209,
+      "pairs": 344,
+      "smaller_correct": 22,
+      "smaller_is_closer_accuracy": 0.06395348837209303,
+      "tie_fraction": 0.0029069767441860465,
+      "ties": 1
+    },
+    "transparent_reflective": {
+      "best_accuracy": 0.9439252336448598,
+      "best_direction": "larger",
+      "larger_correct": 202,
+      "larger_is_closer_accuracy": 0.9439252336448598,
+      "pairs": 214,
+      "smaller_correct": 12,
+      "smaller_is_closer_accuracy": 0.056074766355140186,
+      "tie_fraction": 0.0,
+      "ties": 0
+    },
+    "underwater": {
+      "best_accuracy": 0.9914529914529915,
+      "best_direction": "larger",
+      "larger_correct": 116,
+      "larger_is_closer_accuracy": 0.9914529914529915,
+      "pairs": 117,
+      "smaller_correct": 1,
+      "smaller_is_closer_accuracy": 0.008547008547008548,
+      "tie_fraction": 0.0,
+      "ties": 0
+    }
+  },
+  "metadata": {
+    "checkpoint": "checkpoints/depth_anything_v2_vits.pth",
+    "dataset_root": "datasets/DA-2K/extracted/DA-2K",
+    "device": "cuda",
+    "elapsed_seconds": 67.07006596098654,
+    "encoder": "vits",
+    "images_requested": 1033,
+    "input_size": 518,
+    "log_every": 100,
+    "max_images": 0,
+    "merge_r": 28,
+    "missing_images": [],
+    "output_json": "eval_outputs/da2k_vits_tome_r28_full.json",
+    "patch_count_at_square_input": 1369,
+    "requested_max_merges_across_blocks": 336,
+    "requested_merges_per_layer": 28,
+    "rule": "DA-2K labels point1 as closer; Depth Anything V2 vits uses larger predicted values for closer points.",
+    "scene_type": ""
+  },
+  "overall": {
+    "best_accuracy": 0.9511605415860735,
+    "best_direction": "larger",
+    "larger_correct": 1967,
+    "larger_is_closer_accuracy": 0.9511605415860735,
+    "pairs": 2068,
+    "smaller_correct": 100,
+    "smaller_is_closer_accuracy": 0.048355899419729204,
+    "tie_fraction": 0.00048355899419729207,
+    "ties": 1
+  }
+}

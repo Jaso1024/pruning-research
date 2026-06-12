@@ -1,0 +1,562 @@
+{
+  "metadata": {
+    "calibration_images": 8,
+    "calibration_relative_paths": [
+      "images/indoor/1009402064_7c74b0b819_k.jpg",
+      "images/indoor/12272343524_202e65dd98_k.jpg",
+      "images/indoor/17250719779_221d17a4d2_k.jpg",
+      "images/indoor/17485436718_3f0fea8f35_k.jpg",
+      "images/indoor/17621921930_cc03603441_k.jpg",
+      "images/indoor/17646951536_f4b5ada4fd_k.jpg",
+      "images/indoor/17673273195_cf6998a2ad_k.jpg",
+      "images/indoor/17673285035_df2ff485f6_k.jpg"
+    ],
+    "calibration_tokens": 4096,
+    "checkpoint": "checkpoints/depth_anything_v2_vits.pth",
+    "dataset_root": "datasets/DA-2K/extracted/DA-2K",
+    "device": "cuda",
+    "elapsed_seconds": 6.611813481024001,
+    "encoder": "vits",
+    "hadamard_block_size": 1024,
+    "images_selected": 32,
+    "input_size": 518,
+    "log_every": 8,
+    "max_images": 32,
+    "max_pairs": 0,
+    "modes": [
+      "dense",
+      "relu",
+      "newton",
+      "hadamard"
+    ],
+    "output_dir": "eval_outputs/da2k_vits_gelu_relu_compensation_smoke_32",
+    "pairs_selected": 71,
+    "ridge_lambda": 0.001,
+    "rule": "DA-2K labels point1 as closer; Depth Anything V2 vits uses larger predicted values for closer points.",
+    "scene_type": "",
+    "transformer_mlp_count": 12,
+    "transformer_mlp_names": [
+      "pretrained.blocks.0.mlp",
+      "pretrained.blocks.1.mlp",
+      "pretrained.blocks.2.mlp",
+      "pretrained.blocks.3.mlp",
+      "pretrained.blocks.4.mlp",
+      "pretrained.blocks.5.mlp",
+      "pretrained.blocks.6.mlp",
+      "pretrained.blocks.7.mlp",
+      "pretrained.blocks.8.mlp",
+      "pretrained.blocks.9.mlp",
+      "pretrained.blocks.10.mlp",
+      "pretrained.blocks.11.mlp"
+    ]
+  },
+  "variants": {
+    "dense": {
+      "evaluation": {
+        "by_scene": {
+          "indoor": {
+            "best_accuracy": 0.9295774647887324,
+            "best_direction": "larger",
+            "larger_correct": 66,
+            "larger_is_closer_accuracy": 0.9295774647887324,
+            "pairs": 71,
+            "smaller_correct": 5,
+            "smaller_is_closer_accuracy": 0.07042253521126761,
+            "tie_fraction": 0.0,
+            "ties": 0
+          }
+        },
+        "metadata": {
+          "elapsed_seconds": 1.497074275976047,
+          "images_requested": 32,
+          "missing_images": []
+        },
+        "overall": {
+          "best_accuracy": 0.9295774647887324,
+          "best_direction": "larger",
+          "larger_correct": 66,
+          "larger_is_closer_accuracy": 0.9295774647887324,
+          "pairs": 71,
+          "smaller_correct": 5,
+          "smaller_is_closer_accuracy": 0.07042253521126761,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "metadata": {
+        "activation": "original GELU checkpoint"
+      }
+    },
+    "hadamard": {
+      "evaluation": {
+        "by_scene": {
+          "indoor": {
+            "best_accuracy": 0.5070422535211268,
+            "best_direction": "larger",
+            "larger_correct": 36,
+            "larger_is_closer_accuracy": 0.5070422535211268,
+            "pairs": 71,
+            "smaller_correct": 35,
+            "smaller_is_closer_accuracy": 0.49295774647887325,
+            "tie_fraction": 0.0,
+            "ties": 0
+          }
+        },
+        "metadata": {
+          "elapsed_seconds": 1.3892451419960707,
+          "images_requested": 32,
+          "missing_images": []
+        },
+        "overall": {
+          "best_accuracy": 0.5070422535211268,
+          "best_direction": "larger",
+          "larger_correct": 36,
+          "larger_is_closer_accuracy": 0.5070422535211268,
+          "pairs": 71,
+          "smaller_correct": 35,
+          "smaller_is_closer_accuracy": 0.49295774647887325,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "metadata": {
+        "activation": "GELU replaced with ReLU",
+        "compensation": "Orthogonal hidden-channel basis transform around each transformer MLP fc1/fc2 pair before evaluation.",
+        "hadamard": [
+          {
+            "chunks": [
+              {
+                "padded_size": 1024,
+                "size": 1024,
+                "start": 0
+              },
+              {
+                "padded_size": 512,
+                "size": 512,
+                "start": 1024
+              }
+            ],
+            "hidden_features": 1536,
+            "module": "pretrained.blocks.0.mlp",
+            "rule": "fc1 rows and bias transformed by H; fc2 hidden columns transformed by H^T. H is normalized blockwise FWHT with padding only for non-power-of-two final blocks."
+          },
+          {
+            "chunks": [
+              {
+                "padded_size": 1024,
+                "size": 1024,
+                "start": 0
+              },
+              {
+                "padded_size": 512,
+                "size": 512,
+                "start": 1024
+              }
+            ],
+            "hidden_features": 1536,
+            "module": "pretrained.blocks.1.mlp",
+            "rule": "fc1 rows and bias transformed by H; fc2 hidden columns transformed by H^T. H is normalized blockwise FWHT with padding only for non-power-of-two final blocks."
+          },
+          {
+            "chunks": [
+              {
+                "padded_size": 1024,
+                "size": 1024,
+                "start": 0
+              },
+              {
+                "padded_size": 512,
+                "size": 512,
+                "start": 1024
+              }
+            ],
+            "hidden_features": 1536,
+            "module": "pretrained.blocks.2.mlp",
+            "rule": "fc1 rows and bias transformed by H; fc2 hidden columns transformed by H^T. H is normalized blockwise FWHT with padding only for non-power-of-two final blocks."
+          },
+          {
+            "chunks": [
+              {
+                "padded_size": 1024,
+                "size": 1024,
+                "start": 0
+              },
+              {
+                "padded_size": 512,
+                "size": 512,
+                "start": 1024
+              }
+            ],
+            "hidden_features": 1536,
+            "module": "pretrained.blocks.3.mlp",
+            "rule": "fc1 rows and bias transformed by H; fc2 hidden columns transformed by H^T. H is normalized blockwise FWHT with padding only for non-power-of-two final blocks."
+          },
+          {
+            "chunks": [
+              {
+                "padded_size": 1024,
+                "size": 1024,
+                "start": 0
+              },
+              {
+                "padded_size": 512,
+                "size": 512,
+                "start": 1024
+              }
+            ],
+            "hidden_features": 1536,
+            "module": "pretrained.blocks.4.mlp",
+            "rule": "fc1 rows and bias transformed by H; fc2 hidden columns transformed by H^T. H is normalized blockwise FWHT with padding only for non-power-of-two final blocks."
+          },
+          {
+            "chunks": [
+              {
+                "padded_size": 1024,
+                "size": 1024,
+                "start": 0
+              },
+              {
+                "padded_size": 512,
+                "size": 512,
+                "start": 1024
+              }
+            ],
+            "hidden_features": 1536,
+            "module": "pretrained.blocks.5.mlp",
+            "rule": "fc1 rows and bias transformed by H; fc2 hidden columns transformed by H^T. H is normalized blockwise FWHT with padding only for non-power-of-two final blocks."
+          },
+          {
+            "chunks": [
+              {
+                "padded_size": 1024,
+                "size": 1024,
+                "start": 0
+              },
+              {
+                "padded_size": 512,
+                "size": 512,
+                "start": 1024
+              }
+            ],
+            "hidden_features": 1536,
+            "module": "pretrained.blocks.6.mlp",
+            "rule": "fc1 rows and bias transformed by H; fc2 hidden columns transformed by H^T. H is normalized blockwise FWHT with padding only for non-power-of-two final blocks."
+          },
+          {
+            "chunks": [
+              {
+                "padded_size": 1024,
+                "size": 1024,
+                "start": 0
+              },
+              {
+                "padded_size": 512,
+                "size": 512,
+                "start": 1024
+              }
+            ],
+            "hidden_features": 1536,
+            "module": "pretrained.blocks.7.mlp",
+            "rule": "fc1 rows and bias transformed by H; fc2 hidden columns transformed by H^T. H is normalized blockwise FWHT with padding only for non-power-of-two final blocks."
+          },
+          {
+            "chunks": [
+              {
+                "padded_size": 1024,
+                "size": 1024,
+                "start": 0
+              },
+              {
+                "padded_size": 512,
+                "size": 512,
+                "start": 1024
+              }
+            ],
+            "hidden_features": 1536,
+            "module": "pretrained.blocks.8.mlp",
+            "rule": "fc1 rows and bias transformed by H; fc2 hidden columns transformed by H^T. H is normalized blockwise FWHT with padding only for non-power-of-two final blocks."
+          },
+          {
+            "chunks": [
+              {
+                "padded_size": 1024,
+                "size": 1024,
+                "start": 0
+              },
+              {
+                "padded_size": 512,
+                "size": 512,
+                "start": 1024
+              }
+            ],
+            "hidden_features": 1536,
+            "module": "pretrained.blocks.9.mlp",
+            "rule": "fc1 rows and bias transformed by H; fc2 hidden columns transformed by H^T. H is normalized blockwise FWHT with padding only for non-power-of-two final blocks."
+          },
+          {
+            "chunks": [
+              {
+                "padded_size": 1024,
+                "size": 1024,
+                "start": 0
+              },
+              {
+                "padded_size": 512,
+                "size": 512,
+                "start": 1024
+              }
+            ],
+            "hidden_features": 1536,
+            "module": "pretrained.blocks.10.mlp",
+            "rule": "fc1 rows and bias transformed by H; fc2 hidden columns transformed by H^T. H is normalized blockwise FWHT with padding only for non-power-of-two final blocks."
+          },
+          {
+            "chunks": [
+              {
+                "padded_size": 1024,
+                "size": 1024,
+                "start": 0
+              },
+              {
+                "padded_size": 512,
+                "size": 512,
+                "start": 1024
+              }
+            ],
+            "hidden_features": 1536,
+            "module": "pretrained.blocks.11.mlp",
+            "rule": "fc1 rows and bias transformed by H; fc2 hidden columns transformed by H^T. H is normalized blockwise FWHT with padding only for non-power-of-two final blocks."
+          }
+        ],
+        "hadamard_block_size": 1024,
+        "replaced_modules": [
+          "pretrained.blocks.0.mlp.act",
+          "pretrained.blocks.1.mlp.act",
+          "pretrained.blocks.2.mlp.act",
+          "pretrained.blocks.3.mlp.act",
+          "pretrained.blocks.4.mlp.act",
+          "pretrained.blocks.5.mlp.act",
+          "pretrained.blocks.6.mlp.act",
+          "pretrained.blocks.7.mlp.act",
+          "pretrained.blocks.8.mlp.act",
+          "pretrained.blocks.9.mlp.act",
+          "pretrained.blocks.10.mlp.act",
+          "pretrained.blocks.11.mlp.act"
+        ]
+      }
+    },
+    "newton": {
+      "evaluation": {
+        "by_scene": {
+          "indoor": {
+            "best_accuracy": 0.7746478873239436,
+            "best_direction": "larger",
+            "larger_correct": 55,
+            "larger_is_closer_accuracy": 0.7746478873239436,
+            "pairs": 71,
+            "smaller_correct": 16,
+            "smaller_is_closer_accuracy": 0.22535211267605634,
+            "tie_fraction": 0.0,
+            "ties": 0
+          }
+        },
+        "metadata": {
+          "elapsed_seconds": 1.3941785910283215,
+          "images_requested": 32,
+          "missing_images": []
+        },
+        "overall": {
+          "best_accuracy": 0.7746478873239436,
+          "best_direction": "larger",
+          "larger_correct": 55,
+          "larger_is_closer_accuracy": 0.7746478873239436,
+          "pairs": 71,
+          "smaller_correct": 16,
+          "smaller_is_closer_accuracy": 0.22535211267605634,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "metadata": {
+        "activation": "GELU replaced with ReLU",
+        "approximation": "Damped Gauss-Newton / ridge least-squares closed-form repair of each transformer MLP fc2 weight and bias, matching original GELU MLP outputs on calibration tokens.",
+        "calibration_tokens_per_mlp": 4096,
+        "repair": [
+          {
+            "hidden_features": 1536,
+            "module": "pretrained.blocks.0.mlp",
+            "new_mse": 0.0002010884345509112,
+            "old_mse": 0.012637189589440823,
+            "out_features": 384,
+            "tokens_available": 15622,
+            "tokens_used": 4096
+          },
+          {
+            "hidden_features": 1536,
+            "module": "pretrained.blocks.1.mlp",
+            "new_mse": 0.00027680746279656887,
+            "old_mse": 0.006155980750918388,
+            "out_features": 384,
+            "tokens_available": 15622,
+            "tokens_used": 4096
+          },
+          {
+            "hidden_features": 1536,
+            "module": "pretrained.blocks.2.mlp",
+            "new_mse": 0.00016461341874673963,
+            "old_mse": 0.009015954099595547,
+            "out_features": 384,
+            "tokens_available": 15622,
+            "tokens_used": 4096
+          },
+          {
+            "hidden_features": 1536,
+            "module": "pretrained.blocks.3.mlp",
+            "new_mse": 0.0001407787058269605,
+            "old_mse": 0.008797875605523586,
+            "out_features": 384,
+            "tokens_available": 15622,
+            "tokens_used": 4096
+          },
+          {
+            "hidden_features": 1536,
+            "module": "pretrained.blocks.4.mlp",
+            "new_mse": 0.0001372002880088985,
+            "old_mse": 0.009781721979379654,
+            "out_features": 384,
+            "tokens_available": 15622,
+            "tokens_used": 4096
+          },
+          {
+            "hidden_features": 1536,
+            "module": "pretrained.blocks.5.mlp",
+            "new_mse": 0.00012824212899431586,
+            "old_mse": 0.009087658487260342,
+            "out_features": 384,
+            "tokens_available": 15622,
+            "tokens_used": 4096
+          },
+          {
+            "hidden_features": 1536,
+            "module": "pretrained.blocks.6.mlp",
+            "new_mse": 0.00012774625793099403,
+            "old_mse": 0.007258690427988768,
+            "out_features": 384,
+            "tokens_available": 15622,
+            "tokens_used": 4096
+          },
+          {
+            "hidden_features": 1536,
+            "module": "pretrained.blocks.7.mlp",
+            "new_mse": 0.00011559265840332955,
+            "old_mse": 0.01861337199807167,
+            "out_features": 384,
+            "tokens_available": 15622,
+            "tokens_used": 4096
+          },
+          {
+            "hidden_features": 1536,
+            "module": "pretrained.blocks.8.mlp",
+            "new_mse": 0.00011659252777462825,
+            "old_mse": 0.014399888925254345,
+            "out_features": 384,
+            "tokens_available": 15622,
+            "tokens_used": 4096
+          },
+          {
+            "hidden_features": 1536,
+            "module": "pretrained.blocks.9.mlp",
+            "new_mse": 0.00011491886107251048,
+            "old_mse": 0.012798681855201721,
+            "out_features": 384,
+            "tokens_available": 15622,
+            "tokens_used": 4096
+          },
+          {
+            "hidden_features": 1536,
+            "module": "pretrained.blocks.10.mlp",
+            "new_mse": 0.00013158661022316664,
+            "old_mse": 0.01417333260178566,
+            "out_features": 384,
+            "tokens_available": 15622,
+            "tokens_used": 4096
+          },
+          {
+            "hidden_features": 1536,
+            "module": "pretrained.blocks.11.mlp",
+            "new_mse": 9.354884969070554e-05,
+            "old_mse": 0.01913609728217125,
+            "out_features": 384,
+            "tokens_available": 15622,
+            "tokens_used": 4096
+          }
+        ],
+        "replaced_modules": [
+          "pretrained.blocks.0.mlp.act",
+          "pretrained.blocks.1.mlp.act",
+          "pretrained.blocks.2.mlp.act",
+          "pretrained.blocks.3.mlp.act",
+          "pretrained.blocks.4.mlp.act",
+          "pretrained.blocks.5.mlp.act",
+          "pretrained.blocks.6.mlp.act",
+          "pretrained.blocks.7.mlp.act",
+          "pretrained.blocks.8.mlp.act",
+          "pretrained.blocks.9.mlp.act",
+          "pretrained.blocks.10.mlp.act",
+          "pretrained.blocks.11.mlp.act"
+        ],
+        "ridge_lambda": 0.001
+      }
+    },
+    "relu": {
+      "evaluation": {
+        "by_scene": {
+          "indoor": {
+            "best_accuracy": 0.6338028169014085,
+            "best_direction": "larger",
+            "larger_correct": 45,
+            "larger_is_closer_accuracy": 0.6338028169014085,
+            "pairs": 71,
+            "smaller_correct": 26,
+            "smaller_is_closer_accuracy": 0.36619718309859156,
+            "tie_fraction": 0.0,
+            "ties": 0
+          }
+        },
+        "metadata": {
+          "elapsed_seconds": 1.3783084450406022,
+          "images_requested": 32,
+          "missing_images": []
+        },
+        "overall": {
+          "best_accuracy": 0.6338028169014085,
+          "best_direction": "larger",
+          "larger_correct": 45,
+          "larger_is_closer_accuracy": 0.6338028169014085,
+          "pairs": 71,
+          "smaller_correct": 26,
+          "smaller_is_closer_accuracy": 0.36619718309859156,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "metadata": {
+        "activation": "all nn.GELU modules replaced with nn.ReLU",
+        "replaced_modules": [
+          "pretrained.blocks.0.mlp.act",
+          "pretrained.blocks.1.mlp.act",
+          "pretrained.blocks.2.mlp.act",
+          "pretrained.blocks.3.mlp.act",
+          "pretrained.blocks.4.mlp.act",
+          "pretrained.blocks.5.mlp.act",
+          "pretrained.blocks.6.mlp.act",
+          "pretrained.blocks.7.mlp.act",
+          "pretrained.blocks.8.mlp.act",
+          "pretrained.blocks.9.mlp.act",
+          "pretrained.blocks.10.mlp.act",
+          "pretrained.blocks.11.mlp.act"
+        ]
+      }
+    }
+  }
+}

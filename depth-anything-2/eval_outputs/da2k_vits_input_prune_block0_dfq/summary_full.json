@@ -1,0 +1,246 @@
+{
+  "metadata": {
+    "device": "cuda",
+    "dfq_caveat": "GELU means cross-layer equalization is not exactly function-preserving.",
+    "dfq_target": "pretrained.blocks.0.mlp only",
+    "images": 1033,
+    "pairs": 2068,
+    "patch_input_pruning": {
+      "fill_mode": "zero",
+      "keep_high": true,
+      "keep_percentage": 0.5,
+      "norm": "l2"
+    }
+  },
+  "variants": {
+    "input_prune_only_full": {
+      "by_scene": {
+        "adverse_style": {
+          "best_accuracy": 0.8689024390243902,
+          "best_direction": "larger",
+          "larger_correct": 285,
+          "larger_is_closer_accuracy": 0.8689024390243902,
+          "pairs": 328,
+          "smaller_correct": 43,
+          "smaller_is_closer_accuracy": 0.13109756097560976,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "aerial": {
+          "best_accuracy": 0.9123711340206185,
+          "best_direction": "larger",
+          "larger_correct": 177,
+          "larger_is_closer_accuracy": 0.9123711340206185,
+          "pairs": 194,
+          "smaller_correct": 17,
+          "smaller_is_closer_accuracy": 0.08762886597938144,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "indoor": {
+          "best_accuracy": 0.8452380952380952,
+          "best_direction": "larger",
+          "larger_correct": 355,
+          "larger_is_closer_accuracy": 0.8452380952380952,
+          "pairs": 420,
+          "smaller_correct": 65,
+          "smaller_is_closer_accuracy": 0.15476190476190477,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "non_real": {
+          "best_accuracy": 0.9141914191419142,
+          "best_direction": "larger",
+          "larger_correct": 277,
+          "larger_is_closer_accuracy": 0.9141914191419142,
+          "pairs": 303,
+          "smaller_correct": 26,
+          "smaller_is_closer_accuracy": 0.0858085808580858,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "object": {
+          "best_accuracy": 0.8918918918918919,
+          "best_direction": "larger",
+          "larger_correct": 132,
+          "larger_is_closer_accuracy": 0.8918918918918919,
+          "pairs": 148,
+          "smaller_correct": 16,
+          "smaller_is_closer_accuracy": 0.10810810810810811,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "outdoor": {
+          "best_accuracy": 0.8197674418604651,
+          "best_direction": "larger",
+          "larger_correct": 282,
+          "larger_is_closer_accuracy": 0.8197674418604651,
+          "pairs": 344,
+          "smaller_correct": 61,
+          "smaller_is_closer_accuracy": 0.17732558139534885,
+          "tie_fraction": 0.0029069767441860465,
+          "ties": 1
+        },
+        "transparent_reflective": {
+          "best_accuracy": 0.8504672897196262,
+          "best_direction": "larger",
+          "larger_correct": 182,
+          "larger_is_closer_accuracy": 0.8504672897196262,
+          "pairs": 214,
+          "smaller_correct": 32,
+          "smaller_is_closer_accuracy": 0.14953271028037382,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "underwater": {
+          "best_accuracy": 0.7863247863247863,
+          "best_direction": "larger",
+          "larger_correct": 92,
+          "larger_is_closer_accuracy": 0.7863247863247863,
+          "pairs": 117,
+          "smaller_correct": 25,
+          "smaller_is_closer_accuracy": 0.21367521367521367,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "elapsed_total_seconds": 29.17457682598615,
+      "extra": {},
+      "metadata": {
+        "elapsed_seconds": 29.17454086698126,
+        "images_requested": 1033,
+        "missing_images": []
+      },
+      "overall": {
+        "best_accuracy": 0.8617021276595744,
+        "best_direction": "larger",
+        "larger_correct": 1782,
+        "larger_is_closer_accuracy": 0.8617021276595744,
+        "pairs": 2068,
+        "smaller_correct": 285,
+        "smaller_is_closer_accuracy": 0.13781431334622823,
+        "tie_fraction": 0.00048355899419729207,
+        "ties": 1
+      },
+      "variant": "input_prune_only"
+    },
+    "input_prune_then_block0_mlp_dfq_full": {
+      "by_scene": {
+        "adverse_style": {
+          "best_accuracy": 0.8628048780487805,
+          "best_direction": "larger",
+          "larger_correct": 283,
+          "larger_is_closer_accuracy": 0.8628048780487805,
+          "pairs": 328,
+          "smaller_correct": 45,
+          "smaller_is_closer_accuracy": 0.13719512195121952,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "aerial": {
+          "best_accuracy": 0.9072164948453608,
+          "best_direction": "larger",
+          "larger_correct": 176,
+          "larger_is_closer_accuracy": 0.9072164948453608,
+          "pairs": 194,
+          "smaller_correct": 18,
+          "smaller_is_closer_accuracy": 0.09278350515463918,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "indoor": {
+          "best_accuracy": 0.8476190476190476,
+          "best_direction": "larger",
+          "larger_correct": 356,
+          "larger_is_closer_accuracy": 0.8476190476190476,
+          "pairs": 420,
+          "smaller_correct": 64,
+          "smaller_is_closer_accuracy": 0.1523809523809524,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "non_real": {
+          "best_accuracy": 0.9141914191419142,
+          "best_direction": "larger",
+          "larger_correct": 277,
+          "larger_is_closer_accuracy": 0.9141914191419142,
+          "pairs": 303,
+          "smaller_correct": 26,
+          "smaller_is_closer_accuracy": 0.0858085808580858,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "object": {
+          "best_accuracy": 0.8716216216216216,
+          "best_direction": "larger",
+          "larger_correct": 129,
+          "larger_is_closer_accuracy": 0.8716216216216216,
+          "pairs": 148,
+          "smaller_correct": 19,
+          "smaller_is_closer_accuracy": 0.12837837837837837,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "outdoor": {
+          "best_accuracy": 0.8197674418604651,
+          "best_direction": "larger",
+          "larger_correct": 282,
+          "larger_is_closer_accuracy": 0.8197674418604651,
+          "pairs": 344,
+          "smaller_correct": 61,
+          "smaller_is_closer_accuracy": 0.17732558139534885,
+          "tie_fraction": 0.0029069767441860465,
+          "ties": 1
+        },
+        "transparent_reflective": {
+          "best_accuracy": 0.8504672897196262,
+          "best_direction": "larger",
+          "larger_correct": 182,
+          "larger_is_closer_accuracy": 0.8504672897196262,
+          "pairs": 214,
+          "smaller_correct": 32,
+          "smaller_is_closer_accuracy": 0.14953271028037382,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "underwater": {
+          "best_accuracy": 0.7777777777777778,
+          "best_direction": "larger",
+          "larger_correct": 91,
+          "larger_is_closer_accuracy": 0.7777777777777778,
+          "pairs": 117,
+          "smaller_correct": 26,
+          "smaller_is_closer_accuracy": 0.2222222222222222,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "elapsed_total_seconds": 28.947461799019948,
+      "extra": {
+        "dfq_stats": {
+          "scale_max": 1.8377346992492676,
+          "scale_mean": 0.8641767501831055,
+          "scale_min": 0.42090904712677,
+          "scale_std": 0.17285001277923584
+        }
+      },
+      "metadata": {
+        "elapsed_seconds": 28.947439957002643,
+        "images_requested": 1033,
+        "missing_images": []
+      },
+      "overall": {
+        "best_accuracy": 0.8588007736943907,
+        "best_direction": "larger",
+        "larger_correct": 1776,
+        "larger_is_closer_accuracy": 0.8588007736943907,
+        "pairs": 2068,
+        "smaller_correct": 291,
+        "smaller_is_closer_accuracy": 0.140715667311412,
+        "tie_fraction": 0.00048355899419729207,
+        "ties": 1
+      },
+      "variant": "input_prune_then_block0_mlp_dfq"
+    }
+  }
+}

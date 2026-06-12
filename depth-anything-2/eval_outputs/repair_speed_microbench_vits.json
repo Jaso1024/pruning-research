@@ -1,0 +1,119 @@
+{
+  "benchmarks": [
+    {
+      "iters": 500,
+      "max_ms": 0.04851200059056282,
+      "mean_ms": 0.03776473615318537,
+      "median_ms": 0.037087999284267426,
+      "min_ms": 0.035999998450279236,
+      "name": "DFQ_cross_layer_equalize_mlp_weight_only",
+      "p90_ms": 0.039712000638246536,
+      "passes_1ms_median": true
+    },
+    {
+      "iters": 500,
+      "max_ms": 0.05423999950289726,
+      "mean_ms": 0.04632940764725208,
+      "median_ms": 0.04543999955058098,
+      "min_ms": 0.04476799815893173,
+      "name": "bias_correction_weight_only_proxy",
+      "p90_ms": 0.04838399961590767,
+      "passes_1ms_median": true
+    },
+    {
+      "iters": 300,
+      "max_ms": 0.08220800012350082,
+      "mean_ms": 0.07016704137126605,
+      "median_ms": 0.06985600292682648,
+      "min_ms": 0.06393600255250931,
+      "name": "SQuant_CASE_diagonal_proxy_weight_only",
+      "p90_ms": 0.07196799665689468,
+      "passes_1ms_median": true
+    },
+    {
+      "iters": 200,
+      "max_ms": 0.23257599771022797,
+      "mean_ms": 0.22632703892886638,
+      "median_ms": 0.22633600234985352,
+      "min_ms": 0.2247679978609085,
+      "name": "HQQ_half_quadratic_proxy_grouped_W2",
+      "p90_ms": 0.2274239957332611,
+      "passes_1ms_median": true
+    },
+    {
+      "iters": 100,
+      "max_ms": 0.4479680061340332,
+      "mean_ms": 0.43394080132246016,
+      "median_ms": 0.43321600556373596,
+      "min_ms": 0.43004798889160156,
+      "name": "HIGGS_Hadamard_plus_grid_proxy_W2",
+      "p90_ms": 0.43696001172065735,
+      "passes_1ms_median": true
+    },
+    {
+      "iters": 300,
+      "max_ms": 0.2925119996070862,
+      "mean_ms": 0.28213397453228634,
+      "median_ms": 0.28193598985671997,
+      "min_ms": 0.279231995344162,
+      "name": "SINQ_row_col_scaling_8iter_W2",
+      "p90_ms": 0.28431999683380127,
+      "passes_1ms_median": true
+    },
+    {
+      "iters": 300,
+      "max_ms": 0.08515200018882751,
+      "mean_ms": 0.07037728101015091,
+      "median_ms": 0.06972800195217133,
+      "min_ms": 0.06656000018119812,
+      "name": "CafeQ_one_proxy_step_lower_bound_W2",
+      "p90_ms": 0.07507199794054031,
+      "passes_1ms_median": true
+    },
+    {
+      "iters": 20,
+      "max_ms": 5.759615898132324,
+      "mean_ms": 5.749283218383789,
+      "median_ms": 5.749680042266846,
+      "min_ms": 5.73740816116333,
+      "name": "calibrated_fc2_lstsq_4096_tokens_lower_bound",
+      "p90_ms": 5.756927967071533,
+      "passes_1ms_median": false
+    },
+    {
+      "iters": 100,
+      "max_ms": 0.662335991859436,
+      "mean_ms": 0.6569625598192215,
+      "median_ms": 0.657232016324997,
+      "min_ms": 0.650111973285675,
+      "name": "one_MLP_forward_4096_tokens_lower_bound",
+      "p90_ms": 0.6592959761619568,
+      "passes_1ms_median": true
+    }
+  ],
+  "cuda_available": true,
+  "device": "cuda",
+  "hqq_installed": false,
+  "shapes": {
+    "D": 384,
+    "H": 1536,
+    "fc1": [
+      1536,
+      384
+    ],
+    "fc2": [
+      384,
+      1536
+    ],
+    "proj": [
+      384,
+      384
+    ],
+    "qkv": [
+      1152,
+      384
+    ]
+  },
+  "timing_scope": "single vits MLP/matrix repair primitive; excludes model load/eval; CUDA event time on GPU",
+  "torch": "2.12.0+cu130"
+}

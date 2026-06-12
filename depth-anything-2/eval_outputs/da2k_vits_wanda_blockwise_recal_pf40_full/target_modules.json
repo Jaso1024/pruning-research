@@ -1,0 +1,434 @@
+[
+  {
+    "layer_index": 0,
+    "name": "pretrained.blocks.0.attn.qkv",
+    "shape": [
+      1152,
+      384
+    ],
+    "weights": 442368
+  },
+  {
+    "layer_index": 0,
+    "name": "pretrained.blocks.0.attn.proj",
+    "shape": [
+      384,
+      384
+    ],
+    "weights": 147456
+  },
+  {
+    "layer_index": 0,
+    "name": "pretrained.blocks.0.mlp.fc1",
+    "shape": [
+      1536,
+      384
+    ],
+    "weights": 589824
+  },
+  {
+    "layer_index": 0,
+    "name": "pretrained.blocks.0.mlp.fc2",
+    "shape": [
+      384,
+      1536
+    ],
+    "weights": 589824
+  },
+  {
+    "layer_index": 1,
+    "name": "pretrained.blocks.1.attn.qkv",
+    "shape": [
+      1152,
+      384
+    ],
+    "weights": 442368
+  },
+  {
+    "layer_index": 1,
+    "name": "pretrained.blocks.1.attn.proj",
+    "shape": [
+      384,
+      384
+    ],
+    "weights": 147456
+  },
+  {
+    "layer_index": 1,
+    "name": "pretrained.blocks.1.mlp.fc1",
+    "shape": [
+      1536,
+      384
+    ],
+    "weights": 589824
+  },
+  {
+    "layer_index": 1,
+    "name": "pretrained.blocks.1.mlp.fc2",
+    "shape": [
+      384,
+      1536
+    ],
+    "weights": 589824
+  },
+  {
+    "layer_index": 2,
+    "name": "pretrained.blocks.2.attn.qkv",
+    "shape": [
+      1152,
+      384
+    ],
+    "weights": 442368
+  },
+  {
+    "layer_index": 2,
+    "name": "pretrained.blocks.2.attn.proj",
+    "shape": [
+      384,
+      384
+    ],
+    "weights": 147456
+  },
+  {
+    "layer_index": 2,
+    "name": "pretrained.blocks.2.mlp.fc1",
+    "shape": [
+      1536,
+      384
+    ],
+    "weights": 589824
+  },
+  {
+    "layer_index": 2,
+    "name": "pretrained.blocks.2.mlp.fc2",
+    "shape": [
+      384,
+      1536
+    ],
+    "weights": 589824
+  },
+  {
+    "layer_index": 3,
+    "name": "pretrained.blocks.3.attn.qkv",
+    "shape": [
+      1152,
+      384
+    ],
+    "weights": 442368
+  },
+  {
+    "layer_index": 3,
+    "name": "pretrained.blocks.3.attn.proj",
+    "shape": [
+      384,
+      384
+    ],
+    "weights": 147456
+  },
+  {
+    "layer_index": 3,
+    "name": "pretrained.blocks.3.mlp.fc1",
+    "shape": [
+      1536,
+      384
+    ],
+    "weights": 589824
+  },
+  {
+    "layer_index": 3,
+    "name": "pretrained.blocks.3.mlp.fc2",
+    "shape": [
+      384,
+      1536
+    ],
+    "weights": 589824
+  },
+  {
+    "layer_index": 4,
+    "name": "pretrained.blocks.4.attn.qkv",
+    "shape": [
+      1152,
+      384
+    ],
+    "weights": 442368
+  },
+  {
+    "layer_index": 4,
+    "name": "pretrained.blocks.4.attn.proj",
+    "shape": [
+      384,
+      384
+    ],
+    "weights": 147456
+  },
+  {
+    "layer_index": 4,
+    "name": "pretrained.blocks.4.mlp.fc1",
+    "shape": [
+      1536,
+      384
+    ],
+    "weights": 589824
+  },
+  {
+    "layer_index": 4,
+    "name": "pretrained.blocks.4.mlp.fc2",
+    "shape": [
+      384,
+      1536
+    ],
+    "weights": 589824
+  },
+  {
+    "layer_index": 5,
+    "name": "pretrained.blocks.5.attn.qkv",
+    "shape": [
+      1152,
+      384
+    ],
+    "weights": 442368
+  },
+  {
+    "layer_index": 5,
+    "name": "pretrained.blocks.5.attn.proj",
+    "shape": [
+      384,
+      384
+    ],
+    "weights": 147456
+  },
+  {
+    "layer_index": 5,
+    "name": "pretrained.blocks.5.mlp.fc1",
+    "shape": [
+      1536,
+      384
+    ],
+    "weights": 589824
+  },
+  {
+    "layer_index": 5,
+    "name": "pretrained.blocks.5.mlp.fc2",
+    "shape": [
+      384,
+      1536
+    ],
+    "weights": 589824
+  },
+  {
+    "layer_index": 6,
+    "name": "pretrained.blocks.6.attn.qkv",
+    "shape": [
+      1152,
+      384
+    ],
+    "weights": 442368
+  },
+  {
+    "layer_index": 6,
+    "name": "pretrained.blocks.6.attn.proj",
+    "shape": [
+      384,
+      384
+    ],
+    "weights": 147456
+  },
+  {
+    "layer_index": 6,
+    "name": "pretrained.blocks.6.mlp.fc1",
+    "shape": [
+      1536,
+      384
+    ],
+    "weights": 589824
+  },
+  {
+    "layer_index": 6,
+    "name": "pretrained.blocks.6.mlp.fc2",
+    "shape": [
+      384,
+      1536
+    ],
+    "weights": 589824
+  },
+  {
+    "layer_index": 7,
+    "name": "pretrained.blocks.7.attn.qkv",
+    "shape": [
+      1152,
+      384
+    ],
+    "weights": 442368
+  },
+  {
+    "layer_index": 7,
+    "name": "pretrained.blocks.7.attn.proj",
+    "shape": [
+      384,
+      384
+    ],
+    "weights": 147456
+  },
+  {
+    "layer_index": 7,
+    "name": "pretrained.blocks.7.mlp.fc1",
+    "shape": [
+      1536,
+      384
+    ],
+    "weights": 589824
+  },
+  {
+    "layer_index": 7,
+    "name": "pretrained.blocks.7.mlp.fc2",
+    "shape": [
+      384,
+      1536
+    ],
+    "weights": 589824
+  },
+  {
+    "layer_index": 8,
+    "name": "pretrained.blocks.8.attn.qkv",
+    "shape": [
+      1152,
+      384
+    ],
+    "weights": 442368
+  },
+  {
+    "layer_index": 8,
+    "name": "pretrained.blocks.8.attn.proj",
+    "shape": [
+      384,
+      384
+    ],
+    "weights": 147456
+  },
+  {
+    "layer_index": 8,
+    "name": "pretrained.blocks.8.mlp.fc1",
+    "shape": [
+      1536,
+      384
+    ],
+    "weights": 589824
+  },
+  {
+    "layer_index": 8,
+    "name": "pretrained.blocks.8.mlp.fc2",
+    "shape": [
+      384,
+      1536
+    ],
+    "weights": 589824
+  },
+  {
+    "layer_index": 9,
+    "name": "pretrained.blocks.9.attn.qkv",
+    "shape": [
+      1152,
+      384
+    ],
+    "weights": 442368
+  },
+  {
+    "layer_index": 9,
+    "name": "pretrained.blocks.9.attn.proj",
+    "shape": [
+      384,
+      384
+    ],
+    "weights": 147456
+  },
+  {
+    "layer_index": 9,
+    "name": "pretrained.blocks.9.mlp.fc1",
+    "shape": [
+      1536,
+      384
+    ],
+    "weights": 589824
+  },
+  {
+    "layer_index": 9,
+    "name": "pretrained.blocks.9.mlp.fc2",
+    "shape": [
+      384,
+      1536
+    ],
+    "weights": 589824
+  },
+  {
+    "layer_index": 10,
+    "name": "pretrained.blocks.10.attn.qkv",
+    "shape": [
+      1152,
+      384
+    ],
+    "weights": 442368
+  },
+  {
+    "layer_index": 10,
+    "name": "pretrained.blocks.10.attn.proj",
+    "shape": [
+      384,
+      384
+    ],
+    "weights": 147456
+  },
+  {
+    "layer_index": 10,
+    "name": "pretrained.blocks.10.mlp.fc1",
+    "shape": [
+      1536,
+      384
+    ],
+    "weights": 589824
+  },
+  {
+    "layer_index": 10,
+    "name": "pretrained.blocks.10.mlp.fc2",
+    "shape": [
+      384,
+      1536
+    ],
+    "weights": 589824
+  },
+  {
+    "layer_index": 11,
+    "name": "pretrained.blocks.11.attn.qkv",
+    "shape": [
+      1152,
+      384
+    ],
+    "weights": 442368
+  },
+  {
+    "layer_index": 11,
+    "name": "pretrained.blocks.11.attn.proj",
+    "shape": [
+      384,
+      384
+    ],
+    "weights": 147456
+  },
+  {
+    "layer_index": 11,
+    "name": "pretrained.blocks.11.mlp.fc1",
+    "shape": [
+      1536,
+      384
+    ],
+    "weights": 589824
+  },
+  {
+    "layer_index": 11,
+    "name": "pretrained.blocks.11.mlp.fc2",
+    "shape": [
+      384,
+      1536
+    ],
+    "weights": 589824
+  }
+]

@@ -1,0 +1,173 @@
+{
+  "full": {},
+  "metadata": {
+    "calibration_images": 8,
+    "calibration_token_limit": 4096,
+    "checkpoint": "checkpoints/depth_anything_v2_vits.pth",
+    "device": "cuda",
+    "full_reference_input_prune_only": "eval_outputs/da2k_vits_input_prune_block0_dfq/summary_full.json",
+    "patch_input_pruning": {
+      "fill_mode": "zero",
+      "keep_high": true,
+      "keep_percentage": 0.5,
+      "norm": "l2"
+    },
+    "scope": "block0 MLP only after patch input pruning",
+    "target": "dense teacher block0 MLP outputs on kept patch tokens and cls token"
+  },
+  "smoke64": {
+    "fc1_diag_gn": {
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.8208955223880597,
+          "best_direction": "larger",
+          "larger_correct": 110,
+          "larger_is_closer_accuracy": 0.8208955223880597,
+          "pairs": 134,
+          "smaller_correct": 24,
+          "smaller_is_closer_accuracy": 0.1791044776119403,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "elapsed_total_seconds": 1.8136805510148406,
+      "extra": {
+        "calibration_images": 8,
+        "calibration_tokens": 4096,
+        "repairs": [
+          {
+            "after_mse": 0.00046587566612288356,
+            "before_mse": 0.0008624786860309541,
+            "damp": 0.01,
+            "elapsed_seconds": 0.03701106202788651,
+            "mse": 0.00046587566612288356,
+            "repair": "fc1_diagonal_gauss_newton_line_search",
+            "step_scale": 0.01,
+            "tokens": 4096
+          }
+        ]
+      },
+      "metadata": {
+        "elapsed_seconds": 1.8131398989935406,
+        "images_requested": 64,
+        "missing_images": []
+      },
+      "overall": {
+        "best_accuracy": 0.8208955223880597,
+        "best_direction": "larger",
+        "larger_correct": 110,
+        "larger_is_closer_accuracy": 0.8208955223880597,
+        "pairs": 134,
+        "smaller_correct": 24,
+        "smaller_is_closer_accuracy": 0.1791044776119403,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "variant": "fc1_diag_gn_smoke64"
+    },
+    "fc1_diag_then_fc2_gn_lstsq": {
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.8283582089552238,
+          "best_direction": "larger",
+          "larger_correct": 111,
+          "larger_is_closer_accuracy": 0.8283582089552238,
+          "pairs": 134,
+          "smaller_correct": 23,
+          "smaller_is_closer_accuracy": 0.17164179104477612,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "elapsed_total_seconds": 1.782070824992843,
+      "extra": {
+        "calibration_images": 8,
+        "calibration_tokens": 4096,
+        "repairs": [
+          {
+            "after_mse": 0.00046587566612288356,
+            "before_mse": 0.0008624786860309541,
+            "damp": 0.01,
+            "elapsed_seconds": 0.015068009961396456,
+            "mse": 0.00046587566612288356,
+            "repair": "fc1_diagonal_gauss_newton_line_search",
+            "step_scale": 0.01,
+            "tokens": 4096
+          },
+          {
+            "after_mse": 0.00022233472554944456,
+            "before_mse": 0.00046587566612288356,
+            "elapsed_seconds": 0.006907451956067234,
+            "repair": "fc2_exact_gauss_newton_ridge_lstsq",
+            "ridge": 0.001,
+            "tokens": 4096
+          }
+        ]
+      },
+      "metadata": {
+        "elapsed_seconds": 1.782056538038887,
+        "images_requested": 64,
+        "missing_images": []
+      },
+      "overall": {
+        "best_accuracy": 0.8283582089552238,
+        "best_direction": "larger",
+        "larger_correct": 111,
+        "larger_is_closer_accuracy": 0.8283582089552238,
+        "pairs": 134,
+        "smaller_correct": 23,
+        "smaller_is_closer_accuracy": 0.17164179104477612,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "variant": "fc1_diag_then_fc2_gn_lstsq_smoke64"
+    },
+    "fc2_gn_lstsq": {
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.835820895522388,
+          "best_direction": "larger",
+          "larger_correct": 112,
+          "larger_is_closer_accuracy": 0.835820895522388,
+          "pairs": 134,
+          "smaller_correct": 22,
+          "smaller_is_closer_accuracy": 0.16417910447761194,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "elapsed_total_seconds": 1.8352001620223746,
+      "extra": {
+        "calibration_images": 8,
+        "calibration_tokens": 4096,
+        "repairs": [
+          {
+            "after_mse": 0.0002195331617258489,
+            "before_mse": 0.0008624786860309541,
+            "elapsed_seconds": 0.033374549995642155,
+            "repair": "fc2_exact_gauss_newton_ridge_lstsq",
+            "ridge": 0.001,
+            "tokens": 4096
+          }
+        ]
+      },
+      "metadata": {
+        "elapsed_seconds": 1.8349195350310765,
+        "images_requested": 64,
+        "missing_images": []
+      },
+      "overall": {
+        "best_accuracy": 0.835820895522388,
+        "best_direction": "larger",
+        "larger_correct": 112,
+        "larger_is_closer_accuracy": 0.835820895522388,
+        "pairs": 134,
+        "smaller_correct": 22,
+        "smaller_is_closer_accuracy": 0.16417910447761194,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "variant": "fc2_gn_lstsq_smoke64"
+    }
+  }
+}

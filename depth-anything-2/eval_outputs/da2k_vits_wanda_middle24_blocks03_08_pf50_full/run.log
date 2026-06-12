@@ -1,0 +1,77 @@
+xFormers not available
+xFormers not available
+wanda refresh 1:   0%|          | 0/8 [00:00<?, ?image/s]wanda refresh 1:  12%|█▎        | 1/8 [00:00<00:00,  7.71image/s]wanda refresh 1:  75%|███████▌  | 6/8 [00:00<00:00, 27.78image/s]wanda refresh 1: 100%|██████████| 8/8 [00:00<00:00, 27.72image/s]
+{"activation_stats": {"max_tokens": 15622, "mean_input_rms": 0.9342429923514525, "min_tokens": 15622, "module_count": 24}, "actual_zero_fraction": 0.049999095775462965, "chunk_fraction": 0.05, "elapsed_seconds": 0.37857760398765095, "final_target_reached": false, "matrix_tensors_pruned": 24, "pruning_scope": "per_matrix_iterative", "step": 1, "target_fraction": 0.05, "target_reached": false, "weights_seen": 10616832, "weights_zeroed_this_step": 530832, "weights_zeroed_total": 530832}
+wanda refresh 2:   0%|          | 0/8 [00:00<?, ?image/s]wanda refresh 2:  62%|██████▎   | 5/8 [00:00<00:00, 42.61image/s]wanda refresh 2: 100%|██████████| 8/8 [00:00<00:00, 43.29image/s]
+{"activation_stats": {"max_tokens": 15622, "mean_input_rms": 0.9342174977064133, "min_tokens": 15622, "module_count": 24}, "actual_zero_fraction": 0.09999819155092593, "chunk_fraction": 0.05, "elapsed_seconds": 0.5929576479829848, "final_target_reached": false, "matrix_tensors_pruned": 24, "pruning_scope": "per_matrix_iterative", "step": 2, "target_fraction": 0.1, "target_reached": false, "weights_seen": 10616832, "weights_zeroed_this_step": 530832, "weights_zeroed_total": 1061664}
+wanda refresh 3:   0%|          | 0/8 [00:00<?, ?image/s]wanda refresh 3:  62%|██████▎   | 5/8 [00:00<00:00, 42.62image/s]wanda refresh 3: 100%|██████████| 8/8 [00:00<00:00, 43.30image/s]
+{"activation_stats": {"max_tokens": 15622, "mean_input_rms": 0.9341672702382008, "min_tokens": 15622, "module_count": 24}, "actual_zero_fraction": 0.1499972873263889, "chunk_fraction": 0.05, "elapsed_seconds": 0.805283674999373, "final_target_reached": false, "matrix_tensors_pruned": 24, "pruning_scope": "per_matrix_iterative", "step": 3, "target_fraction": 0.15000000000000002, "target_reached": false, "weights_seen": 10616832, "weights_zeroed_this_step": 530832, "weights_zeroed_total": 1592496}
+wanda refresh 4:   0%|          | 0/8 [00:00<?, ?image/s]wanda refresh 4:  62%|██████▎   | 5/8 [00:00<00:00, 42.67image/s]wanda refresh 4: 100%|██████████| 8/8 [00:00<00:00, 43.32image/s]
+{"activation_stats": {"max_tokens": 15622, "mean_input_rms": 0.9342068259914716, "min_tokens": 15622, "module_count": 24}, "actual_zero_fraction": 0.19999638310185186, "chunk_fraction": 0.05, "elapsed_seconds": 1.0174466510070488, "final_target_reached": false, "matrix_tensors_pruned": 24, "pruning_scope": "per_matrix_iterative", "step": 4, "target_fraction": 0.2, "target_reached": false, "weights_seen": 10616832, "weights_zeroed_this_step": 530832, "weights_zeroed_total": 2123328}
+wanda refresh 5:   0%|          | 0/8 [00:00<?, ?image/s]wanda refresh 5:  62%|██████▎   | 5/8 [00:00<00:00, 42.62image/s]wanda refresh 5: 100%|██████████| 8/8 [00:00<00:00, 43.29image/s]
+{"activation_stats": {"max_tokens": 15622, "mean_input_rms": 0.9339154132952293, "min_tokens": 15622, "module_count": 24}, "actual_zero_fraction": 0.24999547887731483, "chunk_fraction": 0.05, "elapsed_seconds": 1.2297883479914162, "final_target_reached": false, "matrix_tensors_pruned": 24, "pruning_scope": "per_matrix_iterative", "step": 5, "target_fraction": 0.25, "target_reached": false, "weights_seen": 10616832, "weights_zeroed_this_step": 530832, "weights_zeroed_total": 2654160}
+wanda refresh 6:   0%|          | 0/8 [00:00<?, ?image/s]wanda refresh 6:  62%|██████▎   | 5/8 [00:00<00:00, 42.67image/s]wanda refresh 6: 100%|██████████| 8/8 [00:00<00:00, 43.33image/s]
+{"activation_stats": {"max_tokens": 15622, "mean_input_rms": 0.9338051546365023, "min_tokens": 15622, "module_count": 24}, "actual_zero_fraction": 0.2999945746527778, "chunk_fraction": 0.05, "elapsed_seconds": 1.4419152050104458, "final_target_reached": false, "matrix_tensors_pruned": 24, "pruning_scope": "per_matrix_iterative", "step": 6, "target_fraction": 0.30000000000000004, "target_reached": false, "weights_seen": 10616832, "weights_zeroed_this_step": 530832, "weights_zeroed_total": 3184992}
+wanda refresh 7:   0%|          | 0/8 [00:00<?, ?image/s]wanda refresh 7:  62%|██████▎   | 5/8 [00:00<00:00, 42.62image/s]wanda refresh 7: 100%|██████████| 8/8 [00:00<00:00, 43.29image/s]
+{"activation_stats": {"max_tokens": 15622, "mean_input_rms": 0.9334554330756267, "min_tokens": 15622, "module_count": 24}, "actual_zero_fraction": 0.34999367042824076, "chunk_fraction": 0.05, "elapsed_seconds": 1.6541702969989274, "final_target_reached": false, "matrix_tensors_pruned": 24, "pruning_scope": "per_matrix_iterative", "step": 7, "target_fraction": 0.35000000000000003, "target_reached": false, "weights_seen": 10616832, "weights_zeroed_this_step": 530832, "weights_zeroed_total": 3715824}
+wanda refresh 8:   0%|          | 0/8 [00:00<?, ?image/s]wanda refresh 8:  62%|██████▎   | 5/8 [00:00<00:00, 42.62image/s]wanda refresh 8: 100%|██████████| 8/8 [00:00<00:00, 43.28image/s]
+{"activation_stats": {"max_tokens": 15622, "mean_input_rms": 0.9312657167514166, "min_tokens": 15622, "module_count": 24}, "actual_zero_fraction": 0.3999927662037037, "chunk_fraction": 0.05, "elapsed_seconds": 1.8663999499985948, "final_target_reached": false, "matrix_tensors_pruned": 24, "pruning_scope": "per_matrix_iterative", "step": 8, "target_fraction": 0.4, "target_reached": false, "weights_seen": 10616832, "weights_zeroed_this_step": 530832, "weights_zeroed_total": 4246656}
+wanda refresh 9:   0%|          | 0/8 [00:00<?, ?image/s]wanda refresh 9:  62%|██████▎   | 5/8 [00:00<00:00, 42.58image/s]wanda refresh 9: 100%|██████████| 8/8 [00:00<00:00, 43.27image/s]
+{"activation_stats": {"max_tokens": 15622, "mean_input_rms": 0.9297930765897036, "min_tokens": 15622, "module_count": 24}, "actual_zero_fraction": 0.4499918619791667, "chunk_fraction": 0.05, "elapsed_seconds": 2.0786987349856645, "final_target_reached": false, "matrix_tensors_pruned": 24, "pruning_scope": "per_matrix_iterative", "step": 9, "target_fraction": 0.45, "target_reached": false, "weights_seen": 10616832, "weights_zeroed_this_step": 530832, "weights_zeroed_total": 4777488}
+wanda refresh 10:   0%|          | 0/8 [00:00<?, ?image/s]wanda refresh 10:  62%|██████▎   | 5/8 [00:00<00:00, 42.61image/s]wanda refresh 10: 100%|██████████| 8/8 [00:00<00:00, 43.29image/s]
+{"activation_stats": {"max_tokens": 15622, "mean_input_rms": 0.9276044728855292, "min_tokens": 15622, "module_count": 24}, "actual_zero_fraction": 0.49999095775462965, "chunk_fraction": 0.05, "elapsed_seconds": 2.2908678730018437, "final_target_reached": false, "matrix_tensors_pruned": 24, "pruning_scope": "per_matrix_iterative", "step": 10, "target_fraction": 0.5, "target_reached": false, "weights_seen": 10616832, "weights_zeroed_this_step": 530832, "weights_zeroed_total": 5308320}
+wanda refresh 11:   0%|          | 0/8 [00:00<?, ?image/s]wanda refresh 11:  62%|██████▎   | 5/8 [00:00<00:00, 42.60image/s]wanda refresh 11: 100%|██████████| 8/8 [00:00<00:00, 43.27image/s]
+{"activation_stats": {"max_tokens": 15622, "mean_input_rms": 0.9228368867188692, "min_tokens": 15622, "module_count": 24}, "actual_zero_fraction": 0.5, "chunk_fraction": 0.05, "elapsed_seconds": 2.509705358010251, "final_target_reached": true, "matrix_tensors_pruned": 24, "pruning_scope": "per_matrix_iterative", "step": 11, "target_fraction": 0.5, "target_reached": true, "weights_seen": 10616832, "weights_zeroed_this_step": 96, "weights_zeroed_total": 5308416}
+evaluated 50/1033 images
+evaluated 100/1033 images
+evaluated 150/1033 images
+evaluated 200/1033 images
+evaluated 250/1033 images
+evaluated 300/1033 images
+evaluated 350/1033 images
+evaluated 400/1033 images
+evaluated 450/1033 images
+evaluated 500/1033 images
+evaluated 550/1033 images
+evaluated 600/1033 images
+evaluated 650/1033 images
+evaluated 700/1033 images
+evaluated 750/1033 images
+evaluated 800/1033 images
+evaluated 850/1033 images
+evaluated 900/1033 images
+evaluated 950/1033 images
+evaluated 1000/1033 images
+evaluated 1033/1033 images
+{
+  "baseline": null,
+  "output_dir": "eval_outputs/da2k_vits_wanda_middle24_blocks03_08_pf50_full",
+  "pruned": {
+    "best_accuracy": 0.7954545454545454,
+    "best_direction": "larger",
+    "larger_correct": 1645,
+    "larger_is_closer_accuracy": 0.7954545454545454,
+    "pairs": 2068,
+    "smaller_correct": 423,
+    "smaller_is_closer_accuracy": 0.20454545454545456,
+    "tie_fraction": 0.0,
+    "ties": 0
+  },
+  "pruning": {
+    "actual_zero_fraction": 0.5,
+    "chunk_fraction": 0.05,
+    "method": "wanda",
+    "pruning_scope": "per_matrix_iterative",
+    "recompute_every_weights": 530841,
+    "repair_lr": 1e-05,
+    "repair_objective": "none",
+    "repair_steps_per_pruning_step": 0,
+    "rule": "iterative per-matrix WANDA: recompute abs(weight) * input_activation_rms on the current pruned Depth Anything model, then zero the next lowest-score unstructured chunk in each linear matrix until target_fraction is reached; prune masks are reapplied after each chunk",
+    "score_normalization": "none",
+    "steps": 11,
+    "target": "transformer",
+    "target_fraction": 0.5,
+    "weights_seen": 10616832,
+    "weights_zeroed": 5308416
+  }
+}

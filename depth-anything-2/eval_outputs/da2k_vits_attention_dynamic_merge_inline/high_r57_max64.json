@@ -1,0 +1,47 @@
+{
+  "by_scene": {
+    "indoor": {
+      "best_accuracy": 0.8731343283582089,
+      "best_direction": "larger",
+      "larger_correct": 117,
+      "larger_is_closer_accuracy": 0.8731343283582089,
+      "pairs": 134,
+      "smaller_correct": 17,
+      "smaller_is_closer_accuracy": 0.12686567164179105,
+      "tie_fraction": 0.0,
+      "ties": 0
+    }
+  },
+  "metadata": {
+    "elapsed_seconds": 5.045791894954164,
+    "max_images": 64,
+    "merge_r": 57,
+    "merged_per_layer_total": [
+      3648,
+      3648,
+      3648,
+      3648,
+      3648,
+      3648,
+      3648,
+      3648,
+      3648,
+      3648,
+      3648,
+      3648
+    ],
+    "mode": "high",
+    "prototype": "dynamic_current_image_mutual_attention_merge"
+  },
+  "overall": {
+    "best_accuracy": 0.8731343283582089,
+    "best_direction": "larger",
+    "larger_correct": 117,
+    "larger_is_closer_accuracy": 0.8731343283582089,
+    "pairs": 134,
+    "smaller_correct": 17,
+    "smaller_is_closer_accuracy": 0.12686567164179105,
+    "tie_fraction": 0.0,
+    "ties": 0
+  }
+}

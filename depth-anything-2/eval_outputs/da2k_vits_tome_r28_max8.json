@@ -1,0 +1,45 @@
+{
+  "by_scene": {
+    "indoor": {
+      "best_accuracy": 0.8888888888888888,
+      "best_direction": "larger",
+      "larger_correct": 16,
+      "larger_is_closer_accuracy": 0.8888888888888888,
+      "pairs": 18,
+      "smaller_correct": 2,
+      "smaller_is_closer_accuracy": 0.1111111111111111,
+      "tie_fraction": 0.0,
+      "ties": 0
+    }
+  },
+  "metadata": {
+    "checkpoint": "checkpoints/depth_anything_v2_vits.pth",
+    "dataset_root": "datasets/DA-2K/extracted/DA-2K",
+    "device": "cuda",
+    "elapsed_seconds": 0.648809406964574,
+    "encoder": "vits",
+    "images_requested": 8,
+    "input_size": 518,
+    "log_every": 1,
+    "max_images": 8,
+    "merge_r": 28,
+    "missing_images": [],
+    "output_json": "eval_outputs/da2k_vits_tome_r28_max8.json",
+    "patch_count_at_square_input": 1369,
+    "requested_max_merges_across_blocks": 336,
+    "requested_merges_per_layer": 28,
+    "rule": "DA-2K labels point1 as closer; Depth Anything V2 vits uses larger predicted values for closer points.",
+    "scene_type": ""
+  },
+  "overall": {
+    "best_accuracy": 0.8888888888888888,
+    "best_direction": "larger",
+    "larger_correct": 16,
+    "larger_is_closer_accuracy": 0.8888888888888888,
+    "pairs": 18,
+    "smaller_correct": 2,
+    "smaller_is_closer_accuracy": 0.1111111111111111,
+    "tie_fraction": 0.0,
+    "ties": 0
+  }
+}

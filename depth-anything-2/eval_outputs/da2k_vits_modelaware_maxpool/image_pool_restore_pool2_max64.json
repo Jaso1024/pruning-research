@@ -1,0 +1,49 @@
+{
+  "by_scene": {
+    "indoor": {
+      "best_accuracy": 0.8208955223880597,
+      "best_direction": "larger",
+      "larger_correct": 110,
+      "larger_is_closer_accuracy": 0.8208955223880597,
+      "pairs": 134,
+      "smaller_correct": 24,
+      "smaller_is_closer_accuracy": 0.1791044776119403,
+      "tie_fraction": 0.0,
+      "ties": 0
+    }
+  },
+  "metadata": {
+    "elapsed_seconds": 1.8252018640050665,
+    "max_images": 64,
+    "pool": 2,
+    "shape_counts": {
+      "{'orig_hw': (37, 41), 'pool_hw': (18, 20)}": 1,
+      "{'orig_hw': (37, 45), 'pool_hw': (18, 22)}": 1,
+      "{'orig_hw': (37, 49), 'pool_hw': (18, 24)}": 16,
+      "{'orig_hw': (37, 50), 'pool_hw': (18, 25)}": 4,
+      "{'orig_hw': (37, 51), 'pool_hw': (18, 25)}": 1,
+      "{'orig_hw': (37, 52), 'pool_hw': (18, 26)}": 1,
+      "{'orig_hw': (37, 55), 'pool_hw': (18, 27)}": 6,
+      "{'orig_hw': (37, 56), 'pool_hw': (18, 28)}": 16,
+      "{'orig_hw': (37, 57), 'pool_hw': (18, 28)}": 2,
+      "{'orig_hw': (37, 62), 'pool_hw': (18, 31)}": 1,
+      "{'orig_hw': (37, 65), 'pool_hw': (18, 32)}": 2,
+      "{'orig_hw': (37, 66), 'pool_hw': (18, 33)}": 7,
+      "{'orig_hw': (37, 72), 'pool_hw': (18, 36)}": 1,
+      "{'orig_hw': (37, 81), 'pool_hw': (18, 40)}": 1,
+      "{'orig_hw': (56, 37), 'pool_hw': (28, 18)}": 4
+    },
+    "variant": "image_pool_restore"
+  },
+  "overall": {
+    "best_accuracy": 0.8208955223880597,
+    "best_direction": "larger",
+    "larger_correct": 110,
+    "larger_is_closer_accuracy": 0.8208955223880597,
+    "pairs": 134,
+    "smaller_correct": 24,
+    "smaller_is_closer_accuracy": 0.1791044776119403,
+    "tie_fraction": 0.0,
+    "ties": 0
+  }
+}

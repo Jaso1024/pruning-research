@@ -1,0 +1,147 @@
+{
+  "metadata": {
+    "checkpoint": "checkpoints/depth_anything_v2_vits.pth",
+    "dataset_root": "datasets/DA-2K/extracted/DA-2K",
+    "device": "cuda",
+    "dfq": {
+      "caveat": "Not function-preserving through GELU; tested as a perturbative post-input-pruning repair.",
+      "operation": "scale fc1 rows+bias by sqrt(fc2_col_range/fc1_row_range), divide fc2 columns by same scale",
+      "target": "pretrained.blocks.0.mlp only"
+    },
+    "encoder": "vits",
+    "images": 64,
+    "input_size": 518,
+    "max_images": 64,
+    "patch_input_pruning": {
+      "fill_mode": "zero",
+      "keep_high": true,
+      "keep_percentage": 0.5,
+      "norm": "l2",
+      "script": "eval_patch_norm_da2k.py"
+    }
+  },
+  "variants": {
+    "block0_mlp_dfq_only_no_input_prune": {
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.9104477611940298,
+          "best_direction": "larger",
+          "larger_correct": 122,
+          "larger_is_closer_accuracy": 0.9104477611940298,
+          "pairs": 134,
+          "smaller_correct": 12,
+          "smaller_is_closer_accuracy": 0.08955223880597014,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "extra": {
+        "dfq_stats": {
+          "fc1_range_before_max": 0.5590309500694275,
+          "fc1_range_before_min": 0.03694124519824982,
+          "fc2_col_range_before_max": 0.47339627146720886,
+          "fc2_col_range_before_min": 0.02000964619219303,
+          "scale_max": 1.8377346992492676,
+          "scale_mean": 0.8641767501831055,
+          "scale_min": 0.42090904712677,
+          "scale_std": 0.17285001277923584
+        }
+      },
+      "metadata": {
+        "elapsed_seconds": 2.758860025962349,
+        "images_requested": 64,
+        "missing_images": []
+      },
+      "overall": {
+        "best_accuracy": 0.9104477611940298,
+        "best_direction": "larger",
+        "larger_correct": 122,
+        "larger_is_closer_accuracy": 0.9104477611940298,
+        "pairs": 134,
+        "smaller_correct": 12,
+        "smaller_is_closer_accuracy": 0.08955223880597014,
+        "tie_fraction": 0.0,
+        "ties": 0
+      }
+    },
+    "input_prune_only": {
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.8208955223880597,
+          "best_direction": "larger",
+          "larger_correct": 110,
+          "larger_is_closer_accuracy": 0.8208955223880597,
+          "pairs": 134,
+          "smaller_correct": 24,
+          "smaller_is_closer_accuracy": 0.1791044776119403,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "elapsed_total_seconds": 1.9654092179844156,
+      "extra": {},
+      "metadata": {
+        "elapsed_seconds": 1.965391174016986,
+        "images_requested": 64,
+        "missing_images": []
+      },
+      "overall": {
+        "best_accuracy": 0.8208955223880597,
+        "best_direction": "larger",
+        "larger_correct": 110,
+        "larger_is_closer_accuracy": 0.8208955223880597,
+        "pairs": 134,
+        "smaller_correct": 24,
+        "smaller_is_closer_accuracy": 0.1791044776119403,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "variant": "input_prune_only"
+    },
+    "input_prune_then_block0_mlp_dfq": {
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.8134328358208955,
+          "best_direction": "larger",
+          "larger_correct": 109,
+          "larger_is_closer_accuracy": 0.8134328358208955,
+          "pairs": 134,
+          "smaller_correct": 25,
+          "smaller_is_closer_accuracy": 0.1865671641791045,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "elapsed_total_seconds": 1.8166685840114951,
+      "extra": {
+        "dfq_stats": {
+          "fc1_range_before_max": 0.5590309500694275,
+          "fc1_range_before_min": 0.03694124519824982,
+          "fc2_col_range_before_max": 0.47339627146720886,
+          "fc2_col_range_before_min": 0.02000964619219303,
+          "scale_max": 1.8377346992492676,
+          "scale_mean": 0.8641767501831055,
+          "scale_min": 0.42090904712677,
+          "scale_std": 0.17285001277923584
+        }
+      },
+      "metadata": {
+        "elapsed_seconds": 1.8166518630459905,
+        "images_requested": 64,
+        "missing_images": []
+      },
+      "overall": {
+        "best_accuracy": 0.8134328358208955,
+        "best_direction": "larger",
+        "larger_correct": 109,
+        "larger_is_closer_accuracy": 0.8134328358208955,
+        "pairs": 134,
+        "smaller_correct": 25,
+        "smaller_is_closer_accuracy": 0.1865671641791045,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "variant": "input_prune_then_block0_mlp_dfq"
+    }
+  }
+}

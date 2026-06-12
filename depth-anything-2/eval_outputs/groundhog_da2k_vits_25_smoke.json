@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "dataset_root": "datasets/DA-2K/extracted/DA-2K",
+    "checkpoint": "checkpoints/depth_anything_v2_vits.pth",
+    "encoder": "vits",
+    "input_size": 518,
+    "device": "cuda",
+    "scene_type": "",
+    "max_images": 25,
+    "images_requested": 25,
+    "missing_images": [],
+    "elapsed_seconds": 1.7684228420257568,
+    "rule": "DA-2K labels point1 as closer; report both d(point1) < d(point2) and d(point1) > d(point2)."
+  },
+  "overall": {
+    "pairs": 55,
+    "smaller_correct": 4,
+    "larger_correct": 51,
+    "ties": 0,
+    "smaller_is_closer_accuracy": 0.07272727272727272,
+    "larger_is_closer_accuracy": 0.9272727272727272,
+    "best_direction": "larger",
+    "best_accuracy": 0.9272727272727272,
+    "tie_fraction": 0.0
+  },
+  "by_scene": {
+    "indoor": {
+      "pairs": 55,
+      "smaller_correct": 4,
+      "larger_correct": 51,
+      "ties": 0,
+      "smaller_is_closer_accuracy": 0.07272727272727272,
+      "larger_is_closer_accuracy": 0.9272727272727272,
+      "best_direction": "larger",
+      "best_accuracy": 0.9272727272727272,
+      "tie_fraction": 0.0
+    }
+  }
+}

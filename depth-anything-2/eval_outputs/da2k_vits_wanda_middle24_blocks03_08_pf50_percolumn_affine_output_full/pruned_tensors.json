@@ -1,0 +1,242 @@
+[
+  {
+    "actual_zero_fraction": 0.5,
+    "name": "pretrained.blocks.3.attn.proj",
+    "shape": [
+      384,
+      384
+    ],
+    "weights": 147456,
+    "zeroed": 73728
+  },
+  {
+    "actual_zero_fraction": 0.5,
+    "name": "pretrained.blocks.3.attn.qkv",
+    "shape": [
+      1152,
+      384
+    ],
+    "weights": 442368,
+    "zeroed": 221184
+  },
+  {
+    "actual_zero_fraction": 0.5,
+    "name": "pretrained.blocks.3.mlp.fc1",
+    "shape": [
+      1536,
+      384
+    ],
+    "weights": 589824,
+    "zeroed": 294912
+  },
+  {
+    "actual_zero_fraction": 0.5,
+    "name": "pretrained.blocks.3.mlp.fc2",
+    "shape": [
+      384,
+      1536
+    ],
+    "weights": 589824,
+    "zeroed": 294912
+  },
+  {
+    "actual_zero_fraction": 0.5,
+    "name": "pretrained.blocks.4.attn.proj",
+    "shape": [
+      384,
+      384
+    ],
+    "weights": 147456,
+    "zeroed": 73728
+  },
+  {
+    "actual_zero_fraction": 0.5,
+    "name": "pretrained.blocks.4.attn.qkv",
+    "shape": [
+      1152,
+      384
+    ],
+    "weights": 442368,
+    "zeroed": 221184
+  },
+  {
+    "actual_zero_fraction": 0.5,
+    "name": "pretrained.blocks.4.mlp.fc1",
+    "shape": [
+      1536,
+      384
+    ],
+    "weights": 589824,
+    "zeroed": 294912
+  },
+  {
+    "actual_zero_fraction": 0.5,
+    "name": "pretrained.blocks.4.mlp.fc2",
+    "shape": [
+      384,
+      1536
+    ],
+    "weights": 589824,
+    "zeroed": 294912
+  },
+  {
+    "actual_zero_fraction": 0.5,
+    "name": "pretrained.blocks.5.attn.proj",
+    "shape": [
+      384,
+      384
+    ],
+    "weights": 147456,
+    "zeroed": 73728
+  },
+  {
+    "actual_zero_fraction": 0.5,
+    "name": "pretrained.blocks.5.attn.qkv",
+    "shape": [
+      1152,
+      384
+    ],
+    "weights": 442368,
+    "zeroed": 221184
+  },
+  {
+    "actual_zero_fraction": 0.5,
+    "name": "pretrained.blocks.5.mlp.fc1",
+    "shape": [
+      1536,
+      384
+    ],
+    "weights": 589824,
+    "zeroed": 294912
+  },
+  {
+    "actual_zero_fraction": 0.5,
+    "name": "pretrained.blocks.5.mlp.fc2",
+    "shape": [
+      384,
+      1536
+    ],
+    "weights": 589824,
+    "zeroed": 294912
+  },
+  {
+    "actual_zero_fraction": 0.5,
+    "name": "pretrained.blocks.6.attn.proj",
+    "shape": [
+      384,
+      384
+    ],
+    "weights": 147456,
+    "zeroed": 73728
+  },
+  {
+    "actual_zero_fraction": 0.5,
+    "name": "pretrained.blocks.6.attn.qkv",
+    "shape": [
+      1152,
+      384
+    ],
+    "weights": 442368,
+    "zeroed": 221184
+  },
+  {
+    "actual_zero_fraction": 0.5,
+    "name": "pretrained.blocks.6.mlp.fc1",
+    "shape": [
+      1536,
+      384
+    ],
+    "weights": 589824,
+    "zeroed": 294912
+  },
+  {
+    "actual_zero_fraction": 0.5,
+    "name": "pretrained.blocks.6.mlp.fc2",
+    "shape": [
+      384,
+      1536
+    ],
+    "weights": 589824,
+    "zeroed": 294912
+  },
+  {
+    "actual_zero_fraction": 0.5,
+    "name": "pretrained.blocks.7.attn.proj",
+    "shape": [
+      384,
+      384
+    ],
+    "weights": 147456,
+    "zeroed": 73728
+  },
+  {
+    "actual_zero_fraction": 0.5,
+    "name": "pretrained.blocks.7.attn.qkv",
+    "shape": [
+      1152,
+      384
+    ],
+    "weights": 442368,
+    "zeroed": 221184
+  },
+  {
+    "actual_zero_fraction": 0.5,
+    "name": "pretrained.blocks.7.mlp.fc1",
+    "shape": [
+      1536,
+      384
+    ],
+    "weights": 589824,
+    "zeroed": 294912
+  },
+  {
+    "actual_zero_fraction": 0.5,
+    "name": "pretrained.blocks.7.mlp.fc2",
+    "shape": [
+      384,
+      1536
+    ],
+    "weights": 589824,
+    "zeroed": 294912
+  },
+  {
+    "actual_zero_fraction": 0.5,
+    "name": "pretrained.blocks.8.attn.proj",
+    "shape": [
+      384,
+      384
+    ],
+    "weights": 147456,
+    "zeroed": 73728
+  },
+  {
+    "actual_zero_fraction": 0.5,
+    "name": "pretrained.blocks.8.attn.qkv",
+    "shape": [
+      1152,
+      384
+    ],
+    "weights": 442368,
+    "zeroed": 221184
+  },
+  {
+    "actual_zero_fraction": 0.5,
+    "name": "pretrained.blocks.8.mlp.fc1",
+    "shape": [
+      1536,
+      384
+    ],
+    "weights": 589824,
+    "zeroed": 294912
+  },
+  {
+    "actual_zero_fraction": 0.5,
+    "name": "pretrained.blocks.8.mlp.fc2",
+    "shape": [
+      384,
+      1536
+    ],
+    "weights": 589824,
+    "zeroed": 294912
+  }
+]

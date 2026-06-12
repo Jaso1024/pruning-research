@@ -1,0 +1,359 @@
+{
+  "metadata": {
+    "device": "cuda",
+    "images": 64,
+    "note": "SQuant/CafeQ are instantiated as sub-ms one-shot weight-stat equalization proxies, not full published iterative algorithms.",
+    "pairs": 134,
+    "patch_input_pruning": {
+      "fill_mode": "zero",
+      "keep_high": true,
+      "keep_percentage": 0.5,
+      "norm": "l2"
+    },
+    "scope": "block0 MLP only after patch input-pruning wrapper"
+  },
+  "variants": {
+    "biascorr_only_gaussian": {
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.8208955223880597,
+          "best_direction": "larger",
+          "larger_correct": 110,
+          "larger_is_closer_accuracy": 0.8208955223880597,
+          "pairs": 134,
+          "smaller_correct": 24,
+          "smaller_is_closer_accuracy": 0.1791044776119403,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "elapsed_total_seconds": 1.8228885179851204,
+      "extra": {
+        "transform": {
+          "bias_correct": true,
+          "bias_delta_norm": 0.0,
+          "mode": "bias_only",
+          "scale_max": 1.0,
+          "scale_mean": 1.0,
+          "scale_min": 1.0,
+          "scale_std": 0.0
+        }
+      },
+      "metadata": {
+        "elapsed_seconds": 1.8228742000064813,
+        "images_requested": 64,
+        "missing_images": []
+      },
+      "overall": {
+        "best_accuracy": 0.8208955223880597,
+        "best_direction": "larger",
+        "larger_correct": 110,
+        "larger_is_closer_accuracy": 0.8208955223880597,
+        "pairs": 134,
+        "smaller_correct": 24,
+        "smaller_is_closer_accuracy": 0.1791044776119403,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "variant": "biascorr_only_gaussian"
+    },
+    "cafeq_mean_abs_equalize": {
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.8134328358208955,
+          "best_direction": "larger",
+          "larger_correct": 109,
+          "larger_is_closer_accuracy": 0.8134328358208955,
+          "pairs": 134,
+          "smaller_correct": 25,
+          "smaller_is_closer_accuracy": 0.1865671641791045,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "elapsed_total_seconds": 1.8128954650019296,
+      "extra": {
+        "transform": {
+          "bias_correct": false,
+          "bias_delta_norm": 0.0,
+          "mode": "cafeq_mean_abs",
+          "scale_max": 1.4102903604507446,
+          "scale_mean": 0.9023199081420898,
+          "scale_min": 0.48541387915611267,
+          "scale_std": 0.16317279636859894
+        }
+      },
+      "metadata": {
+        "elapsed_seconds": 1.8128811370115727,
+        "images_requested": 64,
+        "missing_images": []
+      },
+      "overall": {
+        "best_accuracy": 0.8134328358208955,
+        "best_direction": "larger",
+        "larger_correct": 109,
+        "larger_is_closer_accuracy": 0.8134328358208955,
+        "pairs": 134,
+        "smaller_correct": 25,
+        "smaller_is_closer_accuracy": 0.1865671641791045,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "variant": "cafeq_mean_abs_equalize"
+    },
+    "cafeq_mean_abs_equalize_biascorr": {
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.8208955223880597,
+          "best_direction": "larger",
+          "larger_correct": 110,
+          "larger_is_closer_accuracy": 0.8208955223880597,
+          "pairs": 134,
+          "smaller_correct": 24,
+          "smaller_is_closer_accuracy": 0.1791044776119403,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "elapsed_total_seconds": 1.811850128986407,
+      "extra": {
+        "transform": {
+          "bias_correct": true,
+          "bias_delta_norm": 0.489542156457901,
+          "mode": "cafeq_mean_abs",
+          "scale_max": 1.4102903604507446,
+          "scale_mean": 0.9023199081420898,
+          "scale_min": 0.48541387915611267,
+          "scale_std": 0.16317279636859894
+        }
+      },
+      "metadata": {
+        "elapsed_seconds": 1.8118360220105387,
+        "images_requested": 64,
+        "missing_images": []
+      },
+      "overall": {
+        "best_accuracy": 0.8208955223880597,
+        "best_direction": "larger",
+        "larger_correct": 110,
+        "larger_is_closer_accuracy": 0.8208955223880597,
+        "pairs": 134,
+        "smaller_correct": 24,
+        "smaller_is_closer_accuracy": 0.1791044776119403,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "variant": "cafeq_mean_abs_equalize_biascorr"
+    },
+    "dfq_max": {
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.8134328358208955,
+          "best_direction": "larger",
+          "larger_correct": 109,
+          "larger_is_closer_accuracy": 0.8134328358208955,
+          "pairs": 134,
+          "smaller_correct": 25,
+          "smaller_is_closer_accuracy": 0.1865671641791045,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "elapsed_total_seconds": 1.8217989610275254,
+      "extra": {
+        "transform": {
+          "bias_correct": false,
+          "bias_delta_norm": 0.0,
+          "mode": "dfq_max",
+          "scale_max": 1.8377346992492676,
+          "scale_mean": 0.8641767501831055,
+          "scale_min": 0.42090904712677,
+          "scale_std": 0.17285001277923584
+        }
+      },
+      "metadata": {
+        "elapsed_seconds": 1.8217832709779032,
+        "images_requested": 64,
+        "missing_images": []
+      },
+      "overall": {
+        "best_accuracy": 0.8134328358208955,
+        "best_direction": "larger",
+        "larger_correct": 109,
+        "larger_is_closer_accuracy": 0.8134328358208955,
+        "pairs": 134,
+        "smaller_correct": 25,
+        "smaller_is_closer_accuracy": 0.1865671641791045,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "variant": "dfq_max"
+    },
+    "dfq_max_biascorr": {
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.8208955223880597,
+          "best_direction": "larger",
+          "larger_correct": 110,
+          "larger_is_closer_accuracy": 0.8208955223880597,
+          "pairs": 134,
+          "smaller_correct": 24,
+          "smaller_is_closer_accuracy": 0.1791044776119403,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "elapsed_total_seconds": 1.8086862129857764,
+      "extra": {
+        "transform": {
+          "bias_correct": true,
+          "bias_delta_norm": 0.8103430867195129,
+          "mode": "dfq_max",
+          "scale_max": 1.8377346992492676,
+          "scale_mean": 0.8641767501831055,
+          "scale_min": 0.42090904712677,
+          "scale_std": 0.17285001277923584
+        }
+      },
+      "metadata": {
+        "elapsed_seconds": 1.808671674982179,
+        "images_requested": 64,
+        "missing_images": []
+      },
+      "overall": {
+        "best_accuracy": 0.8208955223880597,
+        "best_direction": "larger",
+        "larger_correct": 110,
+        "larger_is_closer_accuracy": 0.8208955223880597,
+        "pairs": 134,
+        "smaller_correct": 24,
+        "smaller_is_closer_accuracy": 0.1791044776119403,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "variant": "dfq_max_biascorr"
+    },
+    "input_prune_only": {
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.8208955223880597,
+          "best_direction": "larger",
+          "larger_correct": 110,
+          "larger_is_closer_accuracy": 0.8208955223880597,
+          "pairs": 134,
+          "smaller_correct": 24,
+          "smaller_is_closer_accuracy": 0.1791044776119403,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "elapsed_total_seconds": 1.9692672970122658,
+      "extra": {},
+      "metadata": {
+        "elapsed_seconds": 1.9689909690059721,
+        "images_requested": 64,
+        "missing_images": []
+      },
+      "overall": {
+        "best_accuracy": 0.8208955223880597,
+        "best_direction": "larger",
+        "larger_correct": 110,
+        "larger_is_closer_accuracy": 0.8208955223880597,
+        "pairs": 134,
+        "smaller_correct": 24,
+        "smaller_is_closer_accuracy": 0.1791044776119403,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "variant": "input_prune_only"
+    },
+    "squant_rms_equalize": {
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.8134328358208955,
+          "best_direction": "larger",
+          "larger_correct": 109,
+          "larger_is_closer_accuracy": 0.8134328358208955,
+          "pairs": 134,
+          "smaller_correct": 25,
+          "smaller_is_closer_accuracy": 0.1865671641791045,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "elapsed_total_seconds": 1.8208696600049734,
+      "extra": {
+        "transform": {
+          "bias_correct": false,
+          "bias_delta_norm": 0.0,
+          "mode": "squant_rms",
+          "scale_max": 1.3818012475967407,
+          "scale_mean": 0.896704375743866,
+          "scale_min": 0.4813188910484314,
+          "scale_std": 0.15482300519943237
+        }
+      },
+      "metadata": {
+        "elapsed_seconds": 1.820853730023373,
+        "images_requested": 64,
+        "missing_images": []
+      },
+      "overall": {
+        "best_accuracy": 0.8134328358208955,
+        "best_direction": "larger",
+        "larger_correct": 109,
+        "larger_is_closer_accuracy": 0.8134328358208955,
+        "pairs": 134,
+        "smaller_correct": 25,
+        "smaller_is_closer_accuracy": 0.1865671641791045,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "variant": "squant_rms_equalize"
+    },
+    "squant_rms_equalize_biascorr": {
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.8208955223880597,
+          "best_direction": "larger",
+          "larger_correct": 110,
+          "larger_is_closer_accuracy": 0.8208955223880597,
+          "pairs": 134,
+          "smaller_correct": 24,
+          "smaller_is_closer_accuracy": 0.1791044776119403,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "elapsed_total_seconds": 1.819276518013794,
+      "extra": {
+        "transform": {
+          "bias_correct": true,
+          "bias_delta_norm": 0.4855043590068817,
+          "mode": "squant_rms",
+          "scale_max": 1.3818012475967407,
+          "scale_mean": 0.896704375743866,
+          "scale_min": 0.4813188910484314,
+          "scale_std": 0.15482300519943237
+        }
+      },
+      "metadata": {
+        "elapsed_seconds": 1.8192608679528348,
+        "images_requested": 64,
+        "missing_images": []
+      },
+      "overall": {
+        "best_accuracy": 0.8208955223880597,
+        "best_direction": "larger",
+        "larger_correct": 110,
+        "larger_is_closer_accuracy": 0.8208955223880597,
+        "pairs": 134,
+        "smaller_correct": 24,
+        "smaller_is_closer_accuracy": 0.1791044776119403,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "variant": "squant_rms_equalize_biascorr"
+    }
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "by_scene": {
+    "indoor": {
+      "best_accuracy": 0.9104477611940298,
+      "best_direction": "larger",
+      "larger_correct": 122,
+      "larger_is_closer_accuracy": 0.9104477611940298,
+      "pairs": 134,
+      "smaller_correct": 12,
+      "smaller_is_closer_accuracy": 0.08955223880597014,
+      "tie_fraction": 0.0,
+      "ties": 0
+    }
+  },
+  "metadata": {
+    "actual_merges_by_block": {
+      "0": 3648,
+      "1": 3648,
+      "10": 3648,
+      "11": 3648,
+      "2": 3648,
+      "3": 3648,
+      "4": 3648,
+      "5": 3648,
+      "6": 3648,
+      "7": 3648,
+      "8": 3648,
+      "9": 3648
+    },
+    "calib_images": 64,
+    "calibration_images_found": 64,
+    "candidate_multiplier": 64,
+    "checkpoint": "checkpoints/depth_anything_v2_vits.pth",
+    "dataset_root": "datasets/DA-2K/extracted/DA-2K",
+    "device": "cuda",
+    "elapsed_seconds": 17.39048775000265,
+    "encoder": "vits",
+    "eval_elapsed_seconds": 12.842362791008782,
+    "external_lambda": 1.0,
+    "images_requested": 64,
+    "input_size": 518,
+    "log_every": 8,
+    "max_images": 64,
+    "merge_r": 57,
+    "missing_images": [],
+    "mode": "gradual",
+    "notes": [
+      "Minimal evaluator: vits, batch size 1, gradual per-block calibrated merge only.",
+      "Calibration attention is patch-token to patch-token post-softmax attention, averaged over heads and images sharing the same patch-grid shape.",
+      "Pair selection scans each layer's top original-position calibrated pairs, rejects pairs already in the same source group, and uses the exact average score over current source groups for candidate ranking."
+    ],
+    "output_dir": "eval_outputs/da2k_vits_attention_calib_merge",
+    "output_json": "eval_outputs/da2k_vits_attention_calib_merge/gradual_r57_calib64_mutual_minus_external_lambda1_max64.json",
+    "requested_merges_per_layer": 57,
+    "rule": "DA-2K labels point1 as closer; Depth Anything V2 vits uses larger predicted values for closer points.",
+    "scene_type": "",
+    "score_bank": {
+      "exact_shape_counts": {
+        "37x41": 1,
+        "37x45": 1,
+        "37x49": 16,
+        "37x50": 4,
+        "37x51": 1,
+        "37x52": 1,
+        "37x55": 6,
+        "37x56": 16,
+        "37x57": 2,
+        "37x62": 1,
+        "37x65": 2,
+        "37x66": 7,
+        "37x72": 1,
+        "37x81": 1,
+        "56x37": 4
+      },
+      "fallback_shapes": {},
+      "top_pairs_per_layer": 50000
+    },
+    "score_mode": "mutual_minus_external",
+    "top_pairs_per_layer": 50000
+  },
+  "overall": {
+    "best_accuracy": 0.9104477611940298,
+    "best_direction": "larger",
+    "larger_correct": 122,
+    "larger_is_closer_accuracy": 0.9104477611940298,
+    "pairs": 134,
+    "smaller_correct": 12,
+    "smaller_is_closer_accuracy": 0.08955223880597014,
+    "tie_fraction": 0.0,
+    "ties": 0
+  }
+}

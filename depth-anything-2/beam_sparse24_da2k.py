@@ -29,7 +29,15 @@ from eval_da2k import (
 )
 
 
-REPO_ROOT = Path(__file__).resolve().parents[2]
+def find_repo_root(start: Path) -> Path:
+    start_dir = start if start.is_dir() else start.parent
+    for candidate in (start_dir, *start_dir.parents):
+        if (candidate / "layer_composition").is_dir():
+            return candidate
+    return start_dir
+
+
+REPO_ROOT = find_repo_root(Path(__file__).resolve())
 LAYER_COMPOSITION_ROOT = REPO_ROOT / "layer_composition"
 if str(LAYER_COMPOSITION_ROOT) not in sys.path:
     sys.path.insert(0, str(LAYER_COMPOSITION_ROOT))
@@ -82,6 +90,8 @@ class BeamConfig:
     gd_steps: int = 1
     gd_lr: float = 0.25
     gd_chunk_tokens: int = 8192
+    linear_repair: str = "none"
+    repair_tokens: int = 4096
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "output_dir", Path(self.output_dir))
@@ -105,6 +115,10 @@ class BeamConfig:
             raise ValueError("sparsity_n and sparsity_m must satisfy 0 < n < m")
         if self.blocksize <= 0 or self.blocksize % self.sparsity_m != 0:
             raise ValueError("blocksize must be positive and divisible by sparsity_m")
+        if self.linear_repair not in {"none", "output-only", "per-linear"}:
+            raise ValueError("linear_repair must be none, output-only, or per-linear")
+        if self.repair_tokens <= 0:
+            raise ValueError("repair_tokens must be positive")
 
 
 def state_name(state: tuple[int, ...]) -> str:
@@ -234,21 +248,100 @@ def collect_linear_inputs(
     return torch.cat(captured, dim=0).contiguous()
 
 
+def should_apply_linear_repair(module_name: str, mode: str) -> bool:
+    if mode == "none":
+        return False
+    if mode == "output-only":
+        return module_name.endswith(".attn.proj") or module_name.endswith(".mlp.fc2")
+    if mode == "per-linear":
+        return True
+    raise ValueError(f"unknown linear repair mode: {mode}")
+
+
+@torch.no_grad()
+def fit_affine_output_repair(
+    sparse_module: torch.nn.Linear,
+    dense_module: torch.nn.Linear,
+    x: torch.Tensor,
+    max_tokens: int,
+) -> dict[str, float]:
+    device = sparse_module.weight.device
+    sample = x[:max_tokens].to(device=device, dtype=torch.float32)
+
+    dense_weight = dense_module.weight.detach().to(device=device, dtype=torch.float32)
+    dense_bias = (
+        dense_module.bias.detach().to(device=device, dtype=torch.float32)
+        if dense_module.bias is not None
+        else None
+    )
+    sparse_weight = sparse_module.weight.detach().to(device=device, dtype=torch.float32)
+    sparse_bias = (
+        sparse_module.bias.detach().to(device=device, dtype=torch.float32)
+        if sparse_module.bias is not None
+        else None
+    )
+
+    target = torch.nn.functional.linear(sample, dense_weight, dense_bias)
+    pred = torch.nn.functional.linear(sample, sparse_weight, sparse_bias)
+
+    before_mse = torch.nn.functional.mse_loss(pred, target)
+    target_power = target.pow(2).mean().clamp_min(1e-12)
+    before_rel_mse = before_mse / target_power
+
+    pred_mean = pred.mean(dim=0)
+    target_mean = target.mean(dim=0)
+    pred_centered = pred - pred_mean
+    target_centered = target - target_mean
+    denom = pred_centered.pow(2).mean(dim=0).clamp_min(1e-12)
+    scale = (pred_centered * target_centered).mean(dim=0) / denom
+    shift = target_mean - scale * pred_mean
+    repaired_pred = pred * scale + shift
+
+    after_mse = torch.nn.functional.mse_loss(repaired_pred, target)
+    after_rel_mse = after_mse / target_power
+
+    weight_dtype = sparse_module.weight.dtype
+    sparse_module.weight.mul_(scale.to(dtype=weight_dtype).view(-1, 1))
+    if sparse_module.bias is None:
+        sparse_module.bias = torch.nn.Parameter(
+            shift.to(device=device, dtype=weight_dtype),
+            requires_grad=sparse_module.weight.requires_grad,
+        )
+    else:
+        sparse_module.bias.mul_(scale.to(dtype=sparse_module.bias.dtype))
+        sparse_module.bias.add_(shift.to(dtype=sparse_module.bias.dtype))
+
+    return {
+        "repair_before_mse": float(before_mse.cpu()),
+        "repair_after_mse": float(after_mse.cpu()),
+        "repair_before_rel_mse": float(before_rel_mse.cpu()),
+        "repair_after_rel_mse": float(after_rel_mse.cpu()),
+        "repair_scale_mean": float(scale.mean().cpu()),
+        "repair_scale_min": float(scale.min().cpu()),
+        "repair_scale_max": float(scale.max().cpu()),
+        "repair_shift_abs_mean": float(shift.abs().mean().cpu()),
+    }
+
+
 def reconstruction_stats(
     linear: torch.nn.Linear,
-    dense_weight: torch.Tensor,
+    dense_linear: torch.nn.Linear,
     x: torch.Tensor,
     *,
     max_tokens: int = 4096,
 ) -> dict[str, float]:
     sample = x[:max_tokens].to(device=linear.weight.device, dtype=torch.float32)
-    dense = dense_weight.to(device=linear.weight.device, dtype=torch.float32)
-    sparse = linear.weight.detach().float()
-    target = sample @ dense.t()
+    dense = dense_linear.weight.detach().to(device=linear.weight.device, dtype=torch.float32)
+    sparse = linear.weight.detach().to(device=linear.weight.device, dtype=torch.float32)
+    dense_bias = (
+        dense_linear.bias.detach().to(device=linear.weight.device, dtype=torch.float32)
+        if dense_linear.bias is not None
+        else None
+    )
+    target = torch.nn.functional.linear(sample, dense, dense_bias)
     pred = sample @ sparse.t()
     if linear.bias is not None:
         bias = linear.bias.detach().float()
-        target = target + bias
         pred = pred + bias
     mse = torch.nn.functional.mse_loss(pred, target)
     rel = mse / target.pow(2).mean().clamp_min(1e-12)
@@ -321,15 +414,24 @@ def sparsify_layer_group(
             gd_chunk_tokens=config.gd_chunk_tokens,
         )
         module.weight.data.copy_(sparse_weight.to(device=module.weight.device, dtype=module.weight.dtype))
+        repair_applied = should_apply_linear_repair(module_name, config.linear_repair)
+        repair_stats = (
+            fit_affine_output_repair(module, dense_module, x_quant, config.repair_tokens)
+            if repair_applied
+            else {}
+        )
         record = {
             "layer_index": group.layer_index,
             "layer_name": group.layer_name,
             "module_index": module_index,
             "module_count": len(group.module_names),
             "module_name": module_name,
+            "linear_repair": config.linear_repair,
+            "repair_applied": repair_applied,
             "elapsed_sec": time.monotonic() - start,
             **stats,
-            **reconstruction_stats(module, dense_module.weight.detach(), x_quant),
+            **repair_stats,
+            **reconstruction_stats(module, dense_module, x_quant),
         }
         append_jsonl(modules_path, record)
         print(json.dumps(record, sort_keys=True), flush=True)
@@ -760,6 +862,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--gd-steps", type=int, default=1)
     parser.add_argument("--gd-lr", type=float, default=0.25)
     parser.add_argument("--gd-chunk-tokens", type=int, default=8192)
+    parser.add_argument("--linear-repair", choices=["none", "output-only", "per-linear"], default="none")
+    parser.add_argument("--repair-tokens", type=int, default=4096)
     return parser
 
 
@@ -791,6 +895,8 @@ def main(argv: list[str] | None = None) -> None:
         gd_steps=args.gd_steps,
         gd_lr=args.gd_lr,
         gd_chunk_tokens=args.gd_chunk_tokens,
+        linear_repair=args.linear_repair,
+        repair_tokens=args.repair_tokens,
     )
     eval_state = parse_int_tuple(args.eval_state)
     if args.eval_state.strip():

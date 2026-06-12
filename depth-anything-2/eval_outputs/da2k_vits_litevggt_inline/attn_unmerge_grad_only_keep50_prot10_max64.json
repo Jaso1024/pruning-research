@@ -1,0 +1,54 @@
+{
+  "by_scene": {
+    "indoor": {
+      "best_accuracy": 0.6492537313432836,
+      "best_direction": "larger",
+      "larger_correct": 87,
+      "larger_is_closer_accuracy": 0.6492537313432836,
+      "pairs": 134,
+      "smaller_correct": 47,
+      "smaller_is_closer_accuracy": 0.35074626865671643,
+      "tie_fraction": 0.0,
+      "ties": 0
+    }
+  },
+  "metadata": {
+    "alpha": 1.0,
+    "beta": 0.0,
+    "elapsed_seconds": 3.9621401309850626,
+    "final_keep_ratio": 0.5,
+    "ga_keep_fraction": 0.1,
+    "images_requested": 64,
+    "meta_counts": {
+      "37x41:kept759:prot152:dst607:src758": 1,
+      "37x45:kept833:prot167:dst666:src832": 1,
+      "37x49:kept907:prot182:dst725:src906": 16,
+      "37x50:kept925:prot185:dst740:src925": 4,
+      "37x51:kept944:prot189:dst755:src943": 1,
+      "37x52:kept962:prot193:dst769:src962": 1,
+      "37x55:kept1018:prot204:dst814:src1017": 6,
+      "37x56:kept1036:prot208:dst828:src1036": 16,
+      "37x57:kept1055:prot211:dst844:src1054": 2,
+      "37x62:kept1147:prot230:dst917:src1147": 1,
+      "37x65:kept1203:prot241:dst962:src1202": 2,
+      "37x66:kept1221:prot245:dst976:src1221": 7,
+      "37x72:kept1332:prot267:dst1065:src1332": 1,
+      "37x81:kept1499:prot300:dst1199:src1498": 1,
+      "56x37:kept1036:prot208:dst828:src1036": 4
+    },
+    "missing_images": [],
+    "prototype": "litevggt_merge_unmerge_around_attention_depth_anything",
+    "variant": "grad_only_keep50_prot10"
+  },
+  "overall": {
+    "best_accuracy": 0.6492537313432836,
+    "best_direction": "larger",
+    "larger_correct": 87,
+    "larger_is_closer_accuracy": 0.6492537313432836,
+    "pairs": 134,
+    "smaller_correct": 47,
+    "smaller_is_closer_accuracy": 0.35074626865671643,
+    "tie_fraction": 0.0,
+    "ties": 0
+  }
+}

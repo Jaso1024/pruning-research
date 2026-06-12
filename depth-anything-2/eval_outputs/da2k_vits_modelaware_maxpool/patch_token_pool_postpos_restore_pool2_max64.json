@@ -1,0 +1,49 @@
+{
+  "by_scene": {
+    "indoor": {
+      "best_accuracy": 0.5597014925373134,
+      "best_direction": "larger",
+      "larger_correct": 75,
+      "larger_is_closer_accuracy": 0.5597014925373134,
+      "pairs": 134,
+      "smaller_correct": 59,
+      "smaller_is_closer_accuracy": 0.44029850746268656,
+      "tie_fraction": 0.0,
+      "ties": 0
+    }
+  },
+  "metadata": {
+    "elapsed_seconds": 1.7084333829698153,
+    "max_images": 64,
+    "pool": 2,
+    "shape_counts": {
+      "{'orig_hw': (37, 41), 'pool_hw': (19, 21)}": 1,
+      "{'orig_hw': (37, 45), 'pool_hw': (19, 23)}": 1,
+      "{'orig_hw': (37, 49), 'pool_hw': (19, 25)}": 16,
+      "{'orig_hw': (37, 50), 'pool_hw': (19, 25)}": 4,
+      "{'orig_hw': (37, 51), 'pool_hw': (19, 26)}": 1,
+      "{'orig_hw': (37, 52), 'pool_hw': (19, 26)}": 1,
+      "{'orig_hw': (37, 55), 'pool_hw': (19, 28)}": 6,
+      "{'orig_hw': (37, 56), 'pool_hw': (19, 28)}": 16,
+      "{'orig_hw': (37, 57), 'pool_hw': (19, 29)}": 2,
+      "{'orig_hw': (37, 62), 'pool_hw': (19, 31)}": 1,
+      "{'orig_hw': (37, 65), 'pool_hw': (19, 33)}": 2,
+      "{'orig_hw': (37, 66), 'pool_hw': (19, 33)}": 7,
+      "{'orig_hw': (37, 72), 'pool_hw': (19, 36)}": 1,
+      "{'orig_hw': (37, 81), 'pool_hw': (19, 41)}": 1,
+      "{'orig_hw': (56, 37), 'pool_hw': (28, 19)}": 4
+    },
+    "variant": "patch_token_pool_postpos_restore"
+  },
+  "overall": {
+    "best_accuracy": 0.5597014925373134,
+    "best_direction": "larger",
+    "larger_correct": 75,
+    "larger_is_closer_accuracy": 0.5597014925373134,
+    "pairs": 134,
+    "smaller_correct": 59,
+    "smaller_is_closer_accuracy": 0.44029850746268656,
+    "tie_fraction": 0.0,
+    "ties": 0
+  }
+}

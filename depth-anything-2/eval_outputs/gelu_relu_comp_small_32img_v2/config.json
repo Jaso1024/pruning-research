@@ -1,0 +1,14 @@
+{
+  "calibration_images": 8,
+  "checkpoint": "checkpoints/depth_anything_v2_vits.pth",
+  "dataset_root": "datasets/DA-2K/extracted/DA-2K",
+  "device": "cuda",
+  "encoder": "vits",
+  "eval_images": 24,
+  "input_size": 518,
+  "max_images": 32,
+  "max_tokens_per_block": 4096,
+  "note": "Small-subset GELU->ReLU experiment. Newton variant is damped Gauss-Newton/least-squares repair of each transformer MLP fc2 using calibration tokens. Hadamard variant applies block-diagonal orthogonal hidden-channel basis transform around fc1/fc2 before ReLU.",
+  "ridge": 0.001,
+  "seed": 17
+}

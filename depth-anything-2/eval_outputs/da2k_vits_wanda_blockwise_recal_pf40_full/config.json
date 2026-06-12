@@ -1,0 +1,23 @@
+{
+  "calibration_images": 8,
+  "checkpoint": "checkpoints/depth_anything_v2_vits.pth",
+  "dataset_root": "datasets/DA-2K/extracted/DA-2K",
+  "device": "auto",
+  "encoder": "vits",
+  "eval_baseline": false,
+  "exclude_calibration_from_eval": false,
+  "input_size": 518,
+  "layer_indices": [],
+  "log_every": 50,
+  "max_images": 0,
+  "output_dir": "eval_outputs/da2k_vits_wanda_blockwise_recal_pf40_full",
+  "prune_chunk_fraction": 0.05,
+  "prune_fraction": 0.4,
+  "pruning_scope": "per-matrix",
+  "recompute_every_weights": 0,
+  "repair_lr": 1e-05,
+  "repair_steps": 0,
+  "scene_type": "",
+  "score_normalization": "none",
+  "target": "transformer"
+}
