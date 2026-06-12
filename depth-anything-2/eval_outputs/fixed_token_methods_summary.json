@@ -1,0 +1,152 @@
+{
+  "notes": [
+    "All rows use eval_fixed_token_methods_da2k.py in pruning-research/depth-anything-2.",
+    "Fixed schedule means merge_r is requested at each ViT block; actual merges may be lower if a method cannot form enough valid non-overlapping pairs.",
+    "Dense baseline from prior DA-2K vits run: 1969/2068 = 0.9521276595744681."
+  ],
+  "rows": [
+    {
+      "accuracy": 0.9530947775628626,
+      "actual_merges_block_11": 58881,
+      "correct": 1971,
+      "elapsed_seconds": 135.42656400700798,
+      "mean_patch_tokens_after_block_11": 1319.487899322362,
+      "merge_r": 57,
+      "method": "mctf_fixed",
+      "pairs": 2068,
+      "path": "eval_outputs/fixed_token_methods_r57/mctf_fixed_r57_full.json",
+      "requested_merges_block_11": 58881,
+      "ties": 1
+    },
+    {
+      "accuracy": 0.9506769825918762,
+      "actual_merges_block_11": 58881,
+      "correct": 1966,
+      "elapsed_seconds": 95.4845522409887,
+      "mean_patch_tokens_after_block_11": 1319.4801548886737,
+      "merge_r": 57,
+      "method": "tome_fixed",
+      "pairs": 2068,
+      "path": "eval_outputs/fixed_token_methods_r57/tome_fixed_r57_full.json",
+      "requested_merges_block_11": 58881,
+      "ties": 1
+    },
+    {
+      "accuracy": 0.9477756286266924,
+      "actual_merges_block_11": 58881,
+      "correct": 1960,
+      "elapsed_seconds": 134.4344218650367,
+      "mean_patch_tokens_after_block_11": 1322.3359148112295,
+      "merge_r": 57,
+      "method": "pitome_fixed",
+      "pairs": 2068,
+      "path": "eval_outputs/fixed_token_methods_r57/pitome_fixed_r57_full.json",
+      "requested_merges_block_11": 58881,
+      "ties": 1
+    },
+    {
+      "accuracy": 0.9381044487427466,
+      "actual_merges_block_11": 58881,
+      "correct": 1940,
+      "elapsed_seconds": 134.15732047398342,
+      "mean_patch_tokens_after_block_11": 1319.4801548886737,
+      "merge_r": 57,
+      "method": "token_pooling_fixed",
+      "pairs": 2068,
+      "path": "eval_outputs/fixed_token_methods_r57/token_pooling_fixed_r57_full.json",
+      "requested_merges_block_11": 58881,
+      "ties": 1
+    },
+    {
+      "accuracy": 0.9294003868471954,
+      "actual_merges_block_11": 58881,
+      "correct": 1922,
+      "elapsed_seconds": 114.74728933599545,
+      "mean_patch_tokens_after_block_11": 1319.4801548886737,
+      "merge_r": 57,
+      "method": "ats_fixed",
+      "pairs": 2068,
+      "path": "eval_outputs/fixed_token_methods_r57/ats_fixed_r57_full.json",
+      "requested_merges_block_11": 58881,
+      "ties": 1
+    },
+    {
+      "accuracy": 0.9264990328820116,
+      "actual_merges_block_11": 58881,
+      "correct": 1916,
+      "elapsed_seconds": 138.480643251969,
+      "mean_patch_tokens_after_block_11": 1319.48596321394,
+      "merge_r": 57,
+      "method": "ppt_fixed",
+      "pairs": 2068,
+      "path": "eval_outputs/fixed_token_methods_r57/ppt_fixed_r57_full.json",
+      "requested_merges_block_11": 58881,
+      "ties": 1
+    },
+    {
+      "accuracy": 0.913926499032882,
+      "actual_merges_block_11": 58881,
+      "correct": 1890,
+      "elapsed_seconds": 74.8793096060399,
+      "mean_patch_tokens_after_block_11": 1319.4801548886737,
+      "merge_r": 57,
+      "method": "evit_fixed",
+      "pairs": 2068,
+      "path": "eval_outputs/fixed_token_methods_r57/evit_fixed_r57_full.json",
+      "requested_merges_block_11": 58881,
+      "ties": 1
+    },
+    {
+      "accuracy": 0.8820116054158608,
+      "actual_merges_block_11": 58881,
+      "correct": 1824,
+      "elapsed_seconds": 142.9162718380103,
+      "mean_patch_tokens_after_block_11": 1331.1452081316554,
+      "merge_r": 57,
+      "method": "adamerge_fixed",
+      "pairs": 2068,
+      "path": "eval_outputs/fixed_token_methods_r57/adamerge_fixed_r57_full.json",
+      "requested_merges_block_11": 58881,
+      "ties": 2
+    },
+    {
+      "accuracy": 0.9501934235976789,
+      "actual_merges_block_11": 88838,
+      "correct": 1965,
+      "elapsed_seconds": 154.07603012397885,
+      "mean_patch_tokens_after_block_11": 971.6611810261375,
+      "merge_r": 86,
+      "method": "mctf_fixed",
+      "pairs": 2068,
+      "path": "eval_outputs/fixed_token_methods_mctf_sweep/mctf_fixed_r86_full.json",
+      "requested_merges_block_11": 88838,
+      "ties": 1
+    },
+    {
+      "accuracy": 0.9492263056092843,
+      "actual_merges_block_11": 100098,
+      "correct": 1963,
+      "elapsed_seconds": 163.24570157995913,
+      "mean_patch_tokens_after_block_11": 840.0571151984511,
+      "merge_r": 97,
+      "method": "mctf_fixed",
+      "pairs": 2068,
+      "path": "eval_outputs/fixed_token_methods_mctf_sweep/mctf_fixed_r97_full.json",
+      "requested_merges_block_11": 100201,
+      "ties": 1
+    },
+    {
+      "accuracy": 0.9400386847195358,
+      "actual_merges_block_11": 121244,
+      "correct": 1944,
+      "elapsed_seconds": 193.9600690199877,
+      "mean_patch_tokens_after_block_11": 346.1268151016457,
+      "merge_r": 142,
+      "method": "mctf_fixed",
+      "pairs": 2068,
+      "path": "eval_outputs/fixed_token_methods_mctf_sweep/mctf_fixed_r142_full.json",
+      "requested_merges_block_11": 136755,
+      "ties": 1
+    }
+  ]
+}
