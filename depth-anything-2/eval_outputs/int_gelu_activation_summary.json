@@ -1,0 +1,273 @@
+{
+  "task": "Integer-friendly drop-in GELU replacements for Depth Anything V2 Small on DA-2K.",
+  "method": "Replace nn.GELU modules only; no weight repair, no calibration fitting, no finetuning.",
+  "variant_meaning": {
+    "pwl": "fixed-point-quantized slopes/intercepts, evaluated in float tensors",
+    "intpwl": "fake-integer activation quantization plus integer affine segment multiply/shift, then dequantized back for the surrounding float model"
+  },
+  "sections": {
+    "small_screen": [
+      {
+        "activation": "dense",
+        "pairs": 71,
+        "best_accuracy": 0.9295774647887324,
+        "larger_correct": 66,
+        "smaller_correct": 5,
+        "ties": 0
+      },
+      {
+        "activation": "hardgelu_s0_25",
+        "pairs": 71,
+        "best_accuracy": 0.7323943661971831,
+        "larger_correct": 52,
+        "smaller_correct": 19,
+        "ties": 0
+      },
+      {
+        "activation": "hardgelu_s0_3125",
+        "pairs": 71,
+        "best_accuracy": 0.9295774647887324,
+        "larger_correct": 66,
+        "smaller_correct": 5,
+        "ties": 0
+      },
+      {
+        "activation": "hardgelu_s0_375",
+        "pairs": 71,
+        "best_accuracy": 0.7887323943661971,
+        "larger_correct": 56,
+        "smaller_correct": 15,
+        "ties": 0
+      },
+      {
+        "activation": "hardswish",
+        "pairs": 71,
+        "best_accuracy": 0.647887323943662,
+        "larger_correct": 46,
+        "smaller_correct": 25,
+        "ties": 0
+      },
+      {
+        "activation": "pwl13_q12",
+        "pairs": 71,
+        "best_accuracy": 0.9295774647887324,
+        "larger_correct": 66,
+        "smaller_correct": 5,
+        "ties": 0
+      },
+      {
+        "activation": "pwl13_q8",
+        "pairs": 71,
+        "best_accuracy": 0.9295774647887324,
+        "larger_correct": 66,
+        "smaller_correct": 5,
+        "ties": 0
+      },
+      {
+        "activation": "pwl17_q12",
+        "pairs": 71,
+        "best_accuracy": 0.9295774647887324,
+        "larger_correct": 66,
+        "smaller_correct": 5,
+        "ties": 0
+      },
+      {
+        "activation": "pwl17_q8",
+        "pairs": 71,
+        "best_accuracy": 0.9295774647887324,
+        "larger_correct": 66,
+        "smaller_correct": 5,
+        "ties": 0
+      },
+      {
+        "activation": "pwl7_q8",
+        "pairs": 71,
+        "best_accuracy": 0.8732394366197183,
+        "larger_correct": 62,
+        "smaller_correct": 9,
+        "ties": 0
+      },
+      {
+        "activation": "pwl9_q8",
+        "pairs": 71,
+        "best_accuracy": 0.8732394366197183,
+        "larger_correct": 62,
+        "smaller_correct": 9,
+        "ties": 0
+      },
+      {
+        "activation": "relu",
+        "pairs": 71,
+        "best_accuracy": 0.6338028169014085,
+        "larger_correct": 45,
+        "smaller_correct": 26,
+        "ties": 0
+      },
+      {
+        "activation": "shifted_square_r2",
+        "pairs": 71,
+        "best_accuracy": 0.7323943661971831,
+        "larger_correct": 52,
+        "smaller_correct": 19,
+        "ties": 0
+      }
+    ],
+    "full_coeff_only": [
+      {
+        "activation": "dense",
+        "pairs": 2068,
+        "best_accuracy": 0.9516441005802708,
+        "larger_correct": 1968,
+        "smaller_correct": 99,
+        "ties": 1
+      },
+      {
+        "activation": "hardgelu_s0_3125",
+        "pairs": 2068,
+        "best_accuracy": 0.8868471953578336,
+        "larger_correct": 1834,
+        "smaller_correct": 234,
+        "ties": 0
+      },
+      {
+        "activation": "pwl13_q12",
+        "pairs": 2068,
+        "best_accuracy": 0.9448742746615088,
+        "larger_correct": 1954,
+        "smaller_correct": 114,
+        "ties": 0
+      },
+      {
+        "activation": "pwl13_q8",
+        "pairs": 2068,
+        "best_accuracy": 0.9463249516441006,
+        "larger_correct": 1957,
+        "smaller_correct": 111,
+        "ties": 0
+      },
+      {
+        "activation": "pwl17_q12",
+        "pairs": 2068,
+        "best_accuracy": 0.9448742746615088,
+        "larger_correct": 1954,
+        "smaller_correct": 114,
+        "ties": 0
+      },
+      {
+        "activation": "pwl17_q8",
+        "pairs": 2068,
+        "best_accuracy": 0.9463249516441006,
+        "larger_correct": 1957,
+        "smaller_correct": 111,
+        "ties": 0
+      }
+    ],
+    "fakeint_screen": [
+      {
+        "activation": "dense",
+        "pairs": 71,
+        "best_accuracy": 0.9295774647887324,
+        "larger_correct": 66,
+        "smaller_correct": 5,
+        "ties": 0
+      },
+      {
+        "activation": "intpwl13_xq10_cq8",
+        "pairs": 71,
+        "best_accuracy": 0.9295774647887324,
+        "larger_correct": 66,
+        "smaller_correct": 5,
+        "ties": 0
+      },
+      {
+        "activation": "intpwl13_xq12_cq8",
+        "pairs": 71,
+        "best_accuracy": 0.9295774647887324,
+        "larger_correct": 66,
+        "smaller_correct": 5,
+        "ties": 0
+      },
+      {
+        "activation": "intpwl13_xq8_cq8",
+        "pairs": 71,
+        "best_accuracy": 0.9295774647887324,
+        "larger_correct": 66,
+        "smaller_correct": 5,
+        "ties": 0
+      },
+      {
+        "activation": "intpwl17_xq10_cq8",
+        "pairs": 71,
+        "best_accuracy": 0.9295774647887324,
+        "larger_correct": 66,
+        "smaller_correct": 5,
+        "ties": 0
+      },
+      {
+        "activation": "intpwl17_xq12_cq8",
+        "pairs": 71,
+        "best_accuracy": 0.9295774647887324,
+        "larger_correct": 66,
+        "smaller_correct": 5,
+        "ties": 0
+      },
+      {
+        "activation": "pwl13_q8",
+        "pairs": 71,
+        "best_accuracy": 0.9295774647887324,
+        "larger_correct": 66,
+        "smaller_correct": 5,
+        "ties": 0
+      }
+    ],
+    "fakeint_full": [
+      {
+        "activation": "dense",
+        "pairs": 2068,
+        "best_accuracy": 0.9516441005802708,
+        "larger_correct": 1968,
+        "smaller_correct": 99,
+        "ties": 1
+      },
+      {
+        "activation": "intpwl13_xq10_cq8",
+        "pairs": 2068,
+        "best_accuracy": 0.945357833655706,
+        "larger_correct": 1955,
+        "smaller_correct": 113,
+        "ties": 0
+      },
+      {
+        "activation": "intpwl13_xq12_cq8",
+        "pairs": 2068,
+        "best_accuracy": 0.9458413926499033,
+        "larger_correct": 1956,
+        "smaller_correct": 112,
+        "ties": 0
+      },
+      {
+        "activation": "intpwl13_xq8_cq8",
+        "pairs": 2068,
+        "best_accuracy": 0.945357833655706,
+        "larger_correct": 1955,
+        "smaller_correct": 113,
+        "ties": 0
+      },
+      {
+        "activation": "pwl13_q8",
+        "pairs": 2068,
+        "best_accuracy": 0.9463249516441006,
+        "larger_correct": 1957,
+        "smaller_correct": 111,
+        "ties": 0
+      }
+    ]
+  },
+  "takeaway": {
+    "dense": "1968/2068 = 0.951644",
+    "best_coeff_only": "pwl13_q8 and pwl17_q8: 1957/2068 = 0.946325",
+    "best_exact_fakeint": "intpwl13_xq12_cq8: 1956/2068 = 0.945841; intpwl13_xq8_cq8 and xq10_cq8: 1955/2068 = 0.945358",
+    "cheap_hardgate": "hardgelu_s0_3125: 1834/2068 = 0.886847 on full DA-2K despite matching dense on 32 images",
+    "engineering_pick": "intpwl13_xq8_cq8 or intpwl13_xq12_cq8 depending on whether Q8 activation precision is preferred over one extra DA-2K pair decision"
+  }
+}
