@@ -1,0 +1,120 @@
+{
+  "notes": [
+    "RELEX adaptation tested on sandwich LoRA GELU->ReLU repair for Depth Anything V2-S.",
+    "Folded-space RELEX observes actual folded fc1/fc2 weight deltas. Factor-space RELEX observes trainable LoRA factor deltas, then folds the extrapolated factors.",
+    "Observed window was 20 optimizer steps with Adagrad, rank32, alpha32, cal32/tok8192 unless otherwise noted.",
+    "Unlike the paper setting, the coefficient trajectories here are poorly linear in the first 20 steps; folded-delta R2 values were often ~0.2-0.6 and target extrapolation quickly over-amplified deltas."
+  ],
+  "full_rows": [
+    {
+      "name": "baseline_dense_full",
+      "note": "prior dense GELU",
+      "accuracy": 0.9521276595744681,
+      "correct": 1969,
+      "pairs": 2068,
+      "ties": null,
+      "path": null
+    },
+    {
+      "name": "best_200step_sandwich_radam",
+      "note": "prior optimizer sweep",
+      "accuracy": 0.9182785299806576,
+      "correct": 1899,
+      "pairs": 2068,
+      "ties": 0,
+      "path": "eval_outputs/gelu_relu_lora_sandwich_opt_radam_rank32_cal32_tok8192_full/summary.json"
+    },
+    {
+      "name": "raw_20step_sandwich_adagrad",
+      "note": "prior 20-step optimizer sweep",
+      "accuracy": 0.8887814313346228,
+      "correct": 1838,
+      "pairs": 2068,
+      "ties": 0,
+      "path": "eval_outputs/gelu_relu_lora_sandwich_opt_adagrad_rank32_cal32_tok8192_steps20_full/summary.json"
+    },
+    {
+      "name": "relex_folded_target20_full",
+      "note": "full folded-delta RELEX target=20",
+      "accuracy": 0.882495164410058,
+      "correct": 1825,
+      "pairs": 2068,
+      "ties": 0,
+      "path": "eval_outputs/gelu_relu_lora_relex_adagrad_target20_rank32_cal32_tok8192_full/summary.json"
+    }
+  ],
+  "small_rows": [
+    {
+      "name": "relex_folded_target20_32img",
+      "accuracy": 0.9014084507042254,
+      "correct": 64,
+      "pairs": 71,
+      "ties": 0,
+      "path": "eval_outputs/gelu_relu_lora_relex_adagrad_target20_cal32_32img/summary.json"
+    },
+    {
+      "name": "relex_folded_target40_32img",
+      "accuracy": 0.7605633802816901,
+      "correct": 54,
+      "pairs": 71,
+      "ties": 1,
+      "path": "eval_outputs/gelu_relu_lora_relex_adagrad_target40_cal32_32img/summary.json"
+    },
+    {
+      "name": "relex_folded_target60_32img",
+      "accuracy": 0.028169014084507043,
+      "correct": 2,
+      "pairs": 71,
+      "ties": 69,
+      "path": "eval_outputs/gelu_relu_lora_relex_adagrad_target60_cal32_32img/summary.json"
+    },
+    {
+      "name": "relex_folded_target100_32img",
+      "accuracy": 0.0,
+      "correct": 0,
+      "pairs": 71,
+      "ties": 71,
+      "path": "eval_outputs/gelu_relu_lora_relex_adagrad_target100_cal32_32img/summary.json"
+    },
+    {
+      "name": "relex_folded_target200_32img",
+      "accuracy": 0.0,
+      "correct": 0,
+      "pairs": 71,
+      "ties": 71,
+      "path": "eval_outputs/gelu_relu_lora_relex_adagrad_target200_cal32_32img/summary.json"
+    },
+    {
+      "name": "relex_factor_target20_32img",
+      "accuracy": 0.9014084507042254,
+      "correct": 64,
+      "pairs": 71,
+      "ties": 0,
+      "path": "eval_outputs/gelu_relu_lora_relex_factor_adagrad_target20_cal32_32img/summary.json"
+    },
+    {
+      "name": "relex_factor_target40_32img",
+      "accuracy": 0.0,
+      "correct": 0,
+      "pairs": 71,
+      "ties": 71,
+      "path": "eval_outputs/gelu_relu_lora_relex_factor_adagrad_target40_cal32_32img/summary.json"
+    },
+    {
+      "name": "relex_factor_target100_32img",
+      "accuracy": 0.0,
+      "correct": 0,
+      "pairs": 71,
+      "ties": 71,
+      "path": "eval_outputs/gelu_relu_lora_relex_factor_adagrad_target100_cal32_32img/summary.json"
+    },
+    {
+      "name": "relex_factor_target200_32img",
+      "accuracy": 0.0,
+      "correct": 0,
+      "pairs": 71,
+      "ties": 71,
+      "path": "eval_outputs/gelu_relu_lora_relex_factor_adagrad_target200_cal32_32img/summary.json"
+    }
+  ]
+}

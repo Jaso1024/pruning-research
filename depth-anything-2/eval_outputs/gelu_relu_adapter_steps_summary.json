@@ -1,0 +1,127 @@
+{
+  "notes": [
+    "500-step follow-up after adapter-family sweep. All trained rows use rank32, alpha32, cal32/tok8192, lr 0.003, RAdam unless noted by method name.",
+    "The 500-step direct DoRA repair is the best non-dense result so far for GELU->ReLU on DA-2K."
+  ],
+  "rows": [
+    {
+      "method": "dense_gelu_baseline",
+      "steps": null,
+      "accuracy": 0.9521276595744681,
+      "correct": 1969,
+      "pairs": 2068,
+      "note": "original GELU",
+      "ties": 1
+    },
+    {
+      "method": "dora_direct_fc1_fc2",
+      "steps": 500,
+      "path": "eval_outputs/gelu_relu_adapter_family_top4_full_steps500_radam/summary.json",
+      "variant": "dora",
+      "note": "direct adapter, more steps",
+      "accuracy": 0.9323017408123792,
+      "correct": 1928,
+      "pairs": 2068,
+      "ties": 0
+    },
+    {
+      "method": "glora_direct_fc1_fc2",
+      "steps": 500,
+      "path": "eval_outputs/gelu_relu_adapter_family_top4_full_steps500_radam/summary.json",
+      "variant": "glora",
+      "note": "direct adapter, more steps",
+      "accuracy": 0.9260154738878144,
+      "correct": 1915,
+      "pairs": 2068,
+      "ties": 0
+    },
+    {
+      "method": "lora_direct_fc1_fc2",
+      "steps": 500,
+      "path": "eval_outputs/gelu_relu_adapter_family_top4_full_steps500_radam/summary.json",
+      "variant": "lora",
+      "note": "direct adapter, more steps",
+      "accuracy": 0.9192456479690522,
+      "correct": 1901,
+      "pairs": 2068,
+      "ties": 0
+    },
+    {
+      "method": "hidden_sandwich_lora_radam",
+      "steps": 200,
+      "path": "eval_outputs/gelu_relu_lora_sandwich_opt_radam_rank32_cal32_tok8192_full/summary.json",
+      "variant": "lora_sandwich",
+      "note": "prior best",
+      "accuracy": 0.9182785299806576,
+      "correct": 1899,
+      "pairs": 2068,
+      "ties": 0
+    },
+    {
+      "method": "hidden_sandwich_lora_radam",
+      "steps": 500,
+      "path": "eval_outputs/gelu_relu_lora_sandwich_radam_rank32_cal32_tok8192_steps500_full/summary.json",
+      "variant": "lora_sandwich",
+      "note": "more steps",
+      "accuracy": 0.9163442940038685,
+      "correct": 1895,
+      "pairs": 2068,
+      "ties": 0
+    },
+    {
+      "method": "fact_tucker_direct_fc1_fc2",
+      "steps": 500,
+      "path": "eval_outputs/gelu_relu_adapter_family_top4_full_steps500_radam/summary.json",
+      "variant": "fact_tucker",
+      "note": "direct adapter, more steps",
+      "accuracy": 0.9158607350096711,
+      "correct": 1894,
+      "pairs": 2068,
+      "ties": 0
+    },
+    {
+      "method": "dora_direct_fc1_fc2",
+      "steps": 200,
+      "path": "eval_outputs/gelu_relu_adapter_family_top3_full_steps200_radam/summary.json",
+      "variant": "dora",
+      "note": "direct adapter",
+      "accuracy": 0.9148936170212766,
+      "correct": 1892,
+      "pairs": 2068,
+      "ties": 0
+    },
+    {
+      "method": "glora_direct_fc1_fc2",
+      "steps": 200,
+      "path": "eval_outputs/gelu_relu_adapter_family_top3_full_steps200_radam/summary.json",
+      "variant": "glora",
+      "note": "direct adapter",
+      "accuracy": 0.9148936170212766,
+      "correct": 1892,
+      "pairs": 2068,
+      "ties": 0
+    },
+    {
+      "method": "fact_tucker_direct_fc1_fc2",
+      "steps": 200,
+      "path": "eval_outputs/gelu_relu_adapter_family_remaining_full_steps200_radam/summary.json",
+      "variant": "fact_tucker",
+      "note": "direct adapter",
+      "accuracy": 0.9032882011605415,
+      "correct": 1868,
+      "pairs": 2068,
+      "ties": 0
+    },
+    {
+      "method": "lora_direct_fc1_fc2",
+      "steps": 200,
+      "path": "eval_outputs/gelu_relu_adapter_family_top3_full_steps200_radam/summary.json",
+      "variant": "lora",
+      "note": "direct adapter",
+      "accuracy": 0.8974854932301741,
+      "correct": 1856,
+      "pairs": 2068,
+      "ties": 0
+    }
+  ]
+}

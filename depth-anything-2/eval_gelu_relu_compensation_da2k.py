@@ -40,11 +40,20 @@ class ExperimentConfig:
     calibration_tokens: int = 4096
     max_images: int = 32
     max_pairs: int = 0
-    modes: tuple[str, ...] = ("dense", "relu", "newton", "hadamard")
+    modes: tuple[str, ...] = ("dense", "relu", "newton", "hadamard", "lora")
     scene_type: str = ""
     log_every: int = 8
     ridge_lambda: float = 1e-3
     hadamard_block_size: int = 1024
+    lora_rank: int = 16
+    lora_alpha: float = 16.0
+    lora_steps: int = 200
+    lora_lr: float = 3e-3
+    lora_batch_tokens: int = 2048
+    lora_weight_decay: float = 0.0
+    lora_optimizer: str = "adamw"
+    lora_relex_target_step: int = 200
+    lora_relex_space: str = "folded"
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "dataset_root", Path(self.dataset_root))
@@ -64,7 +73,39 @@ class ExperimentConfig:
             raise ValueError("ridge_lambda must be non-negative")
         if self.hadamard_block_size < 0:
             raise ValueError("hadamard_block_size must be non-negative")
-        allowed = {"dense", "relu", "newton", "hadamard"}
+        if self.lora_rank <= 0:
+            raise ValueError("lora_rank must be positive")
+        if self.lora_alpha <= 0.0:
+            raise ValueError("lora_alpha must be positive")
+        if self.lora_steps <= 0:
+            raise ValueError("lora_steps must be positive")
+        if self.lora_lr <= 0.0:
+            raise ValueError("lora_lr must be positive")
+        if self.lora_batch_tokens <= 0:
+            raise ValueError("lora_batch_tokens must be positive")
+        if self.lora_weight_decay < 0.0:
+            raise ValueError("lora_weight_decay must be non-negative")
+        if self.lora_relex_target_step <= 0:
+            raise ValueError("lora_relex_target_step must be positive")
+        object.__setattr__(self, "lora_relex_space", self.lora_relex_space.lower())
+        if self.lora_relex_space not in {"folded", "factor"}:
+            raise ValueError("lora_relex_space must be 'folded' or 'factor'")
+        object.__setattr__(self, "lora_optimizer", self.lora_optimizer.lower())
+        if self.lora_optimizer not in LORA_OPTIMIZERS:
+            raise ValueError(f"unknown lora_optimizer: {self.lora_optimizer}")
+        allowed = {
+            "dense",
+            "relu",
+            "newton",
+            "hadamard",
+            "lora",
+            "lora_hidden",
+            "lora_fc2",
+            "lora_fc1",
+            "lora_output",
+            "lora_sandwich",
+            "lora_sandwich_relex",
+        }
         unknown = set(self.modes) - allowed
         if unknown:
             raise ValueError(f"unknown mode(s): {sorted(unknown)}")
@@ -72,7 +113,48 @@ class ExperimentConfig:
 
 def parse_modes(value: str) -> tuple[str, ...]:
     modes = tuple(part.strip() for part in value.split(",") if part.strip())
-    return modes or ("dense", "relu", "newton", "hadamard")
+    return modes or ("dense", "relu", "newton", "hadamard", "lora")
+
+
+LORA_OPTIMIZERS = {
+    "adagrad",
+    "adam",
+    "adamax",
+    "adamw",
+    "nadam",
+    "radam",
+    "rmsprop",
+    "sgd",
+    "sgd_momentum",
+}
+
+
+def make_lora_optimizer(
+    params: list[torch.Tensor],
+    *,
+    name: str,
+    lr: float,
+    weight_decay: float,
+) -> torch.optim.Optimizer:
+    if name == "adamw":
+        return torch.optim.AdamW(params, lr=lr, weight_decay=weight_decay)
+    if name == "adam":
+        return torch.optim.Adam(params, lr=lr, weight_decay=weight_decay)
+    if name == "nadam":
+        return torch.optim.NAdam(params, lr=lr, weight_decay=weight_decay)
+    if name == "radam":
+        return torch.optim.RAdam(params, lr=lr, weight_decay=weight_decay)
+    if name == "adamax":
+        return torch.optim.Adamax(params, lr=lr, weight_decay=weight_decay)
+    if name == "rmsprop":
+        return torch.optim.RMSprop(params, lr=lr, weight_decay=weight_decay, momentum=0.9)
+    if name == "adagrad":
+        return torch.optim.Adagrad(params, lr=lr, weight_decay=weight_decay)
+    if name == "sgd":
+        return torch.optim.SGD(params, lr=lr, weight_decay=weight_decay)
+    if name == "sgd_momentum":
+        return torch.optim.SGD(params, lr=lr, weight_decay=weight_decay, momentum=0.9, nesterov=True)
+    raise ValueError(f"unknown lora optimizer: {name}")
 
 
 def selected_annotations(
@@ -305,6 +387,867 @@ def fit_fc2_least_squares_repair(
     return summaries
 
 
+def fit_hidden_lora_identity_repair(
+    *,
+    relu_model: torch.nn.Module,
+    dense_records: dict[str, dict[str, torch.Tensor]],
+    mlp_names: list[str],
+    calibration_tokens: int,
+    rank: int,
+    alpha: float,
+    steps: int,
+    lr: float,
+    batch_tokens: int,
+    weight_decay: float,
+    optimizer_name: str,
+    device: torch.device,
+) -> list[dict[str, Any]]:
+    generator = torch.Generator(device="cpu")
+    generator.manual_seed(23)
+    summaries: list[dict[str, Any]] = []
+
+    for name in tqdm(mlp_names, desc="fit hidden LoRA identity repairs", unit="mlp"):
+        mlp = relu_model.get_submodule(name)
+        inputs = dense_records[name]["inputs"]
+        targets = dense_records[name]["targets"]
+        token_count = inputs.shape[0]
+        if token_count > calibration_tokens:
+            indices = torch.randperm(token_count, generator=generator)[:calibration_tokens]
+            inputs = inputs.index_select(0, indices)
+            targets = targets.index_select(0, indices)
+
+        x_in = inputs.to(device=device, dtype=torch.float32, non_blocking=True)
+        y = targets.to(device=device, dtype=torch.float32, non_blocking=True)
+        with torch.no_grad():
+            hidden = mlp.act(mlp.fc1(x_in)).float()
+            weight = mlp.fc2.weight.detach().float()
+            bias = mlp.fc2.bias.detach().float() if mlp.fc2.bias is not None else None
+            base_y = F.linear(hidden, weight, bias)
+            initial_mse = F.mse_loss(base_y, y).item()
+
+        hidden_features = hidden.shape[1]
+        used_rank = min(rank, hidden_features)
+        scale = float(alpha) / float(used_rank)
+        lora_a = torch.empty((used_rank, hidden_features), device=device, dtype=torch.float32)
+        torch.nn.init.normal_(lora_a, mean=0.0, std=1.0 / math.sqrt(hidden_features))
+        lora_b = torch.zeros((hidden_features, used_rank), device=device, dtype=torch.float32)
+        lora_a.requires_grad_(True)
+        lora_b.requires_grad_(True)
+        optimizer = make_lora_optimizer([lora_a, lora_b], name=optimizer_name, lr=lr, weight_decay=weight_decay)
+
+        batch_size = min(batch_tokens, hidden.shape[0])
+        losses: list[float] = []
+        for step in range(steps):
+            if batch_size < hidden.shape[0]:
+                batch_indices = torch.randint(
+                    0,
+                    hidden.shape[0],
+                    (batch_size,),
+                    device=device,
+                )
+                hidden_batch = hidden.index_select(0, batch_indices)
+                y_batch = y.index_select(0, batch_indices)
+            else:
+                hidden_batch = hidden
+                y_batch = y
+
+            adapted = hidden_batch + scale * ((hidden_batch @ lora_a.T) @ lora_b.T)
+            pred = F.linear(adapted, weight, bias)
+            loss = F.mse_loss(pred, y_batch)
+            optimizer.zero_grad(set_to_none=True)
+            loss.backward()
+            optimizer.step()
+            if step in {0, steps - 1}:
+                losses.append(float(loss.detach().cpu()))
+
+        with torch.no_grad():
+            adapted = hidden + scale * ((hidden @ lora_a.T) @ lora_b.T)
+            final_y = F.linear(adapted, weight, bias)
+            final_mse = F.mse_loss(final_y, y).item()
+            delta_weight = scale * ((weight @ lora_b) @ lora_a)
+            mlp.fc2.weight.add_(delta_weight.to(dtype=mlp.fc2.weight.dtype))
+            delta_norm = float(delta_weight.norm().item())
+            weight_norm = float(weight.norm().item())
+
+        summaries.append(
+            {
+                "module": name,
+                "tokens_available": int(token_count),
+                "tokens_used": int(inputs.shape[0]),
+                "hidden_features": int(hidden_features),
+                "out_features": int(y.shape[1]),
+                "rank": int(used_rank),
+                "alpha": float(alpha),
+                "scale": float(scale),
+                "steps": int(steps),
+                "lr": float(lr),
+                "optimizer": optimizer_name,
+                "batch_tokens": int(batch_size),
+                "initial_mse": initial_mse,
+                "final_mse": final_mse,
+                "first_last_batch_losses": losses,
+                "delta_weight_norm": delta_norm,
+                "base_weight_norm": weight_norm,
+                "delta_to_weight_norm": delta_norm / max(weight_norm, 1e-12),
+                "folded_delta": "fc2.weight <- fc2.weight + (alpha/rank) * fc2.weight @ B @ A",
+                "identity_initialization": "adapter is h -> h + (alpha/rank) * B(Ah), with B initialized to zero so the initial adapter is exactly identity.",
+            }
+        )
+        del hidden, y, lora_a, lora_b
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+    return summaries
+
+
+def _select_dense_record_subset(
+    dense_records: dict[str, dict[str, torch.Tensor]],
+    name: str,
+    *,
+    calibration_tokens: int,
+    generator: torch.Generator,
+    device: torch.device,
+) -> tuple[torch.Tensor, torch.Tensor, int]:
+    inputs = dense_records[name]["inputs"]
+    targets = dense_records[name]["targets"]
+    token_count = inputs.shape[0]
+    if token_count > calibration_tokens:
+        indices = torch.randperm(token_count, generator=generator)[:calibration_tokens]
+        inputs = inputs.index_select(0, indices)
+        targets = targets.index_select(0, indices)
+    return (
+        inputs.to(device=device, dtype=torch.float32, non_blocking=True),
+        targets.to(device=device, dtype=torch.float32, non_blocking=True),
+        int(token_count),
+    )
+
+
+def _init_lora_factors(
+    *,
+    in_features: int,
+    out_features: int,
+    rank: int,
+    device: torch.device,
+) -> tuple[torch.Tensor, torch.Tensor, int]:
+    used_rank = min(rank, in_features, out_features)
+    lora_a = torch.empty((used_rank, in_features), device=device, dtype=torch.float32)
+    torch.nn.init.normal_(lora_a, mean=0.0, std=1.0 / math.sqrt(in_features))
+    lora_b = torch.zeros((out_features, used_rank), device=device, dtype=torch.float32)
+    lora_a.requires_grad_(True)
+    lora_b.requires_grad_(True)
+    return lora_a, lora_b, used_rank
+
+
+def _sample_batch(
+    x: torch.Tensor,
+    y: torch.Tensor,
+    *,
+    batch_size: int,
+) -> tuple[torch.Tensor, torch.Tensor]:
+    if batch_size >= x.shape[0]:
+        return x, y
+    indices = torch.randint(0, x.shape[0], (batch_size,), device=x.device)
+    return x.index_select(0, indices), y.index_select(0, indices)
+
+
+def relex_rank1_extrapolate_delta(
+    trajectory: list[torch.Tensor],
+    *,
+    target_step: int,
+    device: torch.device,
+) -> tuple[torch.Tensor, dict[str, Any]]:
+    if not trajectory:
+        raise ValueError("RELEX trajectory must be non-empty")
+    if len(trajectory) == 1:
+        return trajectory[0].to(device=device, dtype=torch.float32), {
+            "observed_steps": 1,
+            "target_step": int(target_step),
+            "r2": 1.0,
+            "explained_variance": 1.0,
+            "observed_final_coeff": float(trajectory[0].float().norm().item()),
+            "extrapolated_coeff": float(trajectory[0].float().norm().item()),
+            "coefficient_ratio": 1.0,
+        }
+
+    shape = trajectory[0].shape
+    matrix = torch.stack([delta.reshape(-1).float() for delta in trajectory], dim=0).to(device=device)
+    gram = matrix @ matrix.T
+    evals, evecs = torch.linalg.eigh(gram)
+    top_eval = torch.clamp(evals[-1], min=0.0)
+    total_eval = torch.clamp(evals, min=0.0).sum()
+    sigma = torch.sqrt(top_eval)
+    if float(sigma.item()) <= 1e-12:
+        zero = torch.zeros(shape, device=device, dtype=torch.float32)
+        return zero, {
+            "observed_steps": len(trajectory),
+            "target_step": int(target_step),
+            "r2": 0.0,
+            "explained_variance": 0.0,
+            "observed_final_coeff": 0.0,
+            "extrapolated_coeff": 0.0,
+            "coefficient_ratio": 0.0,
+        }
+
+    direction = (matrix.T @ evecs[:, -1]) / sigma
+    coeff = matrix @ direction
+    steps = torch.arange(1, len(trajectory) + 1, device=device, dtype=torch.float32)
+    step_mean = steps.mean()
+    coeff_mean = coeff.mean()
+    slope = ((steps - step_mean) * (coeff - coeff_mean)).sum() / ((steps - step_mean).square().sum() + 1e-12)
+    intercept = coeff_mean - slope * step_mean
+    pred_coeff = slope * float(target_step) + intercept
+    pred = (pred_coeff * direction).reshape(shape)
+
+    fitted = slope * steps + intercept
+    residual = (coeff - fitted).square().sum()
+    centered = (coeff - coeff_mean).square().sum()
+    r2 = 1.0 - float((residual / (centered + 1e-12)).item())
+    observed_final_coeff = float(coeff[-1].item())
+    extrapolated_coeff = float(pred_coeff.item())
+    return pred, {
+        "observed_steps": len(trajectory),
+        "target_step": int(target_step),
+        "r2": r2,
+        "explained_variance": float((top_eval / (total_eval + 1e-12)).item()),
+        "observed_final_coeff": observed_final_coeff,
+        "extrapolated_coeff": extrapolated_coeff,
+        "coefficient_ratio": extrapolated_coeff / observed_final_coeff if abs(observed_final_coeff) > 1e-12 else 0.0,
+        "slope": float(slope.item()),
+        "intercept": float(intercept.item()),
+    }
+
+
+def fit_fc2_lora_identity_repair(
+    *,
+    relu_model: torch.nn.Module,
+    dense_records: dict[str, dict[str, torch.Tensor]],
+    mlp_names: list[str],
+    calibration_tokens: int,
+    rank: int,
+    alpha: float,
+    steps: int,
+    lr: float,
+    batch_tokens: int,
+    weight_decay: float,
+    optimizer_name: str,
+    device: torch.device,
+) -> list[dict[str, Any]]:
+    generator = torch.Generator(device="cpu")
+    generator.manual_seed(29)
+    summaries: list[dict[str, Any]] = []
+    for name in tqdm(mlp_names, desc="fit fc2 LoRA identity repairs", unit="mlp"):
+        mlp = relu_model.get_submodule(name)
+        x_in, y, token_count = _select_dense_record_subset(
+            dense_records,
+            name,
+            calibration_tokens=calibration_tokens,
+            generator=generator,
+            device=device,
+        )
+        with torch.no_grad():
+            hidden = mlp.act(mlp.fc1(x_in)).float()
+            weight = mlp.fc2.weight.detach().float()
+            bias = mlp.fc2.bias.detach().float() if mlp.fc2.bias is not None else None
+            base_y = F.linear(hidden, weight, bias)
+            initial_mse = F.mse_loss(base_y, y).item()
+
+        lora_a, lora_b, used_rank = _init_lora_factors(
+            in_features=hidden.shape[1],
+            out_features=y.shape[1],
+            rank=rank,
+            device=device,
+        )
+        scale = float(alpha) / float(used_rank)
+        optimizer = make_lora_optimizer([lora_a, lora_b], name=optimizer_name, lr=lr, weight_decay=weight_decay)
+        batch_size = min(batch_tokens, hidden.shape[0])
+        losses: list[float] = []
+        for step in range(steps):
+            hidden_batch, y_batch = _sample_batch(hidden, y, batch_size=batch_size)
+            pred = F.linear(hidden_batch, weight, bias)
+            pred = pred + scale * F.linear(F.linear(hidden_batch, lora_a), lora_b)
+            loss = F.mse_loss(pred, y_batch)
+            optimizer.zero_grad(set_to_none=True)
+            loss.backward()
+            optimizer.step()
+            if step in {0, steps - 1}:
+                losses.append(float(loss.detach().cpu()))
+
+        with torch.no_grad():
+            final = F.linear(hidden, weight, bias) + scale * F.linear(F.linear(hidden, lora_a), lora_b)
+            final_mse = F.mse_loss(final, y).item()
+            delta_weight = scale * (lora_b @ lora_a)
+            mlp.fc2.weight.add_(delta_weight.to(dtype=mlp.fc2.weight.dtype))
+            delta_norm = float(delta_weight.norm().item())
+            weight_norm = float(weight.norm().item())
+
+        summaries.append(
+            {
+                "module": name,
+                "placement": "fc2_weight",
+                "tokens_available": token_count,
+                "tokens_used": int(x_in.shape[0]),
+                "rank": int(used_rank),
+                "alpha": float(alpha),
+                "steps": int(steps),
+                "lr": float(lr),
+                "optimizer": optimizer_name,
+                "initial_mse": initial_mse,
+                "final_mse": final_mse,
+                "first_last_batch_losses": losses,
+                "delta_weight_norm": delta_norm,
+                "base_weight_norm": weight_norm,
+                "delta_to_weight_norm": delta_norm / max(weight_norm, 1e-12),
+                "identity_initialization": "standard fc2 LoRA delta has B initialized to zero, so the initial fc2 function is unchanged.",
+                "folded_delta": "fc2.weight <- fc2.weight + (alpha/rank) * B @ A",
+            }
+        )
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+    return summaries
+
+
+def fit_fc1_lora_identity_repair(
+    *,
+    relu_model: torch.nn.Module,
+    dense_records: dict[str, dict[str, torch.Tensor]],
+    mlp_names: list[str],
+    calibration_tokens: int,
+    rank: int,
+    alpha: float,
+    steps: int,
+    lr: float,
+    batch_tokens: int,
+    weight_decay: float,
+    optimizer_name: str,
+    device: torch.device,
+) -> list[dict[str, Any]]:
+    generator = torch.Generator(device="cpu")
+    generator.manual_seed(31)
+    summaries: list[dict[str, Any]] = []
+    for name in tqdm(mlp_names, desc="fit fc1 LoRA identity repairs", unit="mlp"):
+        mlp = relu_model.get_submodule(name)
+        x_in, y, token_count = _select_dense_record_subset(
+            dense_records,
+            name,
+            calibration_tokens=calibration_tokens,
+            generator=generator,
+            device=device,
+        )
+        with torch.no_grad():
+            fc1_weight = mlp.fc1.weight.detach().float()
+            fc1_bias = mlp.fc1.bias.detach().float() if mlp.fc1.bias is not None else None
+            fc2_weight = mlp.fc2.weight.detach().float()
+            fc2_bias = mlp.fc2.bias.detach().float() if mlp.fc2.bias is not None else None
+            base_hidden = mlp.act(F.linear(x_in, fc1_weight, fc1_bias)).float()
+            base_y = F.linear(base_hidden, fc2_weight, fc2_bias)
+            initial_mse = F.mse_loss(base_y, y).item()
+
+        lora_a, lora_b, used_rank = _init_lora_factors(
+            in_features=x_in.shape[1],
+            out_features=fc1_weight.shape[0],
+            rank=rank,
+            device=device,
+        )
+        scale = float(alpha) / float(used_rank)
+        optimizer = make_lora_optimizer([lora_a, lora_b], name=optimizer_name, lr=lr, weight_decay=weight_decay)
+        batch_size = min(batch_tokens, x_in.shape[0])
+        losses: list[float] = []
+        for step in range(steps):
+            x_batch, y_batch = _sample_batch(x_in, y, batch_size=batch_size)
+            pre = F.linear(x_batch, fc1_weight, fc1_bias) + scale * F.linear(F.linear(x_batch, lora_a), lora_b)
+            hidden = mlp.act(pre).float()
+            pred = F.linear(hidden, fc2_weight, fc2_bias)
+            loss = F.mse_loss(pred, y_batch)
+            optimizer.zero_grad(set_to_none=True)
+            loss.backward()
+            optimizer.step()
+            if step in {0, steps - 1}:
+                losses.append(float(loss.detach().cpu()))
+
+        with torch.no_grad():
+            pre = F.linear(x_in, fc1_weight, fc1_bias) + scale * F.linear(F.linear(x_in, lora_a), lora_b)
+            final_y = F.linear(mlp.act(pre).float(), fc2_weight, fc2_bias)
+            final_mse = F.mse_loss(final_y, y).item()
+            delta_weight = scale * (lora_b @ lora_a)
+            mlp.fc1.weight.add_(delta_weight.to(dtype=mlp.fc1.weight.dtype))
+            delta_norm = float(delta_weight.norm().item())
+            weight_norm = float(fc1_weight.norm().item())
+
+        summaries.append(
+            {
+                "module": name,
+                "placement": "fc1_weight",
+                "tokens_available": token_count,
+                "tokens_used": int(x_in.shape[0]),
+                "rank": int(used_rank),
+                "alpha": float(alpha),
+                "steps": int(steps),
+                "lr": float(lr),
+                "optimizer": optimizer_name,
+                "initial_mse": initial_mse,
+                "final_mse": final_mse,
+                "first_last_batch_losses": losses,
+                "delta_weight_norm": delta_norm,
+                "base_weight_norm": weight_norm,
+                "delta_to_weight_norm": delta_norm / max(weight_norm, 1e-12),
+                "identity_initialization": "fc1 LoRA delta has B initialized to zero, so the initial ReLU MLP is unchanged.",
+                "folded_delta": "fc1.weight <- fc1.weight + (alpha/rank) * B @ A",
+            }
+        )
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+    return summaries
+
+
+class OutputLoRAAdapter(nn.Module):
+    def __init__(self, base_mlp: nn.Module, lora_a: torch.Tensor, lora_b: torch.Tensor, scale: float) -> None:
+        super().__init__()
+        self.base_mlp = base_mlp
+        self.register_buffer("lora_a", lora_a.detach().clone())
+        self.register_buffer("lora_b", lora_b.detach().clone())
+        self.scale = float(scale)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        base = self.base_mlp(x)
+        delta = self.scale * F.linear(F.linear(x.float(), self.lora_a.float()), self.lora_b.float())
+        return base + delta.to(dtype=base.dtype)
+
+
+def set_submodule(root: nn.Module, name: str, module: nn.Module) -> None:
+    parts = name.split(".")
+    parent = root
+    for part in parts[:-1]:
+        parent = getattr(parent, part)
+    setattr(parent, parts[-1], module)
+
+
+def fit_output_lora_identity_repair(
+    *,
+    relu_model: torch.nn.Module,
+    dense_records: dict[str, dict[str, torch.Tensor]],
+    mlp_names: list[str],
+    calibration_tokens: int,
+    rank: int,
+    alpha: float,
+    steps: int,
+    lr: float,
+    batch_tokens: int,
+    weight_decay: float,
+    optimizer_name: str,
+    device: torch.device,
+) -> list[dict[str, Any]]:
+    generator = torch.Generator(device="cpu")
+    generator.manual_seed(37)
+    summaries: list[dict[str, Any]] = []
+    for name in tqdm(mlp_names, desc="fit output LoRA identity repairs", unit="mlp"):
+        mlp = relu_model.get_submodule(name)
+        x_in, y, token_count = _select_dense_record_subset(
+            dense_records,
+            name,
+            calibration_tokens=calibration_tokens,
+            generator=generator,
+            device=device,
+        )
+        with torch.no_grad():
+            base_y = mlp(x_in).float()
+            initial_mse = F.mse_loss(base_y, y).item()
+
+        lora_a, lora_b, used_rank = _init_lora_factors(
+            in_features=x_in.shape[1],
+            out_features=y.shape[1],
+            rank=rank,
+            device=device,
+        )
+        scale = float(alpha) / float(used_rank)
+        optimizer = make_lora_optimizer([lora_a, lora_b], name=optimizer_name, lr=lr, weight_decay=weight_decay)
+        batch_size = min(batch_tokens, x_in.shape[0])
+        losses: list[float] = []
+        for step in range(steps):
+            x_batch, y_batch = _sample_batch(x_in, y, batch_size=batch_size)
+            pred = mlp(x_batch).float() + scale * F.linear(F.linear(x_batch, lora_a), lora_b)
+            loss = F.mse_loss(pred, y_batch)
+            optimizer.zero_grad(set_to_none=True)
+            loss.backward()
+            optimizer.step()
+            if step in {0, steps - 1}:
+                losses.append(float(loss.detach().cpu()))
+
+        with torch.no_grad():
+            final_y = mlp(x_in).float() + scale * F.linear(F.linear(x_in, lora_a), lora_b)
+            final_mse = F.mse_loss(final_y, y).item()
+            delta_norm = float((scale * (lora_b @ lora_a)).norm().item())
+
+        set_submodule(
+            relu_model,
+            name,
+            OutputLoRAAdapter(
+                mlp,
+                lora_a.detach().to(dtype=torch.float32),
+                lora_b.detach().to(dtype=torch.float32),
+                scale,
+            ),
+        )
+        summaries.append(
+            {
+                "module": name,
+                "placement": "parallel_mlp_output_residual",
+                "tokens_available": token_count,
+                "tokens_used": int(x_in.shape[0]),
+                "rank": int(used_rank),
+                "alpha": float(alpha),
+                "steps": int(steps),
+                "lr": float(lr),
+                "optimizer": optimizer_name,
+                "initial_mse": initial_mse,
+                "final_mse": final_mse,
+                "first_last_batch_losses": losses,
+                "delta_linear_norm": delta_norm,
+                "identity_initialization": "output LoRA residual has B initialized to zero, so the initial MLP output is unchanged.",
+                "architecture_change": "adds a parallel low-rank residual from MLP input to MLP output; this cannot be folded into the existing GELU/ReLU MLP weights exactly.",
+            }
+        )
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+    return summaries
+
+
+def fit_sandwich_lora_identity_repair(
+    *,
+    relu_model: torch.nn.Module,
+    dense_records: dict[str, dict[str, torch.Tensor]],
+    mlp_names: list[str],
+    calibration_tokens: int,
+    rank: int,
+    alpha: float,
+    steps: int,
+    lr: float,
+    batch_tokens: int,
+    weight_decay: float,
+    optimizer_name: str,
+    device: torch.device,
+) -> list[dict[str, Any]]:
+    generator = torch.Generator(device="cpu")
+    generator.manual_seed(41)
+    summaries: list[dict[str, Any]] = []
+    for name in tqdm(mlp_names, desc="fit sandwich LoRA identity repairs", unit="mlp"):
+        mlp = relu_model.get_submodule(name)
+        x_in, y, token_count = _select_dense_record_subset(
+            dense_records,
+            name,
+            calibration_tokens=calibration_tokens,
+            generator=generator,
+            device=device,
+        )
+        with torch.no_grad():
+            fc1_weight = mlp.fc1.weight.detach().float()
+            fc1_bias = mlp.fc1.bias.detach().float() if mlp.fc1.bias is not None else None
+            fc2_weight = mlp.fc2.weight.detach().float()
+            fc2_bias = mlp.fc2.bias.detach().float() if mlp.fc2.bias is not None else None
+            hidden = mlp.act(F.linear(x_in, fc1_weight, fc1_bias)).float()
+            base_y = F.linear(hidden, fc2_weight, fc2_bias)
+            initial_mse = F.mse_loss(base_y, y).item()
+
+        pre_a, pre_b, pre_rank = _init_lora_factors(
+            in_features=x_in.shape[1],
+            out_features=fc1_weight.shape[0],
+            rank=rank,
+            device=device,
+        )
+        post_a, post_b, post_rank = _init_lora_factors(
+            in_features=fc1_weight.shape[0],
+            out_features=fc1_weight.shape[0],
+            rank=rank,
+            device=device,
+        )
+        pre_scale = float(alpha) / float(pre_rank)
+        post_scale = float(alpha) / float(post_rank)
+        optimizer = make_lora_optimizer(
+            [pre_a, pre_b, post_a, post_b],
+            name=optimizer_name,
+            lr=lr,
+            weight_decay=weight_decay,
+        )
+        batch_size = min(batch_tokens, x_in.shape[0])
+        losses: list[float] = []
+
+        for step in range(steps):
+            x_batch, y_batch = _sample_batch(x_in, y, batch_size=batch_size)
+            pre = F.linear(x_batch, fc1_weight, fc1_bias)
+            pre = pre + pre_scale * F.linear(F.linear(x_batch, pre_a), pre_b)
+            h = mlp.act(pre).float()
+            h = h + post_scale * F.linear(F.linear(h, post_a), post_b)
+            pred = F.linear(h, fc2_weight, fc2_bias)
+            loss = F.mse_loss(pred, y_batch)
+            optimizer.zero_grad(set_to_none=True)
+            loss.backward()
+            optimizer.step()
+            if step in {0, steps - 1}:
+                losses.append(float(loss.detach().cpu()))
+
+        with torch.no_grad():
+            pre = F.linear(x_in, fc1_weight, fc1_bias)
+            pre = pre + pre_scale * F.linear(F.linear(x_in, pre_a), pre_b)
+            h = mlp.act(pre).float()
+            h = h + post_scale * F.linear(F.linear(h, post_a), post_b)
+            final_y = F.linear(h, fc2_weight, fc2_bias)
+            final_mse = F.mse_loss(final_y, y).item()
+
+            delta_fc1 = pre_scale * (pre_b @ pre_a)
+            delta_fc2 = post_scale * ((fc2_weight @ post_b) @ post_a)
+            mlp.fc1.weight.add_(delta_fc1.to(dtype=mlp.fc1.weight.dtype))
+            mlp.fc2.weight.add_(delta_fc2.to(dtype=mlp.fc2.weight.dtype))
+
+            delta_fc1_norm = float(delta_fc1.norm().item())
+            delta_fc2_norm = float(delta_fc2.norm().item())
+            fc1_norm = float(fc1_weight.norm().item())
+            fc2_norm = float(fc2_weight.norm().item())
+
+        summaries.append(
+            {
+                "module": name,
+                "placement": "pre_relu_fc1_and_post_relu_hidden",
+                "tokens_available": token_count,
+                "tokens_used": int(x_in.shape[0]),
+                "pre_rank": int(pre_rank),
+                "post_rank": int(post_rank),
+                "alpha": float(alpha),
+                "steps": int(steps),
+                "lr": float(lr),
+                "optimizer": optimizer_name,
+                "initial_mse": initial_mse,
+                "final_mse": final_mse,
+                "first_last_batch_losses": losses,
+                "delta_fc1_weight_norm": delta_fc1_norm,
+                "base_fc1_weight_norm": fc1_norm,
+                "delta_fc1_to_weight_norm": delta_fc1_norm / max(fc1_norm, 1e-12),
+                "delta_fc2_weight_norm": delta_fc2_norm,
+                "base_fc2_weight_norm": fc2_norm,
+                "delta_fc2_to_weight_norm": delta_fc2_norm / max(fc2_norm, 1e-12),
+                "identity_initialization": "both pre-ReLU and post-ReLU LoRA B factors are initialized to zero, so the initial MLP is exactly the plain ReLU MLP.",
+                "folded_delta": "fc1.weight <- fc1.weight + pre_B @ pre_A * alpha/rank; fc2.weight <- fc2.weight + fc2.weight @ post_B @ post_A * alpha/rank",
+            }
+        )
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+    return summaries
+
+
+def fit_sandwich_lora_relex_repair(
+    *,
+    relu_model: torch.nn.Module,
+    dense_records: dict[str, dict[str, torch.Tensor]],
+    mlp_names: list[str],
+    calibration_tokens: int,
+    rank: int,
+    alpha: float,
+    steps: int,
+    lr: float,
+    batch_tokens: int,
+    weight_decay: float,
+    optimizer_name: str,
+    target_step: int,
+    relex_space: str,
+    device: torch.device,
+) -> list[dict[str, Any]]:
+    generator = torch.Generator(device="cpu")
+    generator.manual_seed(43)
+    summaries: list[dict[str, Any]] = []
+    for name in tqdm(mlp_names, desc="fit sandwich LoRA RELEX repairs", unit="mlp"):
+        mlp = relu_model.get_submodule(name)
+        x_in, y, token_count = _select_dense_record_subset(
+            dense_records,
+            name,
+            calibration_tokens=calibration_tokens,
+            generator=generator,
+            device=device,
+        )
+        with torch.no_grad():
+            fc1_weight = mlp.fc1.weight.detach().float()
+            fc1_bias = mlp.fc1.bias.detach().float() if mlp.fc1.bias is not None else None
+            fc2_weight = mlp.fc2.weight.detach().float()
+            fc2_bias = mlp.fc2.bias.detach().float() if mlp.fc2.bias is not None else None
+            hidden = mlp.act(F.linear(x_in, fc1_weight, fc1_bias)).float()
+            base_y = F.linear(hidden, fc2_weight, fc2_bias)
+            initial_mse = F.mse_loss(base_y, y).item()
+
+        pre_a, pre_b, pre_rank = _init_lora_factors(
+            in_features=x_in.shape[1],
+            out_features=fc1_weight.shape[0],
+            rank=rank,
+            device=device,
+        )
+        post_a, post_b, post_rank = _init_lora_factors(
+            in_features=fc1_weight.shape[0],
+            out_features=fc1_weight.shape[0],
+            rank=rank,
+            device=device,
+        )
+        pre_scale = float(alpha) / float(pre_rank)
+        post_scale = float(alpha) / float(post_rank)
+        pre_a_init = pre_a.detach().clone()
+        pre_b_init = pre_b.detach().clone()
+        post_a_init = post_a.detach().clone()
+        post_b_init = post_b.detach().clone()
+        optimizer = make_lora_optimizer(
+            [pre_a, pre_b, post_a, post_b],
+            name=optimizer_name,
+            lr=lr,
+            weight_decay=weight_decay,
+        )
+        batch_size = min(batch_tokens, x_in.shape[0])
+        losses: list[float] = []
+        delta_fc1_trajectory: list[torch.Tensor] = []
+        delta_fc2_trajectory: list[torch.Tensor] = []
+        pre_a_trajectory: list[torch.Tensor] = []
+        pre_b_trajectory: list[torch.Tensor] = []
+        post_a_trajectory: list[torch.Tensor] = []
+        post_b_trajectory: list[torch.Tensor] = []
+
+        for step in range(steps):
+            x_batch, y_batch = _sample_batch(x_in, y, batch_size=batch_size)
+            pre = F.linear(x_batch, fc1_weight, fc1_bias)
+            pre = pre + pre_scale * F.linear(F.linear(x_batch, pre_a), pre_b)
+            h = mlp.act(pre).float()
+            h = h + post_scale * F.linear(F.linear(h, post_a), post_b)
+            pred = F.linear(h, fc2_weight, fc2_bias)
+            loss = F.mse_loss(pred, y_batch)
+            optimizer.zero_grad(set_to_none=True)
+            loss.backward()
+            optimizer.step()
+
+            with torch.no_grad():
+                if relex_space == "folded":
+                    delta_fc1_now = pre_scale * (pre_b @ pre_a)
+                    delta_fc2_now = post_scale * ((fc2_weight @ post_b) @ post_a)
+                    delta_fc1_trajectory.append(delta_fc1_now.detach().cpu())
+                    delta_fc2_trajectory.append(delta_fc2_now.detach().cpu())
+                else:
+                    pre_a_trajectory.append((pre_a - pre_a_init).detach().cpu())
+                    pre_b_trajectory.append((pre_b - pre_b_init).detach().cpu())
+                    post_a_trajectory.append((post_a - post_a_init).detach().cpu())
+                    post_b_trajectory.append((post_b - post_b_init).detach().cpu())
+            if step in {0, steps - 1}:
+                losses.append(float(loss.detach().cpu()))
+
+        with torch.no_grad():
+            observed_delta_fc1 = pre_scale * (pre_b @ pre_a)
+            observed_delta_fc2 = post_scale * ((fc2_weight @ post_b) @ post_a)
+            observed_y = F.linear(
+                mlp.act(F.linear(x_in, fc1_weight + observed_delta_fc1, fc1_bias)).float(),
+                fc2_weight + observed_delta_fc2,
+                fc2_bias,
+            )
+            observed_mse = F.mse_loss(observed_y, y).item()
+
+            if relex_space == "folded":
+                relex_delta_fc1, fc1_relex = relex_rank1_extrapolate_delta(
+                    delta_fc1_trajectory,
+                    target_step=target_step,
+                    device=device,
+                )
+                relex_delta_fc2, fc2_relex = relex_rank1_extrapolate_delta(
+                    delta_fc2_trajectory,
+                    target_step=target_step,
+                    device=device,
+                )
+                factor_relex: dict[str, Any] = {}
+            else:
+                pre_a_delta, pre_a_relex = relex_rank1_extrapolate_delta(
+                    pre_a_trajectory,
+                    target_step=target_step,
+                    device=device,
+                )
+                pre_b_delta, pre_b_relex = relex_rank1_extrapolate_delta(
+                    pre_b_trajectory,
+                    target_step=target_step,
+                    device=device,
+                )
+                post_a_delta, post_a_relex = relex_rank1_extrapolate_delta(
+                    post_a_trajectory,
+                    target_step=target_step,
+                    device=device,
+                )
+                post_b_delta, post_b_relex = relex_rank1_extrapolate_delta(
+                    post_b_trajectory,
+                    target_step=target_step,
+                    device=device,
+                )
+                pre_a_hat = pre_a_init + pre_a_delta
+                pre_b_hat = pre_b_init + pre_b_delta
+                post_a_hat = post_a_init + post_a_delta
+                post_b_hat = post_b_init + post_b_delta
+                relex_delta_fc1 = pre_scale * (pre_b_hat @ pre_a_hat)
+                relex_delta_fc2 = post_scale * ((fc2_weight @ post_b_hat) @ post_a_hat)
+                fc1_relex = {
+                    "space": "factor_product",
+                    "pre_a": pre_a_relex,
+                    "pre_b": pre_b_relex,
+                }
+                fc2_relex = {
+                    "space": "factor_product",
+                    "post_a": post_a_relex,
+                    "post_b": post_b_relex,
+                }
+                factor_relex = {
+                    "pre_a": pre_a_relex,
+                    "pre_b": pre_b_relex,
+                    "post_a": post_a_relex,
+                    "post_b": post_b_relex,
+                }
+            final_y = F.linear(
+                mlp.act(F.linear(x_in, fc1_weight + relex_delta_fc1, fc1_bias)).float(),
+                fc2_weight + relex_delta_fc2,
+                fc2_bias,
+            )
+            final_mse = F.mse_loss(final_y, y).item()
+
+            mlp.fc1.weight.add_(relex_delta_fc1.to(dtype=mlp.fc1.weight.dtype))
+            mlp.fc2.weight.add_(relex_delta_fc2.to(dtype=mlp.fc2.weight.dtype))
+
+            delta_fc1_norm = float(relex_delta_fc1.norm().item())
+            delta_fc2_norm = float(relex_delta_fc2.norm().item())
+            observed_fc1_norm = float(observed_delta_fc1.norm().item())
+            observed_fc2_norm = float(observed_delta_fc2.norm().item())
+            fc1_norm = float(fc1_weight.norm().item())
+            fc2_norm = float(fc2_weight.norm().item())
+
+        summaries.append(
+            {
+                "module": name,
+                "placement": "pre_relu_fc1_and_post_relu_hidden_relex_folded_weights",
+                "tokens_available": token_count,
+                "tokens_used": int(x_in.shape[0]),
+                "pre_rank": int(pre_rank),
+                "post_rank": int(post_rank),
+                "alpha": float(alpha),
+                "relex_space": relex_space,
+                "observed_steps": int(steps),
+                "target_step": int(target_step),
+                "lr": float(lr),
+                "optimizer": optimizer_name,
+                "initial_mse": initial_mse,
+                "observed_mse": observed_mse,
+                "final_mse": final_mse,
+                "first_last_batch_losses": losses,
+                "observed_delta_fc1_weight_norm": observed_fc1_norm,
+                "observed_delta_fc2_weight_norm": observed_fc2_norm,
+                "delta_fc1_weight_norm": delta_fc1_norm,
+                "base_fc1_weight_norm": fc1_norm,
+                "delta_fc1_to_weight_norm": delta_fc1_norm / max(fc1_norm, 1e-12),
+                "delta_fc2_weight_norm": delta_fc2_norm,
+                "base_fc2_weight_norm": fc2_norm,
+                "delta_fc2_to_weight_norm": delta_fc2_norm / max(fc2_norm, 1e-12),
+                "fc1_relex": fc1_relex,
+                "fc2_relex": fc2_relex,
+                "factor_relex": factor_relex,
+                "identity_initialization": "both LoRA B factors start at zero; RELEX observes the folded weight-delta trajectory from this exact plain-ReLU initialization.",
+                "folded_delta": "RELEX rank-1 extrapolates either folded fc1/fc2 weight deltas or trainable LoRA factor deltas, then folds the resulting effective deltas into the model.",
+            }
+        )
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+    return summaries
+
+
 def next_power_of_two(value: int) -> int:
     return 1 << (value - 1).bit_length()
 
@@ -469,14 +1412,120 @@ def run(config: ExperimentConfig) -> dict[str, Any]:
         }
         write_summary(summary_path, result)
 
+    lora_mode_names = {
+        "lora",
+        "lora_hidden",
+        "lora_fc2",
+        "lora_fc1",
+        "lora_output",
+        "lora_sandwich",
+        "lora_sandwich_relex",
+    }
+    requested_lora_modes = tuple(mode for mode in config.modes if mode in lora_mode_names)
     dense_records = None
-    if "newton" in config.modes:
+    if "newton" in config.modes or requested_lora_modes:
         dense_records = collect_dense_mlp_calibration(
             dense_model=dense_model,
             mlp_names=mlp_names,
             calibration_tensors=calibration_tensors,
             device=device,
         )
+
+    lora_specs = {
+        "lora": (
+            fit_hidden_lora_identity_repair,
+            "hidden_identity_folded_fc2",
+            "Low-rank identity-initialized hidden adapter repair for each transformer MLP. Adapter is h -> h + (alpha/rank) * B(Ah), with B initialized to zero so the starting function is exactly the plain ReLU model. The trained adapter is folded into fc2.weight for evaluation.",
+        ),
+        "lora_hidden": (
+            fit_hidden_lora_identity_repair,
+            "hidden_identity_folded_fc2",
+            "Explicit alias for lora: hidden adapter h -> h + (alpha/rank) * B(Ah), folded into fc2.weight.",
+        ),
+        "lora_fc2": (
+            fit_fc2_lora_identity_repair,
+            "standard_fc2_lora",
+            "Standard low-rank fc2 weight delta. B is initialized to zero so the starting function is exactly the plain ReLU model; the trained delta is folded into fc2.weight.",
+        ),
+        "lora_fc1": (
+            fit_fc1_lora_identity_repair,
+            "preactivation_fc1_lora",
+            "Low-rank fc1 pre-activation weight delta trained through the ReLU nonlinearity. B is initialized to zero so the starting function is exactly the plain ReLU model; the trained delta is folded into fc1.weight.",
+        ),
+        "lora_output": (
+            fit_output_lora_identity_repair,
+            "parallel_mlp_output_lora",
+            "Parallel low-rank MLP-output residual from MLP input to MLP output. B is initialized to zero so the starting function is exactly the plain ReLU model; this variant remains as an explicit adapter module for evaluation.",
+        ),
+        "lora_sandwich": (
+            fit_sandwich_lora_identity_repair,
+            "pre_relu_fc1_and_post_relu_hidden",
+            "Joint before/after ReLU low-rank repair. A pre-ReLU low-rank delta is folded into fc1.weight, and a post-ReLU hidden adapter is folded into fc2.weight. Both B factors are initialized to zero, so the starting function is exactly the plain ReLU model.",
+        ),
+        "lora_sandwich_relex": (
+            fit_sandwich_lora_relex_repair,
+            "pre_relu_fc1_and_post_relu_hidden_relex_folded_weights",
+            "RELEX-style rank-1 trajectory extrapolation for the sandwich LoRA repair. It observes the folded fc1/fc2 weight-delta trajectory for lora_steps optimizer updates, fits a rank-1 coefficient line per folded matrix, extrapolates to lora_relex_target_step, and folds the predicted deltas.",
+        ),
+    }
+    for mode in requested_lora_modes:
+        if dense_records is None:
+            raise RuntimeError("dense MLP calibration records were not collected")
+        fit_fn, placement, approximation = lora_specs[mode]
+        lora_model = copy.deepcopy(relu_template).to(device=device).eval()
+        fit_kwargs: dict[str, Any] = {
+            "relu_model": lora_model,
+            "dense_records": dense_records,
+            "mlp_names": mlp_names,
+            "calibration_tokens": config.calibration_tokens,
+            "rank": config.lora_rank,
+            "alpha": config.lora_alpha,
+            "steps": config.lora_steps,
+            "lr": config.lora_lr,
+            "batch_tokens": config.lora_batch_tokens,
+            "weight_decay": config.lora_weight_decay,
+            "optimizer_name": config.lora_optimizer,
+            "device": device,
+        }
+        if mode == "lora_sandwich_relex":
+            fit_kwargs["target_step"] = config.lora_relex_target_step
+            fit_kwargs["relex_space"] = config.lora_relex_space
+        repair = fit_fn(**fit_kwargs)
+        result["variants"][mode] = {
+            "metadata": {
+                "activation": "GELU replaced with ReLU",
+                "placement": placement,
+                "approximation": approximation,
+                "rank": config.lora_rank,
+                "alpha": config.lora_alpha,
+                "steps": config.lora_steps,
+                "lr": config.lora_lr,
+                "optimizer": config.lora_optimizer,
+                "batch_tokens": config.lora_batch_tokens,
+                "weight_decay": config.lora_weight_decay,
+                "relex_target_step": config.lora_relex_target_step if mode == "lora_sandwich_relex" else None,
+                "relex_space": config.lora_relex_space if mode == "lora_sandwich_relex" else None,
+                "calibration_tokens_per_mlp": config.calibration_tokens,
+                "replaced_modules": replaced,
+                "repair": repair,
+            },
+            "evaluation": evaluate_da2k_model(
+                model=lora_model,
+                dataset_root=config.dataset_root,
+                items=selected_items,
+                input_size=config.input_size,
+                device=device,
+                log_every=config.log_every,
+            ),
+        }
+        write_summary(summary_path, result)
+        del lora_model
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+
+    if "newton" in config.modes:
+        if dense_records is None:
+            raise RuntimeError("dense MLP calibration records were not collected")
         newton_model = copy.deepcopy(relu_template).to(device=device).eval()
         repair = fit_fc2_least_squares_repair(
             relu_model=newton_model,
@@ -552,7 +1601,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--calibration-tokens", type=int, default=4096)
     parser.add_argument("--max-images", type=int, default=32)
     parser.add_argument("--max-pairs", type=int, default=0)
-    parser.add_argument("--modes", default="dense,relu,newton,hadamard")
+    parser.add_argument("--modes", default="dense,relu,newton,hadamard,lora")
     parser.add_argument(
         "--scene-type",
         default="",
@@ -561,6 +1610,15 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--log-every", type=int, default=8)
     parser.add_argument("--ridge-lambda", type=float, default=1e-3)
     parser.add_argument("--hadamard-block-size", type=int, default=1024)
+    parser.add_argument("--lora-rank", type=int, default=16)
+    parser.add_argument("--lora-alpha", type=float, default=16.0)
+    parser.add_argument("--lora-steps", type=int, default=200)
+    parser.add_argument("--lora-lr", type=float, default=3e-3)
+    parser.add_argument("--lora-batch-tokens", type=int, default=2048)
+    parser.add_argument("--lora-weight-decay", type=float, default=0.0)
+    parser.add_argument("--lora-optimizer", choices=sorted(LORA_OPTIMIZERS), default="adamw")
+    parser.add_argument("--lora-relex-target-step", type=int, default=200)
+    parser.add_argument("--lora-relex-space", choices=["folded", "factor"], default="folded")
     return parser
 
 
@@ -582,6 +1640,15 @@ def main(argv: list[str] | None = None) -> None:
         log_every=args.log_every,
         ridge_lambda=args.ridge_lambda,
         hadamard_block_size=args.hadamard_block_size,
+        lora_rank=args.lora_rank,
+        lora_alpha=args.lora_alpha,
+        lora_steps=args.lora_steps,
+        lora_lr=args.lora_lr,
+        lora_batch_tokens=args.lora_batch_tokens,
+        lora_weight_decay=args.lora_weight_decay,
+        lora_optimizer=args.lora_optimizer,
+        lora_relex_target_step=args.lora_relex_target_step,
+        lora_relex_space=args.lora_relex_space,
     )
     summary = run(config)
     print(json.dumps({name: row["evaluation"]["overall"] for name, row in summary["variants"].items()}, indent=2))

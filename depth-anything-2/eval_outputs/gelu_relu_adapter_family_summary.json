@@ -1,0 +1,157 @@
+{
+  "notes": [
+    "All full adapter-family rows use direct fc1/fc2 repairs on GELU->ReLU Depth Anything V2-S, rank32, alpha32, cal32/tok8192, 200 RAdam steps, then folded dense weights.",
+    "The earlier hidden-sandwich LoRA is included for comparison but is a different placement: it adapts pre-ReLU fc1 and a hidden-space transform folded through fc2.",
+    "glora here is a GLoRA-style linear reparameterization with both additive weight LoRA and low-rank input activation transform. fact_tucker is a FacT/Tucker-style U-core-V factorized update per matrix."
+  ],
+  "comparison_rows": [
+    {
+      "method": "dense_gelu_baseline",
+      "accuracy": 0.9521276595744681,
+      "correct": 1969,
+      "pairs": 2068,
+      "ties": 1,
+      "note": "prior dense GELU"
+    },
+    {
+      "method": "hidden_sandwich_lora_radam",
+      "accuracy": 0.9182785299806576,
+      "correct": 1899,
+      "pairs": 2068,
+      "ties": 0,
+      "note": "prior best: hidden sandwich LoRA, RAdam"
+    }
+  ],
+  "full_rows": [
+    {
+      "method": "dora",
+      "accuracy": 0.9148936170212766,
+      "correct": 1892,
+      "pairs": 2068,
+      "ties": 0,
+      "trainable_params": 1497600,
+      "source": "eval_outputs/gelu_relu_adapter_family_top3_full_steps200_radam/summary.json"
+    },
+    {
+      "method": "glora",
+      "accuracy": 0.9148936170212766,
+      "correct": 1892,
+      "pairs": 2068,
+      "ties": 0,
+      "trainable_params": 2949120,
+      "source": "eval_outputs/gelu_relu_adapter_family_top3_full_steps200_radam/summary.json"
+    },
+    {
+      "method": "fact_tucker",
+      "accuracy": 0.9032882011605415,
+      "correct": 1868,
+      "pairs": 2068,
+      "ties": 0,
+      "trainable_params": 1499136,
+      "source": "eval_outputs/gelu_relu_adapter_family_remaining_full_steps200_radam/summary.json"
+    },
+    {
+      "method": "lora",
+      "accuracy": 0.8974854932301741,
+      "correct": 1856,
+      "pairs": 2068,
+      "ties": 0,
+      "trainable_params": 1474560,
+      "source": "eval_outputs/gelu_relu_adapter_family_top3_full_steps200_radam/summary.json"
+    },
+    {
+      "method": "loha",
+      "accuracy": 0.8965183752417795,
+      "correct": 1854,
+      "pairs": 2068,
+      "ties": 0,
+      "trainable_params": 2949120,
+      "source": "eval_outputs/gelu_relu_adapter_family_remaining_full_steps200_radam/summary.json"
+    },
+    {
+      "method": "lokr",
+      "accuracy": 0.7190522243713733,
+      "correct": 1487,
+      "pairs": 2068,
+      "ties": 0,
+      "trainable_params": 369024,
+      "source": "eval_outputs/gelu_relu_adapter_family_remaining_full_steps200_radam/summary.json"
+    },
+    {
+      "method": "vera",
+      "accuracy": 0.6281431334622823,
+      "correct": 1299,
+      "pairs": 2068,
+      "ties": 0,
+      "trainable_params": 768,
+      "source": "eval_outputs/gelu_relu_adapter_family_remaining_full_steps200_radam/summary.json"
+    },
+    {
+      "method": "ia3",
+      "accuracy": 0.6112185686653772,
+      "correct": 1264,
+      "pairs": 2068,
+      "ties": 0,
+      "trainable_params": 36864,
+      "source": "eval_outputs/gelu_relu_adapter_family_remaining_full_steps200_radam/summary.json"
+    }
+  ],
+  "small_rows": [
+    {
+      "method": "glora",
+      "accuracy": 0.8873239436619719,
+      "correct": 63,
+      "pairs": 71,
+      "ties": 0
+    },
+    {
+      "method": "dora",
+      "accuracy": 0.7887323943661971,
+      "correct": 56,
+      "pairs": 71,
+      "ties": 0
+    },
+    {
+      "method": "lora",
+      "accuracy": 0.7605633802816901,
+      "correct": 54,
+      "pairs": 71,
+      "ties": 0
+    },
+    {
+      "method": "vera",
+      "accuracy": 0.647887323943662,
+      "correct": 46,
+      "pairs": 71,
+      "ties": 0
+    },
+    {
+      "method": "ia3",
+      "accuracy": 0.6338028169014085,
+      "correct": 45,
+      "pairs": 71,
+      "ties": 0
+    },
+    {
+      "method": "loha",
+      "accuracy": 0.6338028169014085,
+      "correct": 45,
+      "pairs": 71,
+      "ties": 0
+    },
+    {
+      "method": "lokr",
+      "accuracy": 0.6338028169014085,
+      "correct": 45,
+      "pairs": 71,
+      "ties": 0
+    },
+    {
+      "method": "fact_tucker",
+      "accuracy": 0.6056338028169014,
+      "correct": 43,
+      "pairs": 71,
+      "ties": 0
+    }
+  ]
+}

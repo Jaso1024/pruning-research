@@ -1,0 +1,71 @@
+{
+  "notes": [
+    "LoRA adapter is h -> h + (alpha/rank) * B(Ah), with B=0 at initialization so the starting adapter is identity and the plain ReLU model is unchanged.",
+    "Adapters are trained per transformer MLP against original GELU MLP outputs on calibration tokens, then folded into fc2.weight as a low-rank delta."
+  ],
+  "rows": [
+    {
+      "accuracy": 0.9521276595744681,
+      "correct": 1969,
+      "name": "dense_baseline",
+      "note": "prior full GELU baseline",
+      "pairs": 2068,
+      "path": "prior",
+      "rank": null
+    },
+    {
+      "accuracy": 0.9119922630560928,
+      "correct": 1886,
+      "name": "lora_rank32_cal32_tok8192",
+      "note": "identity LoRA repair, 32 calibration images",
+      "pairs": 2068,
+      "path": "eval_outputs/gelu_relu_lora_identity_rank32_cal32_tok8192_full/summary.json",
+      "rank": 32
+    },
+    {
+      "accuracy": 0.9100580270793037,
+      "correct": 1882,
+      "name": "lora_rank64_cal32_tok8192",
+      "note": "identity LoRA repair, 32 calibration images",
+      "pairs": 2068,
+      "path": "eval_outputs/gelu_relu_lora_identity_rank64_cal32_tok8192_full/summary.json",
+      "rank": 64
+    },
+    {
+      "accuracy": 0.905705996131528,
+      "correct": 1873,
+      "name": "lora_rank16_cal32_tok8192",
+      "note": "identity LoRA repair, 32 calibration images",
+      "pairs": 2068,
+      "path": "eval_outputs/gelu_relu_lora_identity_rank16_cal32_tok8192_full/summary.json",
+      "rank": 16
+    },
+    {
+      "accuracy": 0.8926499032882012,
+      "correct": 1846,
+      "name": "lora_rank16_cal8_tok4096",
+      "note": "identity LoRA repair, 8 calibration images",
+      "pairs": 2068,
+      "path": "eval_outputs/gelu_relu_lora_identity_rank16_full/summary.json",
+      "rank": 16
+    },
+    {
+      "accuracy": 0.7857833655705996,
+      "correct": 1625,
+      "name": "newton_ls_cal32_tok8192",
+      "note": "full fc2 least-squares repair",
+      "pairs": 2068,
+      "path": "eval_outputs/gelu_relu_newton_cal32_tok8192_full/summary.json",
+      "rank": null
+    },
+    {
+      "accuracy": 0.6194390715667312,
+      "correct": 1281,
+      "name": "relu_plain",
+      "note": "plain GELU->ReLU full control",
+      "pairs": 2068,
+      "path": "eval_outputs/gelu_relu_plain_full_control/summary.json",
+      "rank": null
+    }
+  ]
+}
