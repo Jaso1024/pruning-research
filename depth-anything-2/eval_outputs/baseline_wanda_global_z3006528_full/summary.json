@@ -1,0 +1,710 @@
+{
+  "baseline": null,
+  "metadata": {
+    "affine_repair": "none",
+    "affine_repair_scope": "all-selected",
+    "affine_repair_tokens": 4096,
+    "calibration_images": 8,
+    "calibration_images_loaded": 8,
+    "calibration_relative_paths": [
+      "images/indoor/1009402064_7c74b0b819_k.jpg",
+      "images/indoor/12272343524_202e65dd98_k.jpg",
+      "images/indoor/17250719779_221d17a4d2_k.jpg",
+      "images/indoor/17485436718_3f0fea8f35_k.jpg",
+      "images/indoor/17621921930_cc03603441_k.jpg",
+      "images/indoor/17646951536_f4b5ada4fd_k.jpg",
+      "images/indoor/17673273195_cf6998a2ad_k.jpg",
+      "images/indoor/17673285035_df2ff485f6_k.jpg"
+    ],
+    "checkpoint": "checkpoints/depth_anything_v2_vits.pth",
+    "circuit_lambda": "0",
+    "circuit_normalization": "max",
+    "circuit_score_field": "positive_attribution",
+    "circuit_summary": null,
+    "circuit_top_fraction": 1.0,
+    "circuit_top_k": 0,
+    "dataset_root": "/home/springsi/vision_token_tests/datasets/DA-2K/DA-2K",
+    "device": "cuda",
+    "encoder": "vits",
+    "eval_baseline": false,
+    "eval_excludes_calibration": false,
+    "eval_images_requested": 1033,
+    "exclude_calibration_from_eval": false,
+    "images_selected": 1033,
+    "input_size": 518,
+    "layer_indices": [],
+    "log_every": 150,
+    "max_images": 0,
+    "output_dir": "eval_outputs/baseline_wanda_global_z3006528_full",
+    "prune_chunk_fraction": 0.1415925207255799,
+    "prune_fraction": 0.1415925207255799,
+    "pruning_scope": "global",
+    "recompute_every_weights": 0,
+    "repair_lr": 1e-05,
+    "repair_steps": 0,
+    "rule": "DA-2K labels point1 as closer; Depth Anything V2 vits uses larger predicted values for closer points.",
+    "saliency_method": "wanda",
+    "scene_type": "",
+    "score_normalization": "none",
+    "target": "transformer",
+    "target_module_count": 48,
+    "target_weight_count": 21233664
+  },
+  "pruned": {
+    "by_scene": {
+      "adverse_style": {
+        "best_accuracy": 0.9298780487804879,
+        "best_direction": "larger",
+        "larger_correct": 305,
+        "larger_is_closer_accuracy": 0.9298780487804879,
+        "pairs": 328,
+        "smaller_correct": 23,
+        "smaller_is_closer_accuracy": 0.0701219512195122,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "aerial": {
+        "best_accuracy": 0.9536082474226805,
+        "best_direction": "larger",
+        "larger_correct": 185,
+        "larger_is_closer_accuracy": 0.9536082474226805,
+        "pairs": 194,
+        "smaller_correct": 9,
+        "smaller_is_closer_accuracy": 0.04639175257731959,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "indoor": {
+        "best_accuracy": 0.9214285714285714,
+        "best_direction": "larger",
+        "larger_correct": 387,
+        "larger_is_closer_accuracy": 0.9214285714285714,
+        "pairs": 420,
+        "smaller_correct": 33,
+        "smaller_is_closer_accuracy": 0.07857142857142857,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "non_real": {
+        "best_accuracy": 0.9735973597359736,
+        "best_direction": "larger",
+        "larger_correct": 295,
+        "larger_is_closer_accuracy": 0.9735973597359736,
+        "pairs": 303,
+        "smaller_correct": 8,
+        "smaller_is_closer_accuracy": 0.026402640264026403,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "object": {
+        "best_accuracy": 0.9459459459459459,
+        "best_direction": "larger",
+        "larger_correct": 140,
+        "larger_is_closer_accuracy": 0.9459459459459459,
+        "pairs": 148,
+        "smaller_correct": 8,
+        "smaller_is_closer_accuracy": 0.05405405405405406,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "outdoor": {
+        "best_accuracy": 0.9098837209302325,
+        "best_direction": "larger",
+        "larger_correct": 313,
+        "larger_is_closer_accuracy": 0.9098837209302325,
+        "pairs": 344,
+        "smaller_correct": 30,
+        "smaller_is_closer_accuracy": 0.0872093023255814,
+        "tie_fraction": 0.0029069767441860465,
+        "ties": 1
+      },
+      "transparent_reflective": {
+        "best_accuracy": 0.9392523364485982,
+        "best_direction": "larger",
+        "larger_correct": 201,
+        "larger_is_closer_accuracy": 0.9392523364485982,
+        "pairs": 214,
+        "smaller_correct": 13,
+        "smaller_is_closer_accuracy": 0.06074766355140187,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "underwater": {
+        "best_accuracy": 0.9914529914529915,
+        "best_direction": "larger",
+        "larger_correct": 116,
+        "larger_is_closer_accuracy": 0.9914529914529915,
+        "pairs": 117,
+        "smaller_correct": 1,
+        "smaller_is_closer_accuracy": 0.008547008547008548,
+        "tie_fraction": 0.0,
+        "ties": 0
+      }
+    },
+    "metadata": {
+      "elapsed_seconds": 43.92174397199415,
+      "images_requested": 1033,
+      "missing_images": []
+    },
+    "overall": {
+      "best_accuracy": 0.9390715667311412,
+      "best_direction": "larger",
+      "larger_correct": 1942,
+      "larger_is_closer_accuracy": 0.9390715667311412,
+      "pairs": 2068,
+      "smaller_correct": 125,
+      "smaller_is_closer_accuracy": 0.06044487427466151,
+      "tie_fraction": 0.00048355899419729207,
+      "ties": 1
+    }
+  },
+  "pruning": {
+    "actual_zero_fraction": 0.14159252025462962,
+    "affine_repair": "none",
+    "affine_repair_objective": "none",
+    "affine_repair_scope": "all-selected",
+    "affine_repair_summaries": [],
+    "affine_repair_tokens": 4096,
+    "chunk_fraction": 0.1415925207255799,
+    "circuit_protection": {
+      "enabled": false,
+      "lambda": 0.0,
+      "matched_linear_modules": 0,
+      "normalization": "max",
+      "score_field": "positive_attribution",
+      "selected_circuit_rows": 0,
+      "summary_path": null,
+      "top_fraction": 1.0,
+      "top_k": 0
+    },
+    "method": "wanda",
+    "pruned_tensors": [
+      {
+        "actual_zero_fraction": 0.6045125325520834,
+        "name": "pretrained.blocks.0.attn.proj",
+        "shape": [
+          384,
+          384
+        ],
+        "weights": 147456,
+        "zeroed": 89139
+      },
+      {
+        "actual_zero_fraction": 0.07521791811342593,
+        "name": "pretrained.blocks.0.attn.qkv",
+        "shape": [
+          1152,
+          384
+        ],
+        "weights": 442368,
+        "zeroed": 33274
+      },
+      {
+        "actual_zero_fraction": 0.039421929253472224,
+        "name": "pretrained.blocks.0.mlp.fc1",
+        "shape": [
+          1536,
+          384
+        ],
+        "weights": 589824,
+        "zeroed": 23252
+      },
+      {
+        "actual_zero_fraction": 0.3227318657769097,
+        "name": "pretrained.blocks.0.mlp.fc2",
+        "shape": [
+          384,
+          1536
+        ],
+        "weights": 589824,
+        "zeroed": 190355
+      },
+      {
+        "actual_zero_fraction": 0.22419569227430555,
+        "name": "pretrained.blocks.1.attn.proj",
+        "shape": [
+          384,
+          384
+        ],
+        "weights": 147456,
+        "zeroed": 33059
+      },
+      {
+        "actual_zero_fraction": 0.026636194299768517,
+        "name": "pretrained.blocks.1.attn.qkv",
+        "shape": [
+          1152,
+          384
+        ],
+        "weights": 442368,
+        "zeroed": 11783
+      },
+      {
+        "actual_zero_fraction": 0.024403889973958332,
+        "name": "pretrained.blocks.1.mlp.fc1",
+        "shape": [
+          1536,
+          384
+        ],
+        "weights": 589824,
+        "zeroed": 14394
+      },
+      {
+        "actual_zero_fraction": 0.1684451633029514,
+        "name": "pretrained.blocks.1.mlp.fc2",
+        "shape": [
+          384,
+          1536
+        ],
+        "weights": 589824,
+        "zeroed": 99353
+      },
+      {
+        "actual_zero_fraction": 0.1397026909722222,
+        "name": "pretrained.blocks.10.attn.proj",
+        "shape": [
+          384,
+          384
+        ],
+        "weights": 147456,
+        "zeroed": 20600
+      },
+      {
+        "actual_zero_fraction": 0.01865867332175926,
+        "name": "pretrained.blocks.10.attn.qkv",
+        "shape": [
+          1152,
+          384
+        ],
+        "weights": 442368,
+        "zeroed": 8254
+      },
+      {
+        "actual_zero_fraction": 0.019195556640625,
+        "name": "pretrained.blocks.10.mlp.fc1",
+        "shape": [
+          1536,
+          384
+        ],
+        "weights": 589824,
+        "zeroed": 11322
+      },
+      {
+        "actual_zero_fraction": 0.4020673963758681,
+        "name": "pretrained.blocks.10.mlp.fc2",
+        "shape": [
+          384,
+          1536
+        ],
+        "weights": 589824,
+        "zeroed": 237149
+      },
+      {
+        "actual_zero_fraction": 0.1053127712673611,
+        "name": "pretrained.blocks.11.attn.proj",
+        "shape": [
+          384,
+          384
+        ],
+        "weights": 147456,
+        "zeroed": 15529
+      },
+      {
+        "actual_zero_fraction": 0.01842131438078704,
+        "name": "pretrained.blocks.11.attn.qkv",
+        "shape": [
+          1152,
+          384
+        ],
+        "weights": 442368,
+        "zeroed": 8149
+      },
+      {
+        "actual_zero_fraction": 0.023118760850694444,
+        "name": "pretrained.blocks.11.mlp.fc1",
+        "shape": [
+          1536,
+          384
+        ],
+        "weights": 589824,
+        "zeroed": 13636
+      },
+      {
+        "actual_zero_fraction": 0.286529541015625,
+        "name": "pretrained.blocks.11.mlp.fc2",
+        "shape": [
+          384,
+          1536
+        ],
+        "weights": 589824,
+        "zeroed": 169002
+      },
+      {
+        "actual_zero_fraction": 0.2805514865451389,
+        "name": "pretrained.blocks.2.attn.proj",
+        "shape": [
+          384,
+          384
+        ],
+        "weights": 147456,
+        "zeroed": 41369
+      },
+      {
+        "actual_zero_fraction": 0.02687355324074074,
+        "name": "pretrained.blocks.2.attn.qkv",
+        "shape": [
+          1152,
+          384
+        ],
+        "weights": 442368,
+        "zeroed": 11888
+      },
+      {
+        "actual_zero_fraction": 0.03169420030381945,
+        "name": "pretrained.blocks.2.mlp.fc1",
+        "shape": [
+          1536,
+          384
+        ],
+        "weights": 589824,
+        "zeroed": 18694
+      },
+      {
+        "actual_zero_fraction": 0.2826368543836806,
+        "name": "pretrained.blocks.2.mlp.fc2",
+        "shape": [
+          384,
+          1536
+        ],
+        "weights": 589824,
+        "zeroed": 166706
+      },
+      {
+        "actual_zero_fraction": 0.2168511284722222,
+        "name": "pretrained.blocks.3.attn.proj",
+        "shape": [
+          384,
+          384
+        ],
+        "weights": 147456,
+        "zeroed": 31976
+      },
+      {
+        "actual_zero_fraction": 0.02740478515625,
+        "name": "pretrained.blocks.3.attn.qkv",
+        "shape": [
+          1152,
+          384
+        ],
+        "weights": 442368,
+        "zeroed": 12123
+      },
+      {
+        "actual_zero_fraction": 0.028849283854166668,
+        "name": "pretrained.blocks.3.mlp.fc1",
+        "shape": [
+          1536,
+          384
+        ],
+        "weights": 589824,
+        "zeroed": 17016
+      },
+      {
+        "actual_zero_fraction": 0.3071967230902778,
+        "name": "pretrained.blocks.3.mlp.fc2",
+        "shape": [
+          384,
+          1536
+        ],
+        "weights": 589824,
+        "zeroed": 181192
+      },
+      {
+        "actual_zero_fraction": 0.20829942491319445,
+        "name": "pretrained.blocks.4.attn.proj",
+        "shape": [
+          384,
+          384
+        ],
+        "weights": 147456,
+        "zeroed": 30715
+      },
+      {
+        "actual_zero_fraction": 0.021032262731481483,
+        "name": "pretrained.blocks.4.attn.qkv",
+        "shape": [
+          1152,
+          384
+        ],
+        "weights": 442368,
+        "zeroed": 9304
+      },
+      {
+        "actual_zero_fraction": 0.026924981011284724,
+        "name": "pretrained.blocks.4.mlp.fc1",
+        "shape": [
+          1536,
+          384
+        ],
+        "weights": 589824,
+        "zeroed": 15881
+      },
+      {
+        "actual_zero_fraction": 0.3191426595052083,
+        "name": "pretrained.blocks.4.mlp.fc2",
+        "shape": [
+          384,
+          1536
+        ],
+        "weights": 589824,
+        "zeroed": 188238
+      },
+      {
+        "actual_zero_fraction": 0.19404432508680555,
+        "name": "pretrained.blocks.5.attn.proj",
+        "shape": [
+          384,
+          384
+        ],
+        "weights": 147456,
+        "zeroed": 28613
+      },
+      {
+        "actual_zero_fraction": 0.020094129774305556,
+        "name": "pretrained.blocks.5.attn.qkv",
+        "shape": [
+          1152,
+          384
+        ],
+        "weights": 442368,
+        "zeroed": 8889
+      },
+      {
+        "actual_zero_fraction": 0.027503119574652776,
+        "name": "pretrained.blocks.5.mlp.fc1",
+        "shape": [
+          1536,
+          384
+        ],
+        "weights": 589824,
+        "zeroed": 16222
+      },
+      {
+        "actual_zero_fraction": 0.3255377875434028,
+        "name": "pretrained.blocks.5.mlp.fc2",
+        "shape": [
+          384,
+          1536
+        ],
+        "weights": 589824,
+        "zeroed": 192010
+      },
+      {
+        "actual_zero_fraction": 0.1887139214409722,
+        "name": "pretrained.blocks.6.attn.proj",
+        "shape": [
+          384,
+          384
+        ],
+        "weights": 147456,
+        "zeroed": 27827
+      },
+      {
+        "actual_zero_fraction": 0.02081298828125,
+        "name": "pretrained.blocks.6.attn.qkv",
+        "shape": [
+          1152,
+          384
+        ],
+        "weights": 442368,
+        "zeroed": 9207
+      },
+      {
+        "actual_zero_fraction": 0.023103502061631944,
+        "name": "pretrained.blocks.6.mlp.fc1",
+        "shape": [
+          1536,
+          384
+        ],
+        "weights": 589824,
+        "zeroed": 13627
+      },
+      {
+        "actual_zero_fraction": 0.3443925645616319,
+        "name": "pretrained.blocks.6.mlp.fc2",
+        "shape": [
+          384,
+          1536
+        ],
+        "weights": 589824,
+        "zeroed": 203131
+      },
+      {
+        "actual_zero_fraction": 0.20444742838541666,
+        "name": "pretrained.blocks.7.attn.proj",
+        "shape": [
+          384,
+          384
+        ],
+        "weights": 147456,
+        "zeroed": 30147
+      },
+      {
+        "actual_zero_fraction": 0.02052589699074074,
+        "name": "pretrained.blocks.7.attn.qkv",
+        "shape": [
+          1152,
+          384
+        ],
+        "weights": 442368,
+        "zeroed": 9080
+      },
+      {
+        "actual_zero_fraction": 0.024781968858506944,
+        "name": "pretrained.blocks.7.mlp.fc1",
+        "shape": [
+          1536,
+          384
+        ],
+        "weights": 589824,
+        "zeroed": 14617
+      },
+      {
+        "actual_zero_fraction": 0.3561893039279514,
+        "name": "pretrained.blocks.7.mlp.fc2",
+        "shape": [
+          384,
+          1536
+        ],
+        "weights": 589824,
+        "zeroed": 210089
+      },
+      {
+        "actual_zero_fraction": 0.13783094618055555,
+        "name": "pretrained.blocks.8.attn.proj",
+        "shape": [
+          384,
+          384
+        ],
+        "weights": 147456,
+        "zeroed": 20324
+      },
+      {
+        "actual_zero_fraction": 0.018538863570601853,
+        "name": "pretrained.blocks.8.attn.qkv",
+        "shape": [
+          1152,
+          384
+        ],
+        "weights": 442368,
+        "zeroed": 8201
+      },
+      {
+        "actual_zero_fraction": 0.022650824652777776,
+        "name": "pretrained.blocks.8.mlp.fc1",
+        "shape": [
+          1536,
+          384
+        ],
+        "weights": 589824,
+        "zeroed": 13360
+      },
+      {
+        "actual_zero_fraction": 0.4210984971788194,
+        "name": "pretrained.blocks.8.mlp.fc2",
+        "shape": [
+          384,
+          1536
+        ],
+        "weights": 589824,
+        "zeroed": 248374
+      },
+      {
+        "actual_zero_fraction": 0.17042371961805555,
+        "name": "pretrained.blocks.9.attn.proj",
+        "shape": [
+          384,
+          384
+        ],
+        "weights": 147456,
+        "zeroed": 25130
+      },
+      {
+        "actual_zero_fraction": 0.021140769675925927,
+        "name": "pretrained.blocks.9.attn.qkv",
+        "shape": [
+          1152,
+          384
+        ],
+        "weights": 442368,
+        "zeroed": 9352
+      },
+      {
+        "actual_zero_fraction": 0.021750556098090276,
+        "name": "pretrained.blocks.9.mlp.fc1",
+        "shape": [
+          1536,
+          384
+        ],
+        "weights": 589824,
+        "zeroed": 12829
+      },
+      {
+        "actual_zero_fraction": 0.3427242702907986,
+        "name": "pretrained.blocks.9.mlp.fc2",
+        "shape": [
+          384,
+          1536
+        ],
+        "weights": 589824,
+        "zeroed": 202147
+      }
+    ],
+    "pruning_scope": "global_iterative",
+    "recompute_every_weights": 3006528,
+    "repair_lr": 1e-05,
+    "repair_objective": "none",
+    "repair_steps_per_pruning_step": 0,
+    "repair_summaries": [],
+    "rule": "iterative global wanda: recompute saliency on the current pruned Depth Anything model, then rank all remaining target linear weights together and zero the next lowest-score unstructured global chunk until target_fraction is reached; prune masks are reapplied after each chunk; score_normalization=none",
+    "saliency_method": "wanda",
+    "score_normalization": "none",
+    "step_summaries": [
+      {
+        "activation_stats": {
+          "max_tokens": 15622,
+          "mean_input_rms": 0.921314355917275,
+          "min_tokens": 15622,
+          "module_count": 48
+        },
+        "actual_zero_fraction": 0.14159252025462962,
+        "chunk_fraction": 0.1415925207255799,
+        "circuit_protection": {
+          "enabled": false,
+          "hard_protected_linear_modules": 0,
+          "hard_protected_weights": 0,
+          "lambda": 0.0,
+          "protected_linear_modules": 0
+        },
+        "elapsed_seconds": 0.74964799702866,
+        "final_target_reached": true,
+        "finite_available_before_step": 21233664,
+        "matrix_tensors_pruned": 48,
+        "modules_zeroed_this_step": 48,
+        "pruning_scope": "global_iterative",
+        "step": 1,
+        "target_fraction": 0.1415925207255799,
+        "target_reached": true,
+        "weights_seen": 21233664,
+        "weights_zeroed_this_step": 3006528,
+        "weights_zeroed_total": 3006528
+      }
+    ],
+    "steps": 1,
+    "target": "transformer",
+    "target_fraction": 0.1415925207255799,
+    "target_zero_count": 3006528,
+    "weights_seen": 21233664,
+    "weights_zeroed": 3006528
+  }
+}

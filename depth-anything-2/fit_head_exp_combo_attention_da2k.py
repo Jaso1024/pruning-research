@@ -7,9 +7,9 @@ from pathlib import Path
 import cv2
 import numpy as np
 import torch
-from scipy.signal import lfilter
 
 from depth_anything_v2.dpt import DepthAnythingV2
+from ema_filter import causal_ema_filter
 
 
 MODEL_CONFIGS = {
@@ -121,7 +121,7 @@ class ExpComboStats:
         self.count += int(source.shape[0] * source.shape[2] * source.shape[3])
 
         basis_values = [
-            lfilter([1.0], [1.0, -float(beta)], source, axis=2).astype(np.float32, copy=False)
+            causal_ema_filter(source, float(beta), axis=2)
             for beta in self.betas
         ]
         for i, left in enumerate(basis_values):

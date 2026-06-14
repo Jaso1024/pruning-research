@@ -1,0 +1,649 @@
+{
+  "config": {
+    "act_quant": "per-token",
+    "activation_bits": 8,
+    "activation_clip_ratio": 1.0,
+    "activation_group_size": 128,
+    "base_dtype": "fp16",
+    "calibration_images": 8,
+    "checkpoint": "checkpoints/depth_anything_v2_vits.pth",
+    "dataset_root": "/home/springsi/vision_token_tests/datasets/DA-2K/DA-2K-stratifiedfull",
+    "device": "cuda",
+    "encoder": "vits",
+    "eval_batch_size": 1,
+    "exclude_calibration_from_eval": false,
+    "gptq_act_order": true,
+    "gptq_blocksize": 128,
+    "gptq_percdamp": 0.01,
+    "hessian_tokens_per_image": 128,
+    "input_size": 518,
+    "layer_indices": [],
+    "log_every": 250,
+    "max_images": 0,
+    "method": "rtn-int8",
+    "output_dir": "eval_outputs/baseline_quant_rtn-int8_w4_full",
+    "quantize_qkv_output": false,
+    "rotation": "none",
+    "rotation_group_size": 128,
+    "rotation_seed": 0,
+    "scene_type": "",
+    "score_direction": "larger",
+    "smooth_alpha": 0.5,
+    "target": "transformer",
+    "weight_bits": 4,
+    "weight_clip_ratio": 1.0,
+    "weight_group_size": 128,
+    "weight_quant": "per-channel"
+  },
+  "metadata": {
+    "calibration_excluded_from_eval": false,
+    "calibration_images_used": 8,
+    "device": "cuda",
+    "dtype": "torch.float16",
+    "elapsed_seconds": 34.52688038098859,
+    "implementation_note": "INT methods use PyTorch fake quantization/dequantization for benchmark accuracy, not custom int GEMM kernels. GPTQ is weight-only unless method is smoothquant-hessian-int8; SmoothQuant methods quantize linear inputs dynamically.",
+    "rule": "DA-2K labels point1 as closer; for this vits checkpoint larger predicted values are the verified convention.",
+    "selected_images": 1033,
+    "target_module_count": 48,
+    "target_modules": [
+      "pretrained.blocks.0.attn.qkv",
+      "pretrained.blocks.0.attn.proj",
+      "pretrained.blocks.0.mlp.fc1",
+      "pretrained.blocks.0.mlp.fc2",
+      "pretrained.blocks.1.attn.qkv",
+      "pretrained.blocks.1.attn.proj",
+      "pretrained.blocks.1.mlp.fc1",
+      "pretrained.blocks.1.mlp.fc2",
+      "pretrained.blocks.2.attn.qkv",
+      "pretrained.blocks.2.attn.proj",
+      "pretrained.blocks.2.mlp.fc1",
+      "pretrained.blocks.2.mlp.fc2",
+      "pretrained.blocks.3.attn.qkv",
+      "pretrained.blocks.3.attn.proj",
+      "pretrained.blocks.3.mlp.fc1",
+      "pretrained.blocks.3.mlp.fc2",
+      "pretrained.blocks.4.attn.qkv",
+      "pretrained.blocks.4.attn.proj",
+      "pretrained.blocks.4.mlp.fc1",
+      "pretrained.blocks.4.mlp.fc2",
+      "pretrained.blocks.5.attn.qkv",
+      "pretrained.blocks.5.attn.proj",
+      "pretrained.blocks.5.mlp.fc1",
+      "pretrained.blocks.5.mlp.fc2",
+      "pretrained.blocks.6.attn.qkv",
+      "pretrained.blocks.6.attn.proj",
+      "pretrained.blocks.6.mlp.fc1",
+      "pretrained.blocks.6.mlp.fc2",
+      "pretrained.blocks.7.attn.qkv",
+      "pretrained.blocks.7.attn.proj",
+      "pretrained.blocks.7.mlp.fc1",
+      "pretrained.blocks.7.mlp.fc2",
+      "pretrained.blocks.8.attn.qkv",
+      "pretrained.blocks.8.attn.proj",
+      "pretrained.blocks.8.mlp.fc1",
+      "pretrained.blocks.8.mlp.fc2",
+      "pretrained.blocks.9.attn.qkv",
+      "pretrained.blocks.9.attn.proj",
+      "pretrained.blocks.9.mlp.fc1",
+      "pretrained.blocks.9.mlp.fc2",
+      "pretrained.blocks.10.attn.qkv",
+      "pretrained.blocks.10.attn.proj",
+      "pretrained.blocks.10.mlp.fc1",
+      "pretrained.blocks.10.mlp.fc2",
+      "pretrained.blocks.11.attn.qkv",
+      "pretrained.blocks.11.attn.proj",
+      "pretrained.blocks.11.mlp.fc1",
+      "pretrained.blocks.11.mlp.fc2"
+    ]
+  },
+  "quantization": {
+    "elapsed_seconds": 0.0245420360006392,
+    "method": "rtn-int8",
+    "modules_quantized": 48,
+    "rows": [
+      {
+        "kind": "qkv",
+        "name": "pretrained.blocks.0.attn.qkv",
+        "shape": [
+          1152,
+          384
+        ],
+        "weights": 442368
+      },
+      {
+        "kind": "attn_proj",
+        "name": "pretrained.blocks.0.attn.proj",
+        "shape": [
+          384,
+          384
+        ],
+        "weights": 147456
+      },
+      {
+        "kind": "fc1",
+        "name": "pretrained.blocks.0.mlp.fc1",
+        "shape": [
+          1536,
+          384
+        ],
+        "weights": 589824
+      },
+      {
+        "kind": "fc2",
+        "name": "pretrained.blocks.0.mlp.fc2",
+        "shape": [
+          384,
+          1536
+        ],
+        "weights": 589824
+      },
+      {
+        "kind": "qkv",
+        "name": "pretrained.blocks.1.attn.qkv",
+        "shape": [
+          1152,
+          384
+        ],
+        "weights": 442368
+      },
+      {
+        "kind": "attn_proj",
+        "name": "pretrained.blocks.1.attn.proj",
+        "shape": [
+          384,
+          384
+        ],
+        "weights": 147456
+      },
+      {
+        "kind": "fc1",
+        "name": "pretrained.blocks.1.mlp.fc1",
+        "shape": [
+          1536,
+          384
+        ],
+        "weights": 589824
+      },
+      {
+        "kind": "fc2",
+        "name": "pretrained.blocks.1.mlp.fc2",
+        "shape": [
+          384,
+          1536
+        ],
+        "weights": 589824
+      },
+      {
+        "kind": "qkv",
+        "name": "pretrained.blocks.2.attn.qkv",
+        "shape": [
+          1152,
+          384
+        ],
+        "weights": 442368
+      },
+      {
+        "kind": "attn_proj",
+        "name": "pretrained.blocks.2.attn.proj",
+        "shape": [
+          384,
+          384
+        ],
+        "weights": 147456
+      },
+      {
+        "kind": "fc1",
+        "name": "pretrained.blocks.2.mlp.fc1",
+        "shape": [
+          1536,
+          384
+        ],
+        "weights": 589824
+      },
+      {
+        "kind": "fc2",
+        "name": "pretrained.blocks.2.mlp.fc2",
+        "shape": [
+          384,
+          1536
+        ],
+        "weights": 589824
+      },
+      {
+        "kind": "qkv",
+        "name": "pretrained.blocks.3.attn.qkv",
+        "shape": [
+          1152,
+          384
+        ],
+        "weights": 442368
+      },
+      {
+        "kind": "attn_proj",
+        "name": "pretrained.blocks.3.attn.proj",
+        "shape": [
+          384,
+          384
+        ],
+        "weights": 147456
+      },
+      {
+        "kind": "fc1",
+        "name": "pretrained.blocks.3.mlp.fc1",
+        "shape": [
+          1536,
+          384
+        ],
+        "weights": 589824
+      },
+      {
+        "kind": "fc2",
+        "name": "pretrained.blocks.3.mlp.fc2",
+        "shape": [
+          384,
+          1536
+        ],
+        "weights": 589824
+      },
+      {
+        "kind": "qkv",
+        "name": "pretrained.blocks.4.attn.qkv",
+        "shape": [
+          1152,
+          384
+        ],
+        "weights": 442368
+      },
+      {
+        "kind": "attn_proj",
+        "name": "pretrained.blocks.4.attn.proj",
+        "shape": [
+          384,
+          384
+        ],
+        "weights": 147456
+      },
+      {
+        "kind": "fc1",
+        "name": "pretrained.blocks.4.mlp.fc1",
+        "shape": [
+          1536,
+          384
+        ],
+        "weights": 589824
+      },
+      {
+        "kind": "fc2",
+        "name": "pretrained.blocks.4.mlp.fc2",
+        "shape": [
+          384,
+          1536
+        ],
+        "weights": 589824
+      },
+      {
+        "kind": "qkv",
+        "name": "pretrained.blocks.5.attn.qkv",
+        "shape": [
+          1152,
+          384
+        ],
+        "weights": 442368
+      },
+      {
+        "kind": "attn_proj",
+        "name": "pretrained.blocks.5.attn.proj",
+        "shape": [
+          384,
+          384
+        ],
+        "weights": 147456
+      },
+      {
+        "kind": "fc1",
+        "name": "pretrained.blocks.5.mlp.fc1",
+        "shape": [
+          1536,
+          384
+        ],
+        "weights": 589824
+      },
+      {
+        "kind": "fc2",
+        "name": "pretrained.blocks.5.mlp.fc2",
+        "shape": [
+          384,
+          1536
+        ],
+        "weights": 589824
+      },
+      {
+        "kind": "qkv",
+        "name": "pretrained.blocks.6.attn.qkv",
+        "shape": [
+          1152,
+          384
+        ],
+        "weights": 442368
+      },
+      {
+        "kind": "attn_proj",
+        "name": "pretrained.blocks.6.attn.proj",
+        "shape": [
+          384,
+          384
+        ],
+        "weights": 147456
+      },
+      {
+        "kind": "fc1",
+        "name": "pretrained.blocks.6.mlp.fc1",
+        "shape": [
+          1536,
+          384
+        ],
+        "weights": 589824
+      },
+      {
+        "kind": "fc2",
+        "name": "pretrained.blocks.6.mlp.fc2",
+        "shape": [
+          384,
+          1536
+        ],
+        "weights": 589824
+      },
+      {
+        "kind": "qkv",
+        "name": "pretrained.blocks.7.attn.qkv",
+        "shape": [
+          1152,
+          384
+        ],
+        "weights": 442368
+      },
+      {
+        "kind": "attn_proj",
+        "name": "pretrained.blocks.7.attn.proj",
+        "shape": [
+          384,
+          384
+        ],
+        "weights": 147456
+      },
+      {
+        "kind": "fc1",
+        "name": "pretrained.blocks.7.mlp.fc1",
+        "shape": [
+          1536,
+          384
+        ],
+        "weights": 589824
+      },
+      {
+        "kind": "fc2",
+        "name": "pretrained.blocks.7.mlp.fc2",
+        "shape": [
+          384,
+          1536
+        ],
+        "weights": 589824
+      },
+      {
+        "kind": "qkv",
+        "name": "pretrained.blocks.8.attn.qkv",
+        "shape": [
+          1152,
+          384
+        ],
+        "weights": 442368
+      },
+      {
+        "kind": "attn_proj",
+        "name": "pretrained.blocks.8.attn.proj",
+        "shape": [
+          384,
+          384
+        ],
+        "weights": 147456
+      },
+      {
+        "kind": "fc1",
+        "name": "pretrained.blocks.8.mlp.fc1",
+        "shape": [
+          1536,
+          384
+        ],
+        "weights": 589824
+      },
+      {
+        "kind": "fc2",
+        "name": "pretrained.blocks.8.mlp.fc2",
+        "shape": [
+          384,
+          1536
+        ],
+        "weights": 589824
+      },
+      {
+        "kind": "qkv",
+        "name": "pretrained.blocks.9.attn.qkv",
+        "shape": [
+          1152,
+          384
+        ],
+        "weights": 442368
+      },
+      {
+        "kind": "attn_proj",
+        "name": "pretrained.blocks.9.attn.proj",
+        "shape": [
+          384,
+          384
+        ],
+        "weights": 147456
+      },
+      {
+        "kind": "fc1",
+        "name": "pretrained.blocks.9.mlp.fc1",
+        "shape": [
+          1536,
+          384
+        ],
+        "weights": 589824
+      },
+      {
+        "kind": "fc2",
+        "name": "pretrained.blocks.9.mlp.fc2",
+        "shape": [
+          384,
+          1536
+        ],
+        "weights": 589824
+      },
+      {
+        "kind": "qkv",
+        "name": "pretrained.blocks.10.attn.qkv",
+        "shape": [
+          1152,
+          384
+        ],
+        "weights": 442368
+      },
+      {
+        "kind": "attn_proj",
+        "name": "pretrained.blocks.10.attn.proj",
+        "shape": [
+          384,
+          384
+        ],
+        "weights": 147456
+      },
+      {
+        "kind": "fc1",
+        "name": "pretrained.blocks.10.mlp.fc1",
+        "shape": [
+          1536,
+          384
+        ],
+        "weights": 589824
+      },
+      {
+        "kind": "fc2",
+        "name": "pretrained.blocks.10.mlp.fc2",
+        "shape": [
+          384,
+          1536
+        ],
+        "weights": 589824
+      },
+      {
+        "kind": "qkv",
+        "name": "pretrained.blocks.11.attn.qkv",
+        "shape": [
+          1152,
+          384
+        ],
+        "weights": 442368
+      },
+      {
+        "kind": "attn_proj",
+        "name": "pretrained.blocks.11.attn.proj",
+        "shape": [
+          384,
+          384
+        ],
+        "weights": 147456
+      },
+      {
+        "kind": "fc1",
+        "name": "pretrained.blocks.11.mlp.fc1",
+        "shape": [
+          1536,
+          384
+        ],
+        "weights": 589824
+      },
+      {
+        "kind": "fc2",
+        "name": "pretrained.blocks.11.mlp.fc2",
+        "shape": [
+          384,
+          1536
+        ],
+        "weights": 589824
+      }
+    ],
+    "weights_quantized": 21233664
+  },
+  "result": {
+    "by_scene": {
+      "adverse_style": {
+        "best_accuracy": 0.8597560975609756,
+        "best_direction": "larger",
+        "larger_correct": 282,
+        "larger_is_closer_accuracy": 0.8597560975609756,
+        "pairs": 328,
+        "smaller_correct": 46,
+        "smaller_is_closer_accuracy": 0.1402439024390244,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "aerial": {
+        "best_accuracy": 0.8711340206185567,
+        "best_direction": "larger",
+        "larger_correct": 169,
+        "larger_is_closer_accuracy": 0.8711340206185567,
+        "pairs": 194,
+        "smaller_correct": 25,
+        "smaller_is_closer_accuracy": 0.12886597938144329,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "indoor": {
+        "best_accuracy": 0.8142857142857143,
+        "best_direction": "larger",
+        "larger_correct": 342,
+        "larger_is_closer_accuracy": 0.8142857142857143,
+        "pairs": 420,
+        "smaller_correct": 78,
+        "smaller_is_closer_accuracy": 0.18571428571428572,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "non_real": {
+        "best_accuracy": 0.9273927392739274,
+        "best_direction": "larger",
+        "larger_correct": 281,
+        "larger_is_closer_accuracy": 0.9273927392739274,
+        "pairs": 303,
+        "smaller_correct": 22,
+        "smaller_is_closer_accuracy": 0.07260726072607261,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "object": {
+        "best_accuracy": 0.8716216216216216,
+        "best_direction": "larger",
+        "larger_correct": 129,
+        "larger_is_closer_accuracy": 0.8716216216216216,
+        "pairs": 148,
+        "smaller_correct": 19,
+        "smaller_is_closer_accuracy": 0.12837837837837837,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "outdoor": {
+        "best_accuracy": 0.8430232558139535,
+        "best_direction": "larger",
+        "larger_correct": 290,
+        "larger_is_closer_accuracy": 0.8430232558139535,
+        "pairs": 344,
+        "smaller_correct": 54,
+        "smaller_is_closer_accuracy": 0.1569767441860465,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "transparent_reflective": {
+        "best_accuracy": 0.9158878504672897,
+        "best_direction": "larger",
+        "larger_correct": 196,
+        "larger_is_closer_accuracy": 0.9158878504672897,
+        "pairs": 214,
+        "smaller_correct": 18,
+        "smaller_is_closer_accuracy": 0.08411214953271028,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "underwater": {
+        "best_accuracy": 0.9658119658119658,
+        "best_direction": "larger",
+        "larger_correct": 113,
+        "larger_is_closer_accuracy": 0.9658119658119658,
+        "pairs": 117,
+        "smaller_correct": 4,
+        "smaller_is_closer_accuracy": 0.03418803418803419,
+        "tie_fraction": 0.0,
+        "ties": 0
+      }
+    },
+    "metadata": {
+      "elapsed_seconds": 34.11140216799686,
+      "eval_batch_size": 1,
+      "images_requested": 1033,
+      "missing_images": []
+    },
+    "overall": {
+      "best_accuracy": 0.8713733075435203,
+      "best_direction": "larger",
+      "larger_correct": 1802,
+      "larger_is_closer_accuracy": 0.8713733075435203,
+      "pairs": 2068,
+      "smaller_correct": 266,
+      "smaller_is_closer_accuracy": 0.1286266924564797,
+      "tie_fraction": 0.0,
+      "ties": 0
+    }
+  },
+  "score": 0.8713733075435203
+}

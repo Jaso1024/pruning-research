@@ -1,0 +1,472 @@
+{
+  "checkpoint_path": null,
+  "config": {
+    "allow_train_eval_overlap": false,
+    "budget_values": 6160,
+    "checkpoint": "/home/ubuntu/checkpoints/depth_anything_v2_vits.pth",
+    "dataset_root": "/home/ubuntu/vision_token_tests/datasets/DA-2K/DA-2K",
+    "device": "cuda",
+    "encoder": "vits",
+    "epochs": 1,
+    "eval_images": 2,
+    "eval_skip_images": 2,
+    "hybrid_alpha": 1.0,
+    "input_size": 518,
+    "layer_indices": [],
+    "log_every": 0,
+    "lora_alpha": 4.0,
+    "lora_module_set": "all",
+    "lora_placement": "masked",
+    "lora_rank": 2,
+    "lora_window": 1,
+    "loss_tau": 1.0,
+    "lr": 0.001,
+    "output_dir": "/home/ubuntu/eval_outputs/scalar_mask_lora_smoke",
+    "pairwise_label_weight": 0.0,
+    "pairwise_tau": 0.25,
+    "pairwise_teacher_weight": 1.0,
+    "pairwise_weight": 0.0,
+    "peft_method": "lora",
+    "prune_score": "taylor2_abs",
+    "save_checkpoint": false,
+    "save_score_cache": false,
+    "scene_type": "",
+    "score_cache": null,
+    "score_images": 2,
+    "seed": 123,
+    "target": "transformer",
+    "train_images": 2,
+    "weight_decay": 0.0
+  },
+  "device": "cuda",
+  "elapsed_seconds": 3.777320569002768,
+  "eval_items": [
+    "images/indoor/17250719779_221d17a4d2_k.jpg",
+    "images/indoor/17485436718_3f0fea8f35_k.jpg"
+  ],
+  "history": [
+    {
+      "epoch": 1,
+      "last_loss": 1.360625810775673e-05,
+      "mean_depth_loss": 6.831242886917721e-06,
+      "mean_loss": 6.831242886917721e-06,
+      "mean_pair_accuracy": 0.0,
+      "mean_pair_loss": 0.0
+    }
+  ],
+  "mask_modules": [
+    "pretrained.blocks.0.attn.qkv",
+    "pretrained.blocks.0.mlp.fc1",
+    "pretrained.blocks.0.mlp.fc2",
+    "pretrained.blocks.1.attn.qkv",
+    "pretrained.blocks.10.attn.qkv",
+    "pretrained.blocks.11.mlp.fc1",
+    "pretrained.blocks.11.mlp.fc2",
+    "pretrained.blocks.2.attn.proj",
+    "pretrained.blocks.2.attn.qkv",
+    "pretrained.blocks.3.mlp.fc2",
+    "pretrained.blocks.5.attn.qkv",
+    "pretrained.blocks.5.mlp.fc1",
+    "pretrained.blocks.5.mlp.fc2",
+    "pretrained.blocks.7.mlp.fc1",
+    "pretrained.blocks.8.attn.proj",
+    "pretrained.blocks.8.mlp.fc1"
+  ],
+  "mask_operations": [
+    {
+      "masked_tensor_values": 14,
+      "module_name": "pretrained.blocks.0.attn.qkv",
+      "shape": [
+        1152,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 3300,
+      "module_name": "pretrained.blocks.0.mlp.fc1",
+      "shape": [
+        1536,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 2831,
+      "module_name": "pretrained.blocks.0.mlp.fc2",
+      "shape": [
+        384,
+        1536
+      ]
+    },
+    {
+      "masked_tensor_values": 1,
+      "module_name": "pretrained.blocks.1.attn.qkv",
+      "shape": [
+        1152,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 1,
+      "module_name": "pretrained.blocks.10.attn.qkv",
+      "shape": [
+        1152,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 1,
+      "module_name": "pretrained.blocks.11.mlp.fc1",
+      "shape": [
+        1536,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 2,
+      "module_name": "pretrained.blocks.11.mlp.fc2",
+      "shape": [
+        384,
+        1536
+      ]
+    },
+    {
+      "masked_tensor_values": 1,
+      "module_name": "pretrained.blocks.2.attn.proj",
+      "shape": [
+        384,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 2,
+      "module_name": "pretrained.blocks.2.attn.qkv",
+      "shape": [
+        1152,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 1,
+      "module_name": "pretrained.blocks.3.mlp.fc2",
+      "shape": [
+        384,
+        1536
+      ]
+    },
+    {
+      "masked_tensor_values": 1,
+      "module_name": "pretrained.blocks.5.attn.qkv",
+      "shape": [
+        1152,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 1,
+      "module_name": "pretrained.blocks.5.mlp.fc1",
+      "shape": [
+        1536,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 1,
+      "module_name": "pretrained.blocks.5.mlp.fc2",
+      "shape": [
+        384,
+        1536
+      ]
+    },
+    {
+      "masked_tensor_values": 1,
+      "module_name": "pretrained.blocks.7.mlp.fc1",
+      "shape": [
+        1536,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 1,
+      "module_name": "pretrained.blocks.8.attn.proj",
+      "shape": [
+        384,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 1,
+      "module_name": "pretrained.blocks.8.mlp.fc1",
+      "shape": [
+        1536,
+        384
+      ]
+    }
+  ],
+  "mask_summary": {
+    "budget_values": 6160,
+    "masked_tensor_values": 6160,
+    "modules_touched": 16,
+    "target_weight_count": 21233664,
+    "zero_fraction": 0.0002901053722993827
+  },
+  "merge_rms_delta_by_module": {
+    "pretrained.blocks.0.attn.qkv": 9.948320803232491e-05,
+    "pretrained.blocks.0.mlp.fc1": 0.00010434387513669208,
+    "pretrained.blocks.0.mlp.fc2": 5.6880970078054816e-05,
+    "pretrained.blocks.1.attn.qkv": 0.00010909613047260791,
+    "pretrained.blocks.10.attn.qkv": 9.30452297325246e-05,
+    "pretrained.blocks.11.mlp.fc1": 8.39472486404702e-05,
+    "pretrained.blocks.11.mlp.fc2": 2.8462896807468496e-05,
+    "pretrained.blocks.2.attn.proj": 0.00011042659025406465,
+    "pretrained.blocks.2.attn.qkv": 0.0001046994439093396,
+    "pretrained.blocks.3.mlp.fc2": 5.752229844802059e-05,
+    "pretrained.blocks.5.attn.qkv": 0.00010882940114242956,
+    "pretrained.blocks.5.mlp.fc1": 0.00011312411515973508,
+    "pretrained.blocks.5.mlp.fc2": 5.314966256264597e-05,
+    "pretrained.blocks.7.mlp.fc1": 0.00010080904030473903,
+    "pretrained.blocks.8.attn.proj": 0.00011110659397672862,
+    "pretrained.blocks.8.mlp.fc1": 9.834385855356231e-05
+  },
+  "peft_modules": {
+    "pretrained.blocks.0.attn.qkv": 3072,
+    "pretrained.blocks.0.mlp.fc1": 3840,
+    "pretrained.blocks.0.mlp.fc2": 3840,
+    "pretrained.blocks.1.attn.qkv": 3072,
+    "pretrained.blocks.10.attn.qkv": 3072,
+    "pretrained.blocks.11.mlp.fc1": 3840,
+    "pretrained.blocks.11.mlp.fc2": 3840,
+    "pretrained.blocks.2.attn.proj": 1536,
+    "pretrained.blocks.2.attn.qkv": 3072,
+    "pretrained.blocks.3.mlp.fc2": 3840,
+    "pretrained.blocks.5.attn.qkv": 3072,
+    "pretrained.blocks.5.mlp.fc1": 3840,
+    "pretrained.blocks.5.mlp.fc2": 3840,
+    "pretrained.blocks.7.mlp.fc1": 3840,
+    "pretrained.blocks.8.attn.proj": 1536,
+    "pretrained.blocks.8.mlp.fc1": 3840
+  },
+  "peft_trainable_params": 52992,
+  "results": [
+    {
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.8333333333333334,
+          "best_direction": "larger",
+          "larger_correct": 5,
+          "larger_is_closer_accuracy": 0.8333333333333334,
+          "pairs": 6,
+          "smaller_correct": 1,
+          "smaller_is_closer_accuracy": 0.16666666666666666,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "evaluated_images": 2,
+      "label": "dense_teacher",
+      "missing_images": [],
+      "overall": {
+        "best_accuracy": 0.8333333333333334,
+        "best_direction": "larger",
+        "larger_correct": 5,
+        "larger_is_closer_accuracy": 0.8333333333333334,
+        "pairs": 6,
+        "smaller_correct": 1,
+        "smaller_is_closer_accuracy": 0.16666666666666666,
+        "tie_fraction": 0.0,
+        "ties": 0
+      }
+    },
+    {
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.8333333333333334,
+          "best_direction": "larger",
+          "larger_correct": 5,
+          "larger_is_closer_accuracy": 0.8333333333333334,
+          "pairs": 6,
+          "smaller_correct": 1,
+          "smaller_is_closer_accuracy": 0.16666666666666666,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "evaluated_images": 2,
+      "label": "pruned_student",
+      "missing_images": [],
+      "overall": {
+        "best_accuracy": 0.8333333333333334,
+        "best_direction": "larger",
+        "larger_correct": 5,
+        "larger_is_closer_accuracy": 0.8333333333333334,
+        "pairs": 6,
+        "smaller_correct": 1,
+        "smaller_is_closer_accuracy": 0.16666666666666666,
+        "tie_fraction": 0.0,
+        "ties": 0
+      }
+    },
+    {
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.8333333333333334,
+          "best_direction": "larger",
+          "larger_correct": 5,
+          "larger_is_closer_accuracy": 0.8333333333333334,
+          "pairs": 6,
+          "smaller_correct": 1,
+          "smaller_is_closer_accuracy": 0.16666666666666666,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "evaluated_images": 2,
+      "label": "peft_repaired_unmerged",
+      "missing_images": [],
+      "overall": {
+        "best_accuracy": 0.8333333333333334,
+        "best_direction": "larger",
+        "larger_correct": 5,
+        "larger_is_closer_accuracy": 0.8333333333333334,
+        "pairs": 6,
+        "smaller_correct": 1,
+        "smaller_is_closer_accuracy": 0.16666666666666666,
+        "tie_fraction": 0.0,
+        "ties": 0
+      }
+    },
+    {
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.8333333333333334,
+          "best_direction": "larger",
+          "larger_correct": 5,
+          "larger_is_closer_accuracy": 0.8333333333333334,
+          "pairs": 6,
+          "smaller_correct": 1,
+          "smaller_is_closer_accuracy": 0.16666666666666666,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "evaluated_images": 2,
+      "label": "folded_peft_unmasked",
+      "missing_images": [],
+      "overall": {
+        "best_accuracy": 0.8333333333333334,
+        "best_direction": "larger",
+        "larger_correct": 5,
+        "larger_is_closer_accuracy": 0.8333333333333334,
+        "pairs": 6,
+        "smaller_correct": 1,
+        "smaller_is_closer_accuracy": 0.16666666666666666,
+        "tie_fraction": 0.0,
+        "ties": 0
+      }
+    },
+    {
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.8333333333333334,
+          "best_direction": "larger",
+          "larger_correct": 5,
+          "larger_is_closer_accuracy": 0.8333333333333334,
+          "pairs": 6,
+          "smaller_correct": 1,
+          "smaller_is_closer_accuracy": 0.16666666666666666,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "evaluated_images": 2,
+      "label": "folded_peft_remasked",
+      "missing_images": [],
+      "overall": {
+        "best_accuracy": 0.8333333333333334,
+        "best_direction": "larger",
+        "larger_correct": 5,
+        "larger_is_closer_accuracy": 0.8333333333333334,
+        "pairs": 6,
+        "smaller_correct": 1,
+        "smaller_is_closer_accuracy": 0.16666666666666666,
+        "tie_fraction": 0.0,
+        "ties": 0
+      }
+    }
+  ],
+  "score_metadata": {
+    "elapsed_seconds": 0.6852259319930454,
+    "images_scored": 2,
+    "loss": "softplus(-margin / tau)",
+    "loss_tau": 1.0,
+    "missing_images": [],
+    "pairs_scored": 3,
+    "score_counts": {
+      "best_accuracy": 1.0,
+      "best_direction": "larger",
+      "larger_correct": 3,
+      "larger_is_closer_accuracy": 1.0,
+      "pairs": 3,
+      "smaller_correct": 0,
+      "smaller_is_closer_accuracy": 0.0,
+      "tie_fraction": 0.0,
+      "ties": 0
+    },
+    "score_rule": "For DA2K margin m = depth(point1)-depth(point2), zeroing scalar w has first-order effect delta_m ~= -w * grad_m(w). positive_wgrad protects scalars whose removal lowers m; abs_wgrad is first-order scalar saliency magnitude. Taylor loss scores approximate the change in softplus(-m/tau) under w->0 using a local-linear margin model and derivatives through third order."
+  },
+  "target_modules": [
+    "pretrained.blocks.0.attn.qkv",
+    "pretrained.blocks.0.attn.proj",
+    "pretrained.blocks.0.mlp.fc1",
+    "pretrained.blocks.0.mlp.fc2",
+    "pretrained.blocks.1.attn.qkv",
+    "pretrained.blocks.1.attn.proj",
+    "pretrained.blocks.1.mlp.fc1",
+    "pretrained.blocks.1.mlp.fc2",
+    "pretrained.blocks.2.attn.qkv",
+    "pretrained.blocks.2.attn.proj",
+    "pretrained.blocks.2.mlp.fc1",
+    "pretrained.blocks.2.mlp.fc2",
+    "pretrained.blocks.3.attn.qkv",
+    "pretrained.blocks.3.attn.proj",
+    "pretrained.blocks.3.mlp.fc1",
+    "pretrained.blocks.3.mlp.fc2",
+    "pretrained.blocks.4.attn.qkv",
+    "pretrained.blocks.4.attn.proj",
+    "pretrained.blocks.4.mlp.fc1",
+    "pretrained.blocks.4.mlp.fc2",
+    "pretrained.blocks.5.attn.qkv",
+    "pretrained.blocks.5.attn.proj",
+    "pretrained.blocks.5.mlp.fc1",
+    "pretrained.blocks.5.mlp.fc2",
+    "pretrained.blocks.6.attn.qkv",
+    "pretrained.blocks.6.attn.proj",
+    "pretrained.blocks.6.mlp.fc1",
+    "pretrained.blocks.6.mlp.fc2",
+    "pretrained.blocks.7.attn.qkv",
+    "pretrained.blocks.7.attn.proj",
+    "pretrained.blocks.7.mlp.fc1",
+    "pretrained.blocks.7.mlp.fc2",
+    "pretrained.blocks.8.attn.qkv",
+    "pretrained.blocks.8.attn.proj",
+    "pretrained.blocks.8.mlp.fc1",
+    "pretrained.blocks.8.mlp.fc2",
+    "pretrained.blocks.9.attn.qkv",
+    "pretrained.blocks.9.attn.proj",
+    "pretrained.blocks.9.mlp.fc1",
+    "pretrained.blocks.9.mlp.fc2",
+    "pretrained.blocks.10.attn.qkv",
+    "pretrained.blocks.10.attn.proj",
+    "pretrained.blocks.10.mlp.fc1",
+    "pretrained.blocks.10.mlp.fc2",
+    "pretrained.blocks.11.attn.qkv",
+    "pretrained.blocks.11.attn.proj",
+    "pretrained.blocks.11.mlp.fc1",
+    "pretrained.blocks.11.mlp.fc2"
+  ],
+  "train_eval_overlap_count": 0,
+  "train_eval_overlap_items": [],
+  "train_items": [
+    "images/indoor/1009402064_7c74b0b819_k.jpg",
+    "images/indoor/12272343524_202e65dd98_k.jpg"
+  ]
+}

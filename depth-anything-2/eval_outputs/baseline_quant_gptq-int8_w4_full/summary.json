@@ -1,0 +1,1577 @@
+{
+  "config": {
+    "act_quant": "per-token",
+    "activation_bits": 8,
+    "activation_clip_ratio": 1.0,
+    "activation_group_size": 128,
+    "base_dtype": "fp16",
+    "calibration_images": 8,
+    "checkpoint": "checkpoints/depth_anything_v2_vits.pth",
+    "dataset_root": "/home/springsi/vision_token_tests/datasets/DA-2K/DA-2K-stratifiedfull",
+    "device": "cuda",
+    "encoder": "vits",
+    "eval_batch_size": 1,
+    "exclude_calibration_from_eval": false,
+    "gptq_act_order": true,
+    "gptq_blocksize": 128,
+    "gptq_percdamp": 0.01,
+    "hessian_tokens_per_image": 128,
+    "input_size": 518,
+    "layer_indices": [],
+    "log_every": 250,
+    "max_images": 0,
+    "method": "gptq-int8",
+    "output_dir": "eval_outputs/baseline_quant_gptq-int8_w4_full",
+    "quantize_qkv_output": false,
+    "rotation": "none",
+    "rotation_group_size": 128,
+    "rotation_seed": 0,
+    "scene_type": "",
+    "score_direction": "larger",
+    "smooth_alpha": 0.5,
+    "target": "transformer",
+    "weight_bits": 4,
+    "weight_clip_ratio": 1.0,
+    "weight_group_size": 128,
+    "weight_quant": "per-channel"
+  },
+  "metadata": {
+    "calibration_excluded_from_eval": false,
+    "calibration_images_used": 8,
+    "device": "cuda",
+    "dtype": "torch.float16",
+    "elapsed_seconds": 37.27416650700616,
+    "implementation_note": "INT methods use PyTorch fake quantization/dequantization for benchmark accuracy, not custom int GEMM kernels. GPTQ is weight-only unless method is smoothquant-hessian-int8; SmoothQuant methods quantize linear inputs dynamically.",
+    "rule": "DA-2K labels point1 as closer; for this vits checkpoint larger predicted values are the verified convention.",
+    "selected_images": 1033,
+    "target_module_count": 48,
+    "target_modules": [
+      "pretrained.blocks.0.attn.qkv",
+      "pretrained.blocks.0.attn.proj",
+      "pretrained.blocks.0.mlp.fc1",
+      "pretrained.blocks.0.mlp.fc2",
+      "pretrained.blocks.1.attn.qkv",
+      "pretrained.blocks.1.attn.proj",
+      "pretrained.blocks.1.mlp.fc1",
+      "pretrained.blocks.1.mlp.fc2",
+      "pretrained.blocks.2.attn.qkv",
+      "pretrained.blocks.2.attn.proj",
+      "pretrained.blocks.2.mlp.fc1",
+      "pretrained.blocks.2.mlp.fc2",
+      "pretrained.blocks.3.attn.qkv",
+      "pretrained.blocks.3.attn.proj",
+      "pretrained.blocks.3.mlp.fc1",
+      "pretrained.blocks.3.mlp.fc2",
+      "pretrained.blocks.4.attn.qkv",
+      "pretrained.blocks.4.attn.proj",
+      "pretrained.blocks.4.mlp.fc1",
+      "pretrained.blocks.4.mlp.fc2",
+      "pretrained.blocks.5.attn.qkv",
+      "pretrained.blocks.5.attn.proj",
+      "pretrained.blocks.5.mlp.fc1",
+      "pretrained.blocks.5.mlp.fc2",
+      "pretrained.blocks.6.attn.qkv",
+      "pretrained.blocks.6.attn.proj",
+      "pretrained.blocks.6.mlp.fc1",
+      "pretrained.blocks.6.mlp.fc2",
+      "pretrained.blocks.7.attn.qkv",
+      "pretrained.blocks.7.attn.proj",
+      "pretrained.blocks.7.mlp.fc1",
+      "pretrained.blocks.7.mlp.fc2",
+      "pretrained.blocks.8.attn.qkv",
+      "pretrained.blocks.8.attn.proj",
+      "pretrained.blocks.8.mlp.fc1",
+      "pretrained.blocks.8.mlp.fc2",
+      "pretrained.blocks.9.attn.qkv",
+      "pretrained.blocks.9.attn.proj",
+      "pretrained.blocks.9.mlp.fc1",
+      "pretrained.blocks.9.mlp.fc2",
+      "pretrained.blocks.10.attn.qkv",
+      "pretrained.blocks.10.attn.proj",
+      "pretrained.blocks.10.mlp.fc1",
+      "pretrained.blocks.10.mlp.fc2",
+      "pretrained.blocks.11.attn.qkv",
+      "pretrained.blocks.11.attn.proj",
+      "pretrained.blocks.11.mlp.fc1",
+      "pretrained.blocks.11.mlp.fc2"
+    ]
+  },
+  "quantization": {
+    "calibration_stats": {
+      "pretrained.blocks.0.attn.proj": {
+        "activation_absmax_max": 10.171875,
+        "activation_absmax_mean": 0.9382672309875488,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.0.attn.qkv": {
+        "activation_absmax_max": 11.3828125,
+        "activation_absmax_mean": 3.8778839111328125,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.0.mlp.fc1": {
+        "activation_absmax_max": 113.5,
+        "activation_absmax_mean": 8.116375923156738,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.0.mlp.fc2": {
+        "activation_absmax_max": 13.328125,
+        "activation_absmax_mean": 3.590681791305542,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.1.attn.proj": {
+        "activation_absmax_max": 5.0078125,
+        "activation_absmax_mean": 2.154733657836914,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.1.attn.qkv": {
+        "activation_absmax_max": 22.984375,
+        "activation_absmax_mean": 6.76019287109375,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.1.mlp.fc1": {
+        "activation_absmax_max": 18.140625,
+        "activation_absmax_mean": 9.705296516418457,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.1.mlp.fc2": {
+        "activation_absmax_max": 12.5703125,
+        "activation_absmax_mean": 3.834038496017456,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.10.attn.proj": {
+        "activation_absmax_max": 2.34765625,
+        "activation_absmax_mean": 1.0398839712142944,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.10.attn.qkv": {
+        "activation_absmax_max": 34.03125,
+        "activation_absmax_mean": 6.682769775390625,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.10.mlp.fc1": {
+        "activation_absmax_max": 33.59375,
+        "activation_absmax_mean": 7.690338134765625,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.10.mlp.fc2": {
+        "activation_absmax_max": 6.54296875,
+        "activation_absmax_mean": 1.3557692766189575,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.11.attn.proj": {
+        "activation_absmax_max": 3.0859375,
+        "activation_absmax_mean": 1.2560615539550781,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.11.attn.qkv": {
+        "activation_absmax_max": 38.5,
+        "activation_absmax_mean": 7.231964111328125,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.11.mlp.fc1": {
+        "activation_absmax_max": 19.125,
+        "activation_absmax_mean": 5.34662389755249,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.11.mlp.fc2": {
+        "activation_absmax_max": 5.94921875,
+        "activation_absmax_mean": 1.0099210739135742,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.2.attn.proj": {
+        "activation_absmax_max": 2.84765625,
+        "activation_absmax_mean": 1.0059232711791992,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.2.attn.qkv": {
+        "activation_absmax_max": 25.921875,
+        "activation_absmax_mean": 5.778722286224365,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.2.mlp.fc1": {
+        "activation_absmax_max": 22.828125,
+        "activation_absmax_mean": 6.238840579986572,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.2.mlp.fc2": {
+        "activation_absmax_max": 16.96875,
+        "activation_absmax_mean": 1.7254718542099,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.3.attn.proj": {
+        "activation_absmax_max": 3.24609375,
+        "activation_absmax_mean": 1.019264817237854,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.3.attn.qkv": {
+        "activation_absmax_max": 31.125,
+        "activation_absmax_mean": 5.8024139404296875,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.3.mlp.fc1": {
+        "activation_absmax_max": 31.34375,
+        "activation_absmax_mean": 6.121134281158447,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.3.mlp.fc2": {
+        "activation_absmax_max": 3.728515625,
+        "activation_absmax_mean": 1.513888955116272,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.4.attn.proj": {
+        "activation_absmax_max": 2.669921875,
+        "activation_absmax_mean": 1.0429086685180664,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.4.attn.qkv": {
+        "activation_absmax_max": 22.0625,
+        "activation_absmax_mean": 6.45470666885376,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.4.mlp.fc1": {
+        "activation_absmax_max": 31.59375,
+        "activation_absmax_mean": 6.347157955169678,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.4.mlp.fc2": {
+        "activation_absmax_max": 3.515625,
+        "activation_absmax_mean": 1.5179742574691772,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.5.attn.proj": {
+        "activation_absmax_max": 2.27734375,
+        "activation_absmax_mean": 1.0134696960449219,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.5.attn.qkv": {
+        "activation_absmax_max": 19.90625,
+        "activation_absmax_mean": 6.7470855712890625,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.5.mlp.fc1": {
+        "activation_absmax_max": 32.375,
+        "activation_absmax_mean": 6.084116458892822,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.5.mlp.fc2": {
+        "activation_absmax_max": 6.11328125,
+        "activation_absmax_mean": 1.4466193914413452,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.6.attn.proj": {
+        "activation_absmax_max": 3.130859375,
+        "activation_absmax_mean": 1.007650375366211,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.6.attn.qkv": {
+        "activation_absmax_max": 24.09375,
+        "activation_absmax_mean": 6.119638919830322,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.6.mlp.fc1": {
+        "activation_absmax_max": 33.78125,
+        "activation_absmax_mean": 6.751627445220947,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.6.mlp.fc2": {
+        "activation_absmax_max": 4.359375,
+        "activation_absmax_mean": 1.562360405921936,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.7.attn.proj": {
+        "activation_absmax_max": 2.12890625,
+        "activation_absmax_mean": 0.8491744995117188,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.7.attn.qkv": {
+        "activation_absmax_max": 22.328125,
+        "activation_absmax_mean": 6.1719970703125,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.7.mlp.fc1": {
+        "activation_absmax_max": 18.875,
+        "activation_absmax_mean": 6.346593379974365,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.7.mlp.fc2": {
+        "activation_absmax_max": 7.47265625,
+        "activation_absmax_mean": 1.3533896207809448,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.8.attn.proj": {
+        "activation_absmax_max": 2.748046875,
+        "activation_absmax_mean": 1.132398009300232,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.8.attn.qkv": {
+        "activation_absmax_max": 25.359375,
+        "activation_absmax_mean": 6.624674320220947,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.8.mlp.fc1": {
+        "activation_absmax_max": 20.984375,
+        "activation_absmax_mean": 6.818583011627197,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.8.mlp.fc2": {
+        "activation_absmax_max": 5.87109375,
+        "activation_absmax_mean": 1.2786766290664673,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.9.attn.proj": {
+        "activation_absmax_max": 3.513671875,
+        "activation_absmax_mean": 0.9741656184196472,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.9.attn.qkv": {
+        "activation_absmax_max": 30.984375,
+        "activation_absmax_mean": 5.995534420013428,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.9.mlp.fc1": {
+        "activation_absmax_max": 20.5,
+        "activation_absmax_mean": 6.657155513763428,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      },
+      "pretrained.blocks.9.mlp.fc2": {
+        "activation_absmax_max": 10.5546875,
+        "activation_absmax_mean": 1.419869065284729,
+        "activation_tokens": 17768,
+        "hessian_tokens": 1024
+      }
+    },
+    "elapsed_seconds": 2.2841106220148504,
+    "mean_gptq_loss": 1.039875915865802,
+    "method": "gptq-int8",
+    "modules_quantized": 48,
+    "quantization_options": {
+      "act_quant": "per-token",
+      "activation_bits": 8,
+      "activation_clip_ratio": 1.0,
+      "activation_group_size": 128,
+      "rotation": "none",
+      "rotation_group_size": 128,
+      "rotation_seed": 0,
+      "weight_bits": 4,
+      "weight_clip_ratio": 1.0,
+      "weight_group_size": 128,
+      "weight_quant": "per-channel"
+    },
+    "rows": [
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 384,
+        "damp_used": 0.006649530529975891,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.04950043896678835,
+        "gptq_loss": 0.5422462821006775,
+        "kind": "qkv",
+        "name": "pretrained.blocks.0.attn.qkv",
+        "percdamp": 0.01,
+        "rows": 1152,
+        "shape": [
+          1152,
+          384
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 442368
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 384,
+        "damp_used": 0.0005635709315538407,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.025774492998607457,
+        "gptq_loss": 0.0065080830827355385,
+        "kind": "attn_proj",
+        "name": "pretrained.blocks.0.attn.proj",
+        "percdamp": 0.01,
+        "rows": 384,
+        "shape": [
+          384,
+          384
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 147456
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 384,
+        "damp_used": 0.13804368972778322,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.02572400600183755,
+        "gptq_loss": 2.533717632293701,
+        "kind": "fc1",
+        "name": "pretrained.blocks.0.mlp.fc1",
+        "percdamp": 0.01,
+        "rows": 1536,
+        "shape": [
+          1536,
+          384
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 589824
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 1536,
+        "damp_used": 0.0009107655286788941,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.10119083395693451,
+        "gptq_loss": 0.02575620263814926,
+        "kind": "fc2",
+        "name": "pretrained.blocks.0.mlp.fc2",
+        "percdamp": 0.01,
+        "rows": 384,
+        "shape": [
+          384,
+          1536
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 589824
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 384,
+        "damp_used": 0.023359642028808594,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.025391921983100474,
+        "gptq_loss": 4.8366851806640625,
+        "kind": "qkv",
+        "name": "pretrained.blocks.1.attn.qkv",
+        "percdamp": 0.01,
+        "rows": 1152,
+        "shape": [
+          1152,
+          384
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 442368
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 384,
+        "damp_used": 0.0009137196838855744,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.025356333004310727,
+        "gptq_loss": 0.010452330112457275,
+        "kind": "attn_proj",
+        "name": "pretrained.blocks.1.attn.proj",
+        "percdamp": 0.01,
+        "rows": 384,
+        "shape": [
+          384,
+          384
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 147456
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 384,
+        "damp_used": 0.04049660682678223,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.02541136898798868,
+        "gptq_loss": 3.8420348167419434,
+        "kind": "fc1",
+        "name": "pretrained.blocks.1.mlp.fc1",
+        "percdamp": 0.01,
+        "rows": 1536,
+        "shape": [
+          1536,
+          384
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 589824
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 1536,
+        "damp_used": 0.0013774554431438446,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.10081417404580861,
+        "gptq_loss": 0.032030582427978516,
+        "kind": "fc2",
+        "name": "pretrained.blocks.1.mlp.fc2",
+        "percdamp": 0.01,
+        "rows": 384,
+        "shape": [
+          384,
+          1536
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 589824
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 384,
+        "damp_used": 0.028080604076385497,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.02536319597857073,
+        "gptq_loss": 3.1973824501037598,
+        "kind": "qkv",
+        "name": "pretrained.blocks.2.attn.qkv",
+        "percdamp": 0.01,
+        "rows": 1152,
+        "shape": [
+          1152,
+          384
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 442368
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 384,
+        "damp_used": 0.0005349414795637131,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.02547256601974368,
+        "gptq_loss": 0.0029965033754706383,
+        "kind": "attn_proj",
+        "name": "pretrained.blocks.2.attn.proj",
+        "percdamp": 0.01,
+        "rows": 384,
+        "shape": [
+          384,
+          384
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 147456
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 384,
+        "damp_used": 0.023709912300109864,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.025565153046045452,
+        "gptq_loss": 1.5600837469100952,
+        "kind": "fc1",
+        "name": "pretrained.blocks.2.mlp.fc1",
+        "percdamp": 0.01,
+        "rows": 1536,
+        "shape": [
+          1536,
+          384
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 589824
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 1536,
+        "damp_used": 0.0003757990151643753,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.10102546802954748,
+        "gptq_loss": 0.007200060412287712,
+        "kind": "fc2",
+        "name": "pretrained.blocks.2.mlp.fc2",
+        "percdamp": 0.01,
+        "rows": 384,
+        "shape": [
+          384,
+          1536
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 589824
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 384,
+        "damp_used": 0.045846505165100096,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.025364989996887743,
+        "gptq_loss": 3.1142706871032715,
+        "kind": "qkv",
+        "name": "pretrained.blocks.3.attn.qkv",
+        "percdamp": 0.01,
+        "rows": 1152,
+        "shape": [
+          1152,
+          384
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 442368
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 384,
+        "damp_used": 0.0009220302104949951,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.025448198954109102,
+        "gptq_loss": 0.004277585074305534,
+        "kind": "attn_proj",
+        "name": "pretrained.blocks.3.attn.proj",
+        "percdamp": 0.01,
+        "rows": 384,
+        "shape": [
+          384,
+          384
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 147456
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 384,
+        "damp_used": 0.02432119846343994,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.025370910996571183,
+        "gptq_loss": 1.4801275730133057,
+        "kind": "fc1",
+        "name": "pretrained.blocks.3.mlp.fc1",
+        "percdamp": 0.01,
+        "rows": 1536,
+        "shape": [
+          1536,
+          384
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 589824
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 1536,
+        "damp_used": 0.00030317410826683047,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.10066925798309967,
+        "gptq_loss": 0.006545183248817921,
+        "kind": "fc2",
+        "name": "pretrained.blocks.3.mlp.fc2",
+        "percdamp": 0.01,
+        "rows": 384,
+        "shape": [
+          384,
+          1536
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 589824
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 384,
+        "damp_used": 0.036190948486328124,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.02533011301420629,
+        "gptq_loss": 2.422144889831543,
+        "kind": "qkv",
+        "name": "pretrained.blocks.4.attn.qkv",
+        "percdamp": 0.01,
+        "rows": 1152,
+        "shape": [
+          1152,
+          384
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 442368
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 384,
+        "damp_used": 0.0008119550347328187,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.025377424026373774,
+        "gptq_loss": 0.0038412846624851227,
+        "kind": "attn_proj",
+        "name": "pretrained.blocks.4.attn.proj",
+        "percdamp": 0.01,
+        "rows": 384,
+        "shape": [
+          384,
+          384
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 147456
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 384,
+        "damp_used": 0.028526980876922608,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.025413623021449894,
+        "gptq_loss": 1.5838863849639893,
+        "kind": "fc1",
+        "name": "pretrained.blocks.4.mlp.fc1",
+        "percdamp": 0.01,
+        "rows": 1536,
+        "shape": [
+          1536,
+          384
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 589824
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 1536,
+        "damp_used": 0.00029597973451018334,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.1009689099737443,
+        "gptq_loss": 0.0065530650317668915,
+        "kind": "fc2",
+        "name": "pretrained.blocks.4.mlp.fc2",
+        "percdamp": 0.01,
+        "rows": 384,
+        "shape": [
+          384,
+          1536
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 589824
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 384,
+        "damp_used": 0.037181944847106935,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.02529954497003928,
+        "gptq_loss": 2.5386013984680176,
+        "kind": "qkv",
+        "name": "pretrained.blocks.5.attn.qkv",
+        "percdamp": 0.01,
+        "rows": 1152,
+        "shape": [
+          1152,
+          384
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 442368
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 384,
+        "damp_used": 0.0007239166647195816,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.025362334039527923,
+        "gptq_loss": 0.003474160563200712,
+        "kind": "attn_proj",
+        "name": "pretrained.blocks.5.attn.proj",
+        "percdamp": 0.01,
+        "rows": 384,
+        "shape": [
+          384,
+          384
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 147456
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 384,
+        "damp_used": 0.02913825511932373,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.02539195102872327,
+        "gptq_loss": 1.4266109466552734,
+        "kind": "fc1",
+        "name": "pretrained.blocks.5.mlp.fc1",
+        "percdamp": 0.01,
+        "rows": 1536,
+        "shape": [
+          1536,
+          384
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 589824
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 1536,
+        "damp_used": 0.00031581129878759383,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.10108291899086908,
+        "gptq_loss": 0.005594360642135143,
+        "kind": "fc2",
+        "name": "pretrained.blocks.5.mlp.fc2",
+        "percdamp": 0.01,
+        "rows": 384,
+        "shape": [
+          384,
+          1536
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 589824
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 384,
+        "damp_used": 0.0315357780456543,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.025329873024020344,
+        "gptq_loss": 2.0000295639038086,
+        "kind": "qkv",
+        "name": "pretrained.blocks.6.attn.qkv",
+        "percdamp": 0.01,
+        "rows": 1152,
+        "shape": [
+          1152,
+          384
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 442368
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 384,
+        "damp_used": 0.0009088214486837387,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.02528099896153435,
+        "gptq_loss": 0.0027086581103503704,
+        "kind": "attn_proj",
+        "name": "pretrained.blocks.6.attn.proj",
+        "percdamp": 0.01,
+        "rows": 384,
+        "shape": [
+          384,
+          384
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 147456
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 384,
+        "damp_used": 0.03439077854156494,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.02528413600521162,
+        "gptq_loss": 1.7085659503936768,
+        "kind": "fc1",
+        "name": "pretrained.blocks.6.mlp.fc1",
+        "percdamp": 0.01,
+        "rows": 1536,
+        "shape": [
+          1536,
+          384
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 589824
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 1536,
+        "damp_used": 0.00030108023434877396,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.10069127002498135,
+        "gptq_loss": 0.004936578683555126,
+        "kind": "fc2",
+        "name": "pretrained.blocks.6.mlp.fc2",
+        "percdamp": 0.01,
+        "rows": 384,
+        "shape": [
+          384,
+          1536
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 589824
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 384,
+        "damp_used": 0.03390808820724488,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.025263745978008956,
+        "gptq_loss": 2.369189977645874,
+        "kind": "qkv",
+        "name": "pretrained.blocks.7.attn.qkv",
+        "percdamp": 0.01,
+        "rows": 1152,
+        "shape": [
+          1152,
+          384
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 442368
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 384,
+        "damp_used": 0.0005589107796549797,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.025309293007012457,
+        "gptq_loss": 0.002359184203669429,
+        "kind": "attn_proj",
+        "name": "pretrained.blocks.7.attn.proj",
+        "percdamp": 0.01,
+        "rows": 384,
+        "shape": [
+          384,
+          384
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 147456
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 384,
+        "damp_used": 0.03157058238983154,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.025317128049209714,
+        "gptq_loss": 1.4442720413208008,
+        "kind": "fc1",
+        "name": "pretrained.blocks.7.mlp.fc1",
+        "percdamp": 0.01,
+        "rows": 1536,
+        "shape": [
+          1536,
+          384
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 589824
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 1536,
+        "damp_used": 0.0002867177128791809,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.1007175599806942,
+        "gptq_loss": 0.004092255607247353,
+        "kind": "fc2",
+        "name": "pretrained.blocks.7.mlp.fc2",
+        "percdamp": 0.01,
+        "rows": 384,
+        "shape": [
+          384,
+          1536
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 589824
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 384,
+        "damp_used": 0.036719107627868654,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.025327197974547744,
+        "gptq_loss": 2.362090826034546,
+        "kind": "qkv",
+        "name": "pretrained.blocks.8.attn.qkv",
+        "percdamp": 0.01,
+        "rows": 1152,
+        "shape": [
+          1152,
+          384
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 442368
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 384,
+        "damp_used": 0.001151103675365448,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.025377704005222768,
+        "gptq_loss": 0.0037202443927526474,
+        "kind": "attn_proj",
+        "name": "pretrained.blocks.8.attn.proj",
+        "percdamp": 0.01,
+        "rows": 384,
+        "shape": [
+          384,
+          384
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 147456
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 384,
+        "damp_used": 0.04055461406707764,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.025372214033268392,
+        "gptq_loss": 1.7606194019317627,
+        "kind": "fc1",
+        "name": "pretrained.blocks.8.mlp.fc1",
+        "percdamp": 0.01,
+        "rows": 1536,
+        "shape": [
+          1536,
+          384
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 589824
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 1536,
+        "damp_used": 0.00028731435537338257,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.10075872903689742,
+        "gptq_loss": 0.003923278301954269,
+        "kind": "fc2",
+        "name": "pretrained.blocks.8.mlp.fc2",
+        "percdamp": 0.01,
+        "rows": 384,
+        "shape": [
+          384,
+          1536
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 589824
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 384,
+        "damp_used": 0.038879408836364746,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.02532371098641306,
+        "gptq_loss": 1.4951918125152588,
+        "kind": "qkv",
+        "name": "pretrained.blocks.9.attn.qkv",
+        "percdamp": 0.01,
+        "rows": 1152,
+        "shape": [
+          1152,
+          384
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 442368
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 384,
+        "damp_used": 0.0009661400318145753,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.025320394022855908,
+        "gptq_loss": 0.002708793617784977,
+        "kind": "attn_proj",
+        "name": "pretrained.blocks.9.attn.proj",
+        "percdamp": 0.01,
+        "rows": 384,
+        "shape": [
+          384,
+          384
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 147456
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 384,
+        "damp_used": 0.03804501295089722,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.025378004007507116,
+        "gptq_loss": 1.434814453125,
+        "kind": "fc1",
+        "name": "pretrained.blocks.9.mlp.fc1",
+        "percdamp": 0.01,
+        "rows": 1536,
+        "shape": [
+          1536,
+          384
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 589824
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 1536,
+        "damp_used": 0.00031763385981321336,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.10083096596645191,
+        "gptq_loss": 0.004520718939602375,
+        "kind": "fc2",
+        "name": "pretrained.blocks.9.mlp.fc2",
+        "percdamp": 0.01,
+        "rows": 384,
+        "shape": [
+          384,
+          1536
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 589824
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 384,
+        "damp_used": 0.0423807430267334,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.025331235025078058,
+        "gptq_loss": 1.5607863664627075,
+        "kind": "qkv",
+        "name": "pretrained.blocks.10.attn.qkv",
+        "percdamp": 0.01,
+        "rows": 1152,
+        "shape": [
+          1152,
+          384
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 442368
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 384,
+        "damp_used": 0.000882970541715622,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.02537368703633547,
+        "gptq_loss": 0.002599218627437949,
+        "kind": "attn_proj",
+        "name": "pretrained.blocks.10.attn.proj",
+        "percdamp": 0.01,
+        "rows": 384,
+        "shape": [
+          384,
+          384
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 147456
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 384,
+        "damp_used": 0.05043611526489258,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.025400378042832017,
+        "gptq_loss": 1.7887732982635498,
+        "kind": "fc1",
+        "name": "pretrained.blocks.10.mlp.fc1",
+        "percdamp": 0.01,
+        "rows": 1536,
+        "shape": [
+          1536,
+          384
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 589824
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 1536,
+        "damp_used": 0.0002601614221930504,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.10069623903837055,
+        "gptq_loss": 0.0035041305236518383,
+        "kind": "fc2",
+        "name": "pretrained.blocks.10.mlp.fc2",
+        "percdamp": 0.01,
+        "rows": 384,
+        "shape": [
+          384,
+          1536
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 589824
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 384,
+        "damp_used": 0.04776346683502197,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.025321866967715323,
+        "gptq_loss": 2.159785509109497,
+        "kind": "qkv",
+        "name": "pretrained.blocks.11.attn.qkv",
+        "percdamp": 0.01,
+        "rows": 1152,
+        "shape": [
+          1152,
+          384
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 442368
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 384,
+        "damp_used": 0.0015624886751174926,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.025324402027763426,
+        "gptq_loss": 0.0063773514702916145,
+        "kind": "attn_proj",
+        "name": "pretrained.blocks.11.attn.proj",
+        "percdamp": 0.01,
+        "rows": 384,
+        "shape": [
+          384,
+          384
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 147456
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 384,
+        "damp_used": 0.027131309509277345,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.025312800018582493,
+        "gptq_loss": 0.592400848865509,
+        "kind": "fc1",
+        "name": "pretrained.blocks.11.mlp.fc1",
+        "percdamp": 0.01,
+        "rows": 1536,
+        "shape": [
+          1536,
+          384
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 589824
+      },
+      {
+        "act_order": true,
+        "bits": 4,
+        "blocksize": 128,
+        "columns": 1536,
+        "damp_used": 0.00039964884519577026,
+        "dead_columns": 0,
+        "elapsed_seconds": 0.10077475901925936,
+        "gptq_loss": 0.0030521093867719173,
+        "kind": "fc2",
+        "name": "pretrained.blocks.11.mlp.fc2",
+        "percdamp": 0.01,
+        "rows": 384,
+        "shape": [
+          384,
+          1536
+        ],
+        "weight_clip_ratio": 1.0,
+        "weight_group_size": 128,
+        "weight_quant": "per-channel",
+        "weights": 589824
+      }
+    ],
+    "weights_quantized": 21233664
+  },
+  "result": {
+    "by_scene": {
+      "adverse_style": {
+        "best_accuracy": 0.8871951219512195,
+        "best_direction": "larger",
+        "larger_correct": 291,
+        "larger_is_closer_accuracy": 0.8871951219512195,
+        "pairs": 328,
+        "smaller_correct": 36,
+        "smaller_is_closer_accuracy": 0.10975609756097561,
+        "tie_fraction": 0.003048780487804878,
+        "ties": 1
+      },
+      "aerial": {
+        "best_accuracy": 0.9175257731958762,
+        "best_direction": "larger",
+        "larger_correct": 178,
+        "larger_is_closer_accuracy": 0.9175257731958762,
+        "pairs": 194,
+        "smaller_correct": 16,
+        "smaller_is_closer_accuracy": 0.08247422680412371,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "indoor": {
+        "best_accuracy": 0.888095238095238,
+        "best_direction": "larger",
+        "larger_correct": 373,
+        "larger_is_closer_accuracy": 0.888095238095238,
+        "pairs": 420,
+        "smaller_correct": 46,
+        "smaller_is_closer_accuracy": 0.10952380952380952,
+        "tie_fraction": 0.002380952380952381,
+        "ties": 1
+      },
+      "non_real": {
+        "best_accuracy": 0.9537953795379538,
+        "best_direction": "larger",
+        "larger_correct": 289,
+        "larger_is_closer_accuracy": 0.9537953795379538,
+        "pairs": 303,
+        "smaller_correct": 14,
+        "smaller_is_closer_accuracy": 0.0462046204620462,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "object": {
+        "best_accuracy": 0.918918918918919,
+        "best_direction": "larger",
+        "larger_correct": 136,
+        "larger_is_closer_accuracy": 0.918918918918919,
+        "pairs": 148,
+        "smaller_correct": 12,
+        "smaller_is_closer_accuracy": 0.08108108108108109,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "outdoor": {
+        "best_accuracy": 0.8924418604651163,
+        "best_direction": "larger",
+        "larger_correct": 307,
+        "larger_is_closer_accuracy": 0.8924418604651163,
+        "pairs": 344,
+        "smaller_correct": 36,
+        "smaller_is_closer_accuracy": 0.10465116279069768,
+        "tie_fraction": 0.0029069767441860465,
+        "ties": 1
+      },
+      "transparent_reflective": {
+        "best_accuracy": 0.9392523364485982,
+        "best_direction": "larger",
+        "larger_correct": 201,
+        "larger_is_closer_accuracy": 0.9392523364485982,
+        "pairs": 214,
+        "smaller_correct": 13,
+        "smaller_is_closer_accuracy": 0.06074766355140187,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "underwater": {
+        "best_accuracy": 0.9487179487179487,
+        "best_direction": "larger",
+        "larger_correct": 111,
+        "larger_is_closer_accuracy": 0.9487179487179487,
+        "pairs": 117,
+        "smaller_correct": 6,
+        "smaller_is_closer_accuracy": 0.05128205128205128,
+        "tie_fraction": 0.0,
+        "ties": 0
+      }
+    },
+    "metadata": {
+      "elapsed_seconds": 34.03100286202971,
+      "eval_batch_size": 1,
+      "images_requested": 1033,
+      "missing_images": []
+    },
+    "overall": {
+      "best_accuracy": 0.9119922630560928,
+      "best_direction": "larger",
+      "larger_correct": 1886,
+      "larger_is_closer_accuracy": 0.9119922630560928,
+      "pairs": 2068,
+      "smaller_correct": 179,
+      "smaller_is_closer_accuracy": 0.08655705996131528,
+      "tie_fraction": 0.0014506769825918763,
+      "ties": 3
+    }
+  },
+  "score": 0.9119922630560928
+}

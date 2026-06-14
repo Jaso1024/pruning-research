@@ -1,0 +1,13 @@
+{
+  "block": 128,
+  "channels": 384,
+  "elements": 1572864,
+  "kernel_ms": 0.4278195998631418,
+  "max_abs_error": 1.9073486328125e-06,
+  "mean_abs_error": 2.0862207961158674e-08,
+  "ptx_bytes": 3631,
+  "ptx_path": "eval_outputs/cuda_fastpath_orin/layernorm_4096_c384_b128/layernorm.ptx",
+  "rows": 4096,
+  "speedup_vs_torch_layer_norm": 1.843475711855923,
+  "torch_ms": 0.7886750414036214
+}

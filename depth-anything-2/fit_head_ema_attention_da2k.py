@@ -7,9 +7,9 @@ from pathlib import Path
 import cv2
 import numpy as np
 import torch
-from scipy.signal import lfilter
 
 from depth_anything_v2.dpt import DepthAnythingV2
+from ema_filter import causal_ema_filter
 
 
 MODEL_CONFIGS = {
@@ -85,7 +85,7 @@ class HeadFitStats:
         self.target_ss += np.einsum("bhnd,bhnd->h", target, target, optimize=True)
         self.count += np.prod(target.shape[0:1] + target.shape[2:4])
         for index, beta in enumerate(self.betas):
-            ema = lfilter([1.0], [1.0, -float(beta)], source, axis=2).astype(np.float32, copy=False)
+            ema = causal_ema_filter(source, float(beta), axis=2)
             self.numerator[index] += np.einsum("bhnd,bhnd->h", ema, target, optimize=True)
             self.denominator[index] += np.einsum("bhnd,bhnd->h", ema, ema, optimize=True)
 

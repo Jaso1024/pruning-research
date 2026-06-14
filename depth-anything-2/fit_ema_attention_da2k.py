@@ -7,9 +7,9 @@ from pathlib import Path
 import cv2
 import numpy as np
 import torch
-from scipy.signal import lfilter
 
 from depth_anything_v2.dpt import DepthAnythingV2
+from ema_filter import causal_ema_filter
 
 
 MODEL_CONFIGS = {
@@ -96,7 +96,7 @@ class FitStats:
         self.target_ss += float(np.einsum("bnc,bnc->", target, target, optimize=True))
         self.count += int(target.size)
         for index, beta in enumerate(self.betas):
-            ema = lfilter([1.0], [1.0, -float(beta)], source, axis=1).astype(np.float32, copy=False)
+            ema = causal_ema_filter(source, float(beta), axis=1)
             self.numerator[index] += float(np.einsum("bnc,bnc->", ema, target, optimize=True))
             self.denominator[index] += float(np.einsum("bnc,bnc->", ema, ema, optimize=True))
 

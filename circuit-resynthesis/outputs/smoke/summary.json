@@ -1,0 +1,531 @@
+{
+  "config": {
+    "batch_size": 512,
+    "conv_filters": 16,
+    "data_dir": "data",
+    "device": "cuda",
+    "distill_epochs": 1,
+    "local_windows": [
+      3,
+      5,
+      7,
+      9,
+      11,
+      15
+    ],
+    "lr": 0.002,
+    "output_dir": "outputs/smoke",
+    "patch_size": 7,
+    "prune_fracs": [
+      0.5,
+      0.8,
+      0.9,
+      0.95
+    ],
+    "seed": 123,
+    "source_epochs": 1,
+    "source_hidden": 512,
+    "student_epochs": 1,
+    "student_lr": 0.002,
+    "test_subset": 1000,
+    "train_subset": 2000
+  },
+  "decomp_metrics": {
+    "local_energy_top_11x11_mean": 0.1853598952293396,
+    "local_energy_top_11x11_p75": 0.1901274174451828,
+    "local_energy_top_15x15_mean": 0.32130298018455505,
+    "local_energy_top_15x15_p75": 0.32791996002197266,
+    "local_energy_top_3x3_mean": 0.02413051947951317,
+    "local_energy_top_3x3_p75": 0.025196127593517303,
+    "local_energy_top_5x5_mean": 0.05064832419157028,
+    "local_energy_top_5x5_p75": 0.05227416381239891,
+    "local_energy_top_7x7_mean": 0.08653691411018372,
+    "local_energy_top_7x7_p75": 0.08902682363986969,
+    "local_energy_top_9x9_mean": 0.1315053403377533,
+    "local_energy_top_9x9_p75": 0.13500100374221802,
+    "patch_cluster_counts": [
+      3,
+      2,
+      2,
+      2,
+      3,
+      1,
+      1,
+      2
+    ],
+    "patch_rows": [
+      {
+        "class_strength": 0.04707524925470352,
+        "locality": 0.10507088154554367,
+        "preferred_class": 5,
+        "rank": 0,
+        "score": 0.0029262362513691187,
+        "source_neuron": 118,
+        "x": 14,
+        "y": 17
+      },
+      {
+        "class_strength": 0.05070240795612335,
+        "locality": 0.09296751767396927,
+        "preferred_class": 6,
+        "rank": 1,
+        "score": 0.0028744202572852373,
+        "source_neuron": 69,
+        "x": 15,
+        "y": 16
+      },
+      {
+        "class_strength": 0.04784021154046059,
+        "locality": 0.09945698827505112,
+        "preferred_class": 2,
+        "rank": 2,
+        "score": 0.002869600197300315,
+        "source_neuron": 190,
+        "x": 4,
+        "y": 5
+      },
+      {
+        "class_strength": 0.05109528824687004,
+        "locality": 0.09156425297260284,
+        "preferred_class": 0,
+        "rank": 3,
+        "score": 0.0028683741111308336,
+        "source_neuron": 477,
+        "x": 4,
+        "y": 11
+      },
+      {
+        "class_strength": 0.05109205096960068,
+        "locality": 0.09205298125743866,
+        "preferred_class": 5,
+        "rank": 4,
+        "score": 0.0028595374897122383,
+        "source_neuron": 488,
+        "x": 8,
+        "y": 13
+      },
+      {
+        "class_strength": 0.048593271523714066,
+        "locality": 0.09799746423959732,
+        "preferred_class": 1,
+        "rank": 5,
+        "score": 0.002852620091289282,
+        "source_neuron": 142,
+        "x": 7,
+        "y": 12
+      },
+      {
+        "class_strength": 0.05134892463684082,
+        "locality": 0.09257618337869644,
+        "preferred_class": 2,
+        "rank": 6,
+        "score": 0.002842267509549856,
+        "source_neuron": 508,
+        "x": 6,
+        "y": 11
+      },
+      {
+        "class_strength": 0.048930760473012924,
+        "locality": 0.09628896415233612,
+        "preferred_class": 4,
+        "rank": 7,
+        "score": 0.0028254203498363495,
+        "source_neuron": 324,
+        "x": 20,
+        "y": 10
+      },
+      {
+        "class_strength": 0.04934409260749817,
+        "locality": 0.09304922074079514,
+        "preferred_class": 5,
+        "rank": 8,
+        "score": 0.0028128207195550203,
+        "source_neuron": 195,
+        "x": 21,
+        "y": 13
+      },
+      {
+        "class_strength": 0.04968763515353203,
+        "locality": 0.09830749034881592,
+        "preferred_class": 7,
+        "rank": 9,
+        "score": 0.0028120377101004124,
+        "source_neuron": 390,
+        "x": 14,
+        "y": 16
+      },
+      {
+        "class_strength": 0.050065770745277405,
+        "locality": 0.09445423632860184,
+        "preferred_class": 3,
+        "rank": 10,
+        "score": 0.002808855613693595,
+        "source_neuron": 325,
+        "x": 10,
+        "y": 0
+      },
+      {
+        "class_strength": 0.049345117062330246,
+        "locality": 0.09244346618652344,
+        "preferred_class": 1,
+        "rank": 11,
+        "score": 0.0028084299992769957,
+        "source_neuron": 22,
+        "x": 21,
+        "y": 5
+      },
+      {
+        "class_strength": 0.049938589334487915,
+        "locality": 0.09119067341089249,
+        "preferred_class": 6,
+        "rank": 12,
+        "score": 0.0028044707141816616,
+        "source_neuron": 499,
+        "x": 15,
+        "y": 13
+      },
+      {
+        "class_strength": 0.04998917505145073,
+        "locality": 0.09266557544469833,
+        "preferred_class": 3,
+        "rank": 13,
+        "score": 0.00278492271900177,
+        "source_neuron": 274,
+        "x": 2,
+        "y": 7
+      },
+      {
+        "class_strength": 0.04935932531952858,
+        "locality": 0.09310467541217804,
+        "preferred_class": 8,
+        "rank": 14,
+        "score": 0.0027816661167889833,
+        "source_neuron": 367,
+        "x": 20,
+        "y": 16
+      },
+      {
+        "class_strength": 0.049564529210329056,
+        "locality": 0.0926915779709816,
+        "preferred_class": 9,
+        "rank": 15,
+        "score": 0.0027590785175561905,
+        "source_neuron": 479,
+        "x": 5,
+        "y": 17
+      }
+    ]
+  },
+  "elapsed_seconds": 4.823764366999967,
+  "final_table": [
+    {
+      "accuracy": 0.755,
+      "method": "wanda_source_prune_0.50",
+      "note": "wanda no-retrain source pruning",
+      "params": 203264
+    },
+    {
+      "accuracy": 0.752,
+      "method": "source_mlp",
+      "note": "bad substrate teacher",
+      "params": 407050
+    },
+    {
+      "accuracy": 0.75,
+      "method": "magnitude_source_prune_0.50",
+      "note": "magnitude no-retrain source pruning",
+      "params": 203264
+    },
+    {
+      "accuracy": 0.738,
+      "method": "magnitude_source_prune_0.80",
+      "note": "magnitude no-retrain source pruning",
+      "params": 81306
+    },
+    {
+      "accuracy": 0.734,
+      "method": "wanda_source_prune_0.80",
+      "note": "wanda no-retrain source pruning",
+      "params": 81306
+    },
+    {
+      "accuracy": 0.711,
+      "method": "magnitude_source_prune_0.90",
+      "note": "magnitude no-retrain source pruning",
+      "params": 40653
+    },
+    {
+      "accuracy": 0.679,
+      "method": "magnitude_source_prune_0.95",
+      "note": "magnitude no-retrain source pruning",
+      "params": 20327
+    },
+    {
+      "accuracy": 0.66,
+      "method": "wanda_source_prune_0.90",
+      "note": "wanda no-retrain source pruning",
+      "params": 40653
+    },
+    {
+      "accuracy": 0.498,
+      "method": "wanda_source_prune_0.95",
+      "note": "wanda no-retrain source pruning",
+      "params": 20327
+    },
+    {
+      "accuracy": 0.203,
+      "method": "tiny_conv_distilled_circuit_init",
+      "note": "conv filters initialized from decompiled MLP patches",
+      "params": 3562
+    },
+    {
+      "accuracy": 0.171,
+      "method": "tiny_conv_scratch",
+      "note": "same conv architecture, no teacher",
+      "params": 3562
+    },
+    {
+      "accuracy": 0.126,
+      "method": "tiny_conv_distilled_random_init",
+      "note": "black-box distillation",
+      "params": 3562
+    },
+    {
+      "accuracy": 0.09,
+      "method": "fixed_stroke_bank_distilled",
+      "note": "decompiled filters frozen, train only head",
+      "params": 2762
+    }
+  ],
+  "localized_source": [
+    {
+      "accuracy": 0.567,
+      "correct": 567,
+      "fc1_weight_fraction_kept": 0.011479591950774193,
+      "loss": 2.1565904541015626,
+      "method": "source_fc1_local_window_3",
+      "total": 1000,
+      "window": 3
+    },
+    {
+      "accuracy": 0.609,
+      "correct": 609,
+      "fc1_weight_fraction_kept": 0.031887754797935486,
+      "loss": 2.065093017578125,
+      "method": "source_fc1_local_window_5",
+      "total": 1000,
+      "window": 5
+    },
+    {
+      "accuracy": 0.681,
+      "correct": 681,
+      "fc1_weight_fraction_kept": 0.0625,
+      "loss": 1.9097741088867188,
+      "method": "source_fc1_local_window_7",
+      "total": 1000,
+      "window": 7
+    },
+    {
+      "accuracy": 0.714,
+      "correct": 714,
+      "fc1_weight_fraction_kept": 0.10331632196903229,
+      "loss": 1.7484317016601563,
+      "method": "source_fc1_local_window_9",
+      "total": 1000,
+      "window": 9
+    },
+    {
+      "accuracy": 0.737,
+      "correct": 737,
+      "fc1_weight_fraction_kept": 0.15433673560619354,
+      "loss": 1.5351651000976563,
+      "method": "source_fc1_local_window_11",
+      "total": 1000,
+      "window": 11
+    },
+    {
+      "accuracy": 0.75,
+      "correct": 750,
+      "fc1_weight_fraction_kept": 0.2869897782802582,
+      "loss": 1.2029151000976563,
+      "method": "source_fc1_local_window_15",
+      "total": 1000,
+      "window": 15
+    }
+  ],
+  "params": {
+    "fixed_stroke_bank": 2762,
+    "source_mlp": 407050,
+    "tiny_conv": 3562
+  },
+  "pruned_source": [
+    {
+      "accuracy": 0.75,
+      "correct": 750,
+      "loss": 0.8590015563964843,
+      "method": "magnitude_source_prune_0.50",
+      "nonzero_weight_params": 203264,
+      "prune_fraction": 0.5,
+      "score": "magnitude",
+      "total": 1000,
+      "total_weight_params": 406528,
+      "weight_fraction_left": 0.5
+    },
+    {
+      "accuracy": 0.738,
+      "correct": 738,
+      "loss": 1.048434326171875,
+      "method": "magnitude_source_prune_0.80",
+      "nonzero_weight_params": 81306,
+      "prune_fraction": 0.8,
+      "score": "magnitude",
+      "total": 1000,
+      "total_weight_params": 406528,
+      "weight_fraction_left": 0.2000009839420655
+    },
+    {
+      "accuracy": 0.711,
+      "correct": 711,
+      "loss": 1.4462256469726562,
+      "method": "magnitude_source_prune_0.90",
+      "nonzero_weight_params": 40653,
+      "prune_fraction": 0.9,
+      "score": "magnitude",
+      "total": 1000,
+      "total_weight_params": 406528,
+      "weight_fraction_left": 0.10000049197103275
+    },
+    {
+      "accuracy": 0.679,
+      "correct": 679,
+      "loss": 1.7855419311523437,
+      "method": "magnitude_source_prune_0.95",
+      "nonzero_weight_params": 20327,
+      "prune_fraction": 0.95,
+      "score": "magnitude",
+      "total": 1000,
+      "total_weight_params": 406528,
+      "weight_fraction_left": 0.05000147591309824
+    },
+    {
+      "accuracy": 0.755,
+      "correct": 755,
+      "loss": 0.8353359680175781,
+      "method": "wanda_source_prune_0.50",
+      "nonzero_weight_params": 203264,
+      "prune_fraction": 0.5,
+      "score": "wanda",
+      "total": 1000,
+      "total_weight_params": 406528,
+      "weight_fraction_left": 0.5
+    },
+    {
+      "accuracy": 0.734,
+      "correct": 734,
+      "loss": 1.1795944213867187,
+      "method": "wanda_source_prune_0.80",
+      "nonzero_weight_params": 81306,
+      "prune_fraction": 0.8,
+      "score": "wanda",
+      "total": 1000,
+      "total_weight_params": 406528,
+      "weight_fraction_left": 0.2000009839420655
+    },
+    {
+      "accuracy": 0.66,
+      "correct": 660,
+      "loss": 1.5610913696289062,
+      "method": "wanda_source_prune_0.90",
+      "nonzero_weight_params": 40653,
+      "prune_fraction": 0.9,
+      "score": "wanda",
+      "total": 1000,
+      "total_weight_params": 406528,
+      "weight_fraction_left": 0.10000049197103275
+    },
+    {
+      "accuracy": 0.498,
+      "correct": 498,
+      "loss": 1.8708062744140626,
+      "method": "wanda_source_prune_0.95",
+      "nonzero_weight_params": 20327,
+      "prune_fraction": 0.95,
+      "score": "wanda",
+      "total": 1000,
+      "total_weight_params": 406528,
+      "weight_fraction_left": 0.05000147591309824
+    }
+  ],
+  "read": [
+    "- Decompiled circuit initialization helped plain distillation in this run: `0.2030` vs `0.1260`.",
+    "- The source-local-window table tests whether the MLP first layer is actually local enough to recompile into conv filters.",
+    "- Fixed stroke-bank performance tests whether the recovered patches are sufficient features without learning the conv bank.",
+    "- Magnitude/Wanda pruning are included as dumb compression baselines; they do not change architecture."
+  ],
+  "source_final": {
+    "accuracy": 0.752,
+    "correct": 752,
+    "epoch": 1,
+    "label": "source_mlp",
+    "loss": 0.8127674560546875,
+    "total": 1000,
+    "train_loss": 1.552415987968445
+  },
+  "source_history": [
+    {
+      "accuracy": 0.752,
+      "correct": 752,
+      "epoch": 1,
+      "label": "source_mlp",
+      "loss": 0.8127674560546875,
+      "total": 1000,
+      "train_loss": 1.552415987968445
+    }
+  ],
+  "student_histories": {
+    "fixed_stroke_bank_distilled": [
+      {
+        "accuracy": 0.09,
+        "correct": 90,
+        "epoch": 1,
+        "label": "fixed_stroke_bank_distilled",
+        "loss": 2.335763427734375,
+        "total": 1000,
+        "train_loss": 2.260337213516235
+      }
+    ],
+    "tiny_conv_distilled_circuit_init": [
+      {
+        "accuracy": 0.203,
+        "correct": 203,
+        "epoch": 1,
+        "label": "tiny_conv_distilled_circuit_init",
+        "loss": 2.2697664794921875,
+        "total": 1000,
+        "train_loss": 2.133503406524658
+      }
+    ],
+    "tiny_conv_distilled_random_init": [
+      {
+        "accuracy": 0.126,
+        "correct": 126,
+        "epoch": 1,
+        "label": "tiny_conv_distilled_random_init",
+        "loss": 2.295720458984375,
+        "total": 1000,
+        "train_loss": 2.153543586730957
+      }
+    ],
+    "tiny_conv_scratch": [
+      {
+        "accuracy": 0.171,
+        "correct": 171,
+        "epoch": 1,
+        "label": "tiny_conv_scratch",
+        "loss": 2.277892822265625,
+        "total": 1000,
+        "train_loss": 2.3299524097442625
+      }
+    ]
+  }
+}

@@ -1,0 +1,1132 @@
+{
+  "checkpoint_path": null,
+  "config": {
+    "allow_train_eval_overlap": false,
+    "budget_values": 5014736,
+    "checkpoint": "/home/ubuntu/checkpoints/depth_anything_v2_vits.pth",
+    "dataset_root": "/home/ubuntu/vision_token_tests/datasets/DA-2K/DA-2K",
+    "device": "cuda",
+    "encoder": "vits",
+    "epochs": 1,
+    "eval_images": 128,
+    "eval_skip_images": 128,
+    "hybrid_alpha": 1.0,
+    "input_size": 518,
+    "layer_indices": [],
+    "log_every": 0,
+    "lora_alpha": 16.0,
+    "lora_module_set": "all",
+    "lora_placement": "masked",
+    "lora_rank": 8,
+    "lora_window": 1,
+    "loss_tau": 1.0,
+    "lr": 0.0001,
+    "output_dir": "/home/ubuntu/eval_outputs/scalar_mask_lora_taylor2_masked_b5014736_r8_e1_lr1e4_t128_evalskip128_eval128",
+    "pairwise_label_weight": 0.0,
+    "pairwise_tau": 0.25,
+    "pairwise_teacher_weight": 1.0,
+    "pairwise_weight": 0.0,
+    "peft_method": "lora",
+    "prune_score": "taylor2_abs",
+    "save_checkpoint": false,
+    "save_score_cache": false,
+    "scene_type": "",
+    "score_cache": "/home/ubuntu/eval_outputs/scalar_mask_lora_taylor2_masked_r8_b5014736_t64_e5_evalskip64_eval128/scalar_scores.pt",
+    "score_images": 32,
+    "seed": 123,
+    "target": "transformer",
+    "train_images": 128,
+    "weight_decay": 0.0
+  },
+  "device": "cuda",
+  "elapsed_seconds": 35.36190793300193,
+  "eval_items": [
+    "images/outdoor/20304092008_ede0b1304e_k.jpg",
+    "images/outdoor/20408645085_833061de8e_k.jpg",
+    "images/outdoor/21089141875_3d6b9feab2_k.jpg",
+    "images/outdoor/21999090092_ae28d51166_k.jpg",
+    "images/outdoor/22390096157_4dceea42ae_k.jpg",
+    "images/outdoor/22884041219_3e5cdc64c4_k.jpg",
+    "images/outdoor/22984102999_aa45c5cf50_k.jpg",
+    "images/outdoor/23482007869_d11b921435_h.jpg",
+    "images/outdoor/23607004028_f54d5c6095_k.jpg",
+    "images/outdoor/23708780461_63e9599ed9_k.jpg",
+    "images/outdoor/23769337648_64ab073c54_k.jpg",
+    "images/outdoor/24622109462_d6f2086614_k.jpg",
+    "images/outdoor/24881380011_bfe50d9caa_k.jpg",
+    "images/outdoor/24954491757_6b65c82055_k.jpg",
+    "images/outdoor/24995364247_88509d0d75_k.jpg",
+    "images/outdoor/25826947794_b7aada871e_k.jpg",
+    "images/outdoor/26439902152_640a2d754e_k.jpg",
+    "images/outdoor/26771436839_1a1a49893a_k.jpg",
+    "images/outdoor/26916817259_721757cfd9_k.jpg",
+    "images/outdoor/27078454935_5e4c608206_h.jpg",
+    "images/outdoor/27093388520_43b834d4cf_k.jpg",
+    "images/outdoor/27295431082_5e7d25ba64_k.jpg",
+    "images/outdoor/27369301236_7bcfe80f93_k.jpg",
+    "images/outdoor/27537104593_087b9d4362_k.jpg",
+    "images/outdoor/27668945195_dee2bf3e9f_k.jpg",
+    "images/outdoor/27699929510_85f09cd468_k.jpg",
+    "images/outdoor/28090062363_dcb8b048f8_k.jpg",
+    "images/outdoor/28637397954_c3e95f0c8f_k.jpg",
+    "images/outdoor/29321669045_8a7f010fa6_k.jpg",
+    "images/outdoor/29958794001_7082eef90d_k.jpg",
+    "images/outdoor/30283313218_bec06a2289_k.jpg",
+    "images/outdoor/30794606543_2c01d99215_k.jpg",
+    "images/outdoor/31335442928_f9e3266fcc_k.jpg",
+    "images/outdoor/31406414694_b49c5c0e33_k.jpg",
+    "images/outdoor/32115905592_4789ff31b2_h.jpg",
+    "images/outdoor/32488301032_0e1944c2b3_k.jpg",
+    "images/outdoor/33191422311_e0e59893b2_k.jpg",
+    "images/outdoor/35235181904_7d5f4842d8_k.jpg",
+    "images/outdoor/35714216831_49edbcb163_k.jpg",
+    "images/outdoor/37970664175_a95cb57852_k.jpg",
+    "images/outdoor/38731911275_8c6649d9df_k.jpg",
+    "images/outdoor/39035979534_e390ce196d_k.jpg",
+    "images/outdoor/39648996702_7838993561_k.jpg",
+    "images/outdoor/39649914475_05b6d26528_k.jpg",
+    "images/outdoor/39813007822_1de3427705_k.jpg",
+    "images/outdoor/39937204071_f801f342da_k.jpg",
+    "images/outdoor/40399690045_14f2d7e892_k.jpg",
+    "images/outdoor/40404375241_871fed47e6_k.jpg",
+    "images/outdoor/40846685664_dbd8aae31b_k.jpg",
+    "images/outdoor/41645368901_c15ef28ac3_k.jpg",
+    "images/outdoor/42777905251_ec6d6dd3d2_k.jpg",
+    "images/outdoor/43482933464_34da66da0b_k.jpg",
+    "images/outdoor/43603317950_2e88f8b07a_k.jpg",
+    "images/outdoor/43703189494_2a8d35eb7b_k.jpg",
+    "images/outdoor/44744786541_66931f5bcb_k.jpg",
+    "images/outdoor/45938847682_e60417c509_h.jpg",
+    "images/outdoor/47753468221_5d46809a0e_k.jpg",
+    "images/outdoor/47859517421_92f6f769fa_k.jpg",
+    "images/outdoor/47990722298_45e6360382_k.jpg",
+    "images/outdoor/49776489912_af311a708d_k.jpg",
+    "images/outdoor/49990953347_984d52f380_k.jpg",
+    "images/outdoor/51022530048_409c08a9d3_k.jpg",
+    "images/outdoor/51218548996_88f6b21f5e_k.jpg",
+    "images/outdoor/51647608663_01f2e6389f_k.jpg",
+    "images/outdoor/52185113980_d25669f651_k.jpg",
+    "images/outdoor/53229824104_6b17f3b66f_k.jpg",
+    "images/outdoor/53496784204_7e18ab9c15_k.jpg",
+    "images/adverse_style/10565642806_6362d17cf0_k.jpg",
+    "images/adverse_style/11322222365_f77f51858c_k.jpg",
+    "images/adverse_style/11982103425_986b51e396_k.jpg",
+    "images/adverse_style/12649357463_f90a5dfc9a_k.jpg",
+    "images/adverse_style/13289654863_3e2bda6a83_k.jpg",
+    "images/adverse_style/14016168354_64542eaaee_b.jpg",
+    "images/adverse_style/14535996793_a02c5dae26_k.jpg",
+    "images/adverse_style/15514241154_e0e20f20e4_k.jpg",
+    "images/adverse_style/1558677313_1f17c1328a_h.jpg",
+    "images/adverse_style/15997982357_18fb4a2306_k.jpg",
+    "images/adverse_style/17310673848_5321bd438f_k.jpg",
+    "images/adverse_style/196078476_9609c2c45d_k.jpg",
+    "images/adverse_style/19813935488_2beeaf0bde_k.jpg",
+    "images/adverse_style/20831807612_4d8b4cac43_k.jpg",
+    "images/adverse_style/22562745404_f6d23ea3a9_k.jpg",
+    "images/adverse_style/22940741419_f9e63182ae_k.jpg",
+    "images/adverse_style/23081433280_c722b61eb3_k.jpg",
+    "images/adverse_style/23820577674_b484d4554c_k.jpg",
+    "images/adverse_style/24003606494_b53d4b6f44_k.jpg",
+    "images/adverse_style/24260840790_35dd894a41_k.jpg",
+    "images/adverse_style/24338061290_549b220f27_h.jpg",
+    "images/adverse_style/24586790167_f48c453925_k.jpg",
+    "images/adverse_style/24657576255_89bef8256f_k.jpg",
+    "images/adverse_style/25268074133_f4d52e4abb_k.jpg",
+    "images/adverse_style/25671792717_e930d2c100_k.jpg",
+    "images/adverse_style/25936925342_004a36a451_k.jpg",
+    "images/adverse_style/26256826445_5cbc9cea33_k.jpg",
+    "images/adverse_style/26558271044_23fee4ac94_k.jpg",
+    "images/adverse_style/28544360337_39ce7de5cd_h.jpg",
+    "images/adverse_style/28871835362_4153b04975_k.jpg",
+    "images/adverse_style/29001737084_ea71a5e61a_k.jpg",
+    "images/adverse_style/29386225318_65f465dbd1_k.jpg",
+    "images/adverse_style/29709177573_7290b9e09f_k.jpg",
+    "images/adverse_style/29842719977_6743b16203_k.jpg",
+    "images/adverse_style/30968095646_3cf4cf47cb_k.jpg",
+    "images/adverse_style/30993080892_41149971e3_k.jpg",
+    "images/adverse_style/31408624130_b7ecd6e9d3_k.jpg",
+    "images/adverse_style/31866693052_8b5c9c16dd_k.jpg",
+    "images/adverse_style/32116323440_5558435c92_k.jpg",
+    "images/adverse_style/32323656743_87dc80d2ba_k.jpg",
+    "images/adverse_style/32742252006_caf4b14367_k.jpg",
+    "images/adverse_style/33084740492_dc4c81ba32_k.jpg",
+    "images/adverse_style/33133237805_eb32856944_b.jpg",
+    "images/adverse_style/34969967182_9e11d2c516_k.jpg",
+    "images/adverse_style/35412871573_9af406cfa7_k.jpg",
+    "images/adverse_style/35584038123_4f413950a4_k.jpg",
+    "images/adverse_style/35836915312_326c3c614a_k.jpg",
+    "images/adverse_style/38458611885_71595190ca_k.jpg",
+    "images/adverse_style/39221203081_4a81a9e47e_k.jpg",
+    "images/adverse_style/39638712025_df9214f38c_k.jpg",
+    "images/adverse_style/39817107990_756349ce07_k.jpg",
+    "images/adverse_style/40537245451_70e014c831_k.jpg",
+    "images/adverse_style/43334778562_6bbc8ad5d0_k.jpg",
+    "images/adverse_style/43738332701_777f3a292f_k.jpg",
+    "images/adverse_style/44775660685_e26d3e3f26_k.jpg",
+    "images/adverse_style/44941761705_2759402947_k.jpg",
+    "images/adverse_style/45786334565_05b0b0097b_k.jpg",
+    "images/adverse_style/46342758091_8e83fc640d_k.jpg",
+    "images/adverse_style/46741181574_fd421f5f05_k.jpg",
+    "images/adverse_style/48034865742_9d9b8375f0_k.jpg",
+    "images/adverse_style/48917036598_0b40b32166_k.jpg"
+  ],
+  "history": [
+    {
+      "epoch": 1,
+      "last_loss": 0.0024666311219334602,
+      "mean_depth_loss": 0.003092919456889831,
+      "mean_loss": 0.003092919456889831,
+      "mean_pair_accuracy": 0.0,
+      "mean_pair_loss": 0.0
+    }
+  ],
+  "mask_modules": [
+    "pretrained.blocks.0.attn.proj",
+    "pretrained.blocks.0.attn.qkv",
+    "pretrained.blocks.0.mlp.fc1",
+    "pretrained.blocks.0.mlp.fc2",
+    "pretrained.blocks.1.attn.proj",
+    "pretrained.blocks.1.attn.qkv",
+    "pretrained.blocks.1.mlp.fc1",
+    "pretrained.blocks.1.mlp.fc2",
+    "pretrained.blocks.10.attn.proj",
+    "pretrained.blocks.10.attn.qkv",
+    "pretrained.blocks.10.mlp.fc1",
+    "pretrained.blocks.10.mlp.fc2",
+    "pretrained.blocks.11.attn.proj",
+    "pretrained.blocks.11.attn.qkv",
+    "pretrained.blocks.11.mlp.fc1",
+    "pretrained.blocks.11.mlp.fc2",
+    "pretrained.blocks.2.attn.proj",
+    "pretrained.blocks.2.attn.qkv",
+    "pretrained.blocks.2.mlp.fc1",
+    "pretrained.blocks.2.mlp.fc2",
+    "pretrained.blocks.3.attn.proj",
+    "pretrained.blocks.3.attn.qkv",
+    "pretrained.blocks.3.mlp.fc1",
+    "pretrained.blocks.3.mlp.fc2",
+    "pretrained.blocks.4.attn.proj",
+    "pretrained.blocks.4.attn.qkv",
+    "pretrained.blocks.4.mlp.fc1",
+    "pretrained.blocks.4.mlp.fc2",
+    "pretrained.blocks.5.attn.proj",
+    "pretrained.blocks.5.attn.qkv",
+    "pretrained.blocks.5.mlp.fc1",
+    "pretrained.blocks.5.mlp.fc2",
+    "pretrained.blocks.6.attn.proj",
+    "pretrained.blocks.6.attn.qkv",
+    "pretrained.blocks.6.mlp.fc1",
+    "pretrained.blocks.6.mlp.fc2",
+    "pretrained.blocks.7.attn.proj",
+    "pretrained.blocks.7.attn.qkv",
+    "pretrained.blocks.7.mlp.fc1",
+    "pretrained.blocks.7.mlp.fc2",
+    "pretrained.blocks.8.attn.proj",
+    "pretrained.blocks.8.attn.qkv",
+    "pretrained.blocks.8.mlp.fc1",
+    "pretrained.blocks.8.mlp.fc2",
+    "pretrained.blocks.9.attn.proj",
+    "pretrained.blocks.9.attn.qkv",
+    "pretrained.blocks.9.mlp.fc1",
+    "pretrained.blocks.9.mlp.fc2"
+  ],
+  "mask_operations": [
+    {
+      "masked_tensor_values": 100289,
+      "module_name": "pretrained.blocks.0.attn.proj",
+      "shape": [
+        384,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 381294,
+      "module_name": "pretrained.blocks.0.attn.qkv",
+      "shape": [
+        1152,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 302865,
+      "module_name": "pretrained.blocks.0.mlp.fc1",
+      "shape": [
+        1536,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 236226,
+      "module_name": "pretrained.blocks.0.mlp.fc2",
+      "shape": [
+        384,
+        1536
+      ]
+    },
+    {
+      "masked_tensor_values": 40065,
+      "module_name": "pretrained.blocks.1.attn.proj",
+      "shape": [
+        384,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 226760,
+      "module_name": "pretrained.blocks.1.attn.qkv",
+      "shape": [
+        1152,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 162545,
+      "module_name": "pretrained.blocks.1.mlp.fc1",
+      "shape": [
+        1536,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 138055,
+      "module_name": "pretrained.blocks.1.mlp.fc2",
+      "shape": [
+        384,
+        1536
+      ]
+    },
+    {
+      "masked_tensor_values": 10593,
+      "module_name": "pretrained.blocks.10.attn.proj",
+      "shape": [
+        384,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 66701,
+      "module_name": "pretrained.blocks.10.attn.qkv",
+      "shape": [
+        1152,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 138618,
+      "module_name": "pretrained.blocks.10.mlp.fc1",
+      "shape": [
+        1536,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 93239,
+      "module_name": "pretrained.blocks.10.mlp.fc2",
+      "shape": [
+        384,
+        1536
+      ]
+    },
+    {
+      "masked_tensor_values": 12006,
+      "module_name": "pretrained.blocks.11.attn.proj",
+      "shape": [
+        384,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 81778,
+      "module_name": "pretrained.blocks.11.attn.qkv",
+      "shape": [
+        1152,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 193384,
+      "module_name": "pretrained.blocks.11.mlp.fc1",
+      "shape": [
+        1536,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 190396,
+      "module_name": "pretrained.blocks.11.mlp.fc2",
+      "shape": [
+        384,
+        1536
+      ]
+    },
+    {
+      "masked_tensor_values": 35006,
+      "module_name": "pretrained.blocks.2.attn.proj",
+      "shape": [
+        384,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 212744,
+      "module_name": "pretrained.blocks.2.attn.qkv",
+      "shape": [
+        1152,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 135421,
+      "module_name": "pretrained.blocks.2.mlp.fc1",
+      "shape": [
+        1536,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 105593,
+      "module_name": "pretrained.blocks.2.mlp.fc2",
+      "shape": [
+        384,
+        1536
+      ]
+    },
+    {
+      "masked_tensor_values": 21158,
+      "module_name": "pretrained.blocks.3.attn.proj",
+      "shape": [
+        384,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 154642,
+      "module_name": "pretrained.blocks.3.attn.qkv",
+      "shape": [
+        1152,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 115808,
+      "module_name": "pretrained.blocks.3.mlp.fc1",
+      "shape": [
+        1536,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 93555,
+      "module_name": "pretrained.blocks.3.mlp.fc2",
+      "shape": [
+        384,
+        1536
+      ]
+    },
+    {
+      "masked_tensor_values": 18423,
+      "module_name": "pretrained.blocks.4.attn.proj",
+      "shape": [
+        384,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 119945,
+      "module_name": "pretrained.blocks.4.attn.qkv",
+      "shape": [
+        1152,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 114268,
+      "module_name": "pretrained.blocks.4.mlp.fc1",
+      "shape": [
+        1536,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 91946,
+      "module_name": "pretrained.blocks.4.mlp.fc2",
+      "shape": [
+        384,
+        1536
+      ]
+    },
+    {
+      "masked_tensor_values": 12740,
+      "module_name": "pretrained.blocks.5.attn.proj",
+      "shape": [
+        384,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 84543,
+      "module_name": "pretrained.blocks.5.attn.qkv",
+      "shape": [
+        1152,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 113703,
+      "module_name": "pretrained.blocks.5.mlp.fc1",
+      "shape": [
+        1536,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 73608,
+      "module_name": "pretrained.blocks.5.mlp.fc2",
+      "shape": [
+        384,
+        1536
+      ]
+    },
+    {
+      "masked_tensor_values": 10372,
+      "module_name": "pretrained.blocks.6.attn.proj",
+      "shape": [
+        384,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 84742,
+      "module_name": "pretrained.blocks.6.attn.qkv",
+      "shape": [
+        1152,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 117565,
+      "module_name": "pretrained.blocks.6.mlp.fc1",
+      "shape": [
+        1536,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 73615,
+      "module_name": "pretrained.blocks.6.mlp.fc2",
+      "shape": [
+        384,
+        1536
+      ]
+    },
+    {
+      "masked_tensor_values": 11318,
+      "module_name": "pretrained.blocks.7.attn.proj",
+      "shape": [
+        384,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 84829,
+      "module_name": "pretrained.blocks.7.attn.qkv",
+      "shape": [
+        1152,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 120195,
+      "module_name": "pretrained.blocks.7.mlp.fc1",
+      "shape": [
+        1536,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 69652,
+      "module_name": "pretrained.blocks.7.mlp.fc2",
+      "shape": [
+        384,
+        1536
+      ]
+    },
+    {
+      "masked_tensor_values": 9419,
+      "module_name": "pretrained.blocks.8.attn.proj",
+      "shape": [
+        384,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 69527,
+      "module_name": "pretrained.blocks.8.attn.qkv",
+      "shape": [
+        1152,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 118729,
+      "module_name": "pretrained.blocks.8.mlp.fc1",
+      "shape": [
+        1536,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 75544,
+      "module_name": "pretrained.blocks.8.mlp.fc2",
+      "shape": [
+        384,
+        1536
+      ]
+    },
+    {
+      "masked_tensor_values": 12145,
+      "module_name": "pretrained.blocks.9.attn.proj",
+      "shape": [
+        384,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 74778,
+      "module_name": "pretrained.blocks.9.attn.qkv",
+      "shape": [
+        1152,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 127138,
+      "module_name": "pretrained.blocks.9.mlp.fc1",
+      "shape": [
+        1536,
+        384
+      ]
+    },
+    {
+      "masked_tensor_values": 77251,
+      "module_name": "pretrained.blocks.9.mlp.fc2",
+      "shape": [
+        384,
+        1536
+      ]
+    }
+  ],
+  "mask_summary": {
+    "budget_values": 5014736,
+    "masked_tensor_values": 5014736,
+    "modules_touched": 48,
+    "target_weight_count": 21233664,
+    "zero_fraction": 0.23616913218557098
+  },
+  "merge_rms_delta_by_module": {
+    "pretrained.blocks.0.attn.proj": 0.00012085546040907502,
+    "pretrained.blocks.0.attn.qkv": 9.369861072627828e-05,
+    "pretrained.blocks.0.mlp.fc1": 0.00014872412430122495,
+    "pretrained.blocks.0.mlp.fc2": 7.922384247649461e-05,
+    "pretrained.blocks.1.attn.proj": 0.00017942678823601454,
+    "pretrained.blocks.1.attn.qkv": 0.0001539365475764498,
+    "pretrained.blocks.1.mlp.fc1": 0.00017123422003351152,
+    "pretrained.blocks.1.mlp.fc2": 8.796202018857002e-05,
+    "pretrained.blocks.10.attn.proj": 0.0001560890959808603,
+    "pretrained.blocks.10.attn.qkv": 0.00014612064114771783,
+    "pretrained.blocks.10.mlp.fc1": 0.0001383844792144373,
+    "pretrained.blocks.10.mlp.fc2": 6.67023632558994e-05,
+    "pretrained.blocks.11.attn.proj": 0.0001095267798518762,
+    "pretrained.blocks.11.attn.qkv": 0.00013607983419205993,
+    "pretrained.blocks.11.mlp.fc1": 0.00011972642096225172,
+    "pretrained.blocks.11.mlp.fc2": 5.2584440709324554e-05,
+    "pretrained.blocks.2.attn.proj": 0.000181765019078739,
+    "pretrained.blocks.2.attn.qkv": 0.0001630861806916073,
+    "pretrained.blocks.2.mlp.fc1": 0.0001783667248673737,
+    "pretrained.blocks.2.mlp.fc2": 8.654593693790957e-05,
+    "pretrained.blocks.3.attn.proj": 0.00017471240425948054,
+    "pretrained.blocks.3.attn.qkv": 0.00016569922445341945,
+    "pretrained.blocks.3.mlp.fc1": 0.00017045479035004973,
+    "pretrained.blocks.3.mlp.fc2": 8.531989442417398e-05,
+    "pretrained.blocks.4.attn.proj": 0.00019423385674599558,
+    "pretrained.blocks.4.attn.qkv": 0.00016197811055462807,
+    "pretrained.blocks.4.mlp.fc1": 0.00017129615298472345,
+    "pretrained.blocks.4.mlp.fc2": 8.836395136313513e-05,
+    "pretrained.blocks.5.attn.proj": 0.00017942572594620287,
+    "pretrained.blocks.5.attn.qkv": 0.00017215257685165852,
+    "pretrained.blocks.5.mlp.fc1": 0.00017083760758396238,
+    "pretrained.blocks.5.mlp.fc2": 9.267729910789058e-05,
+    "pretrained.blocks.6.attn.proj": 0.0001673114747973159,
+    "pretrained.blocks.6.attn.qkv": 0.0001815763971535489,
+    "pretrained.blocks.6.mlp.fc1": 0.00016400903405155987,
+    "pretrained.blocks.6.mlp.fc2": 9.009736822918057e-05,
+    "pretrained.blocks.7.attn.proj": 0.00016920547932386398,
+    "pretrained.blocks.7.attn.qkv": 0.00017016989295370877,
+    "pretrained.blocks.7.mlp.fc1": 0.00016417924780398607,
+    "pretrained.blocks.7.mlp.fc2": 8.446307765552774e-05,
+    "pretrained.blocks.8.attn.proj": 0.00016168062575161457,
+    "pretrained.blocks.8.attn.qkv": 0.00016715610399842262,
+    "pretrained.blocks.8.mlp.fc1": 0.000165664721862413,
+    "pretrained.blocks.8.mlp.fc2": 7.814056880306453e-05,
+    "pretrained.blocks.9.attn.proj": 0.00015566173533443362,
+    "pretrained.blocks.9.attn.qkv": 0.00015569772222079337,
+    "pretrained.blocks.9.mlp.fc1": 0.00014993693912401795,
+    "pretrained.blocks.9.mlp.fc2": 7.201154949143529e-05
+  },
+  "peft_modules": {
+    "pretrained.blocks.0.attn.proj": 6144,
+    "pretrained.blocks.0.attn.qkv": 12288,
+    "pretrained.blocks.0.mlp.fc1": 15360,
+    "pretrained.blocks.0.mlp.fc2": 15360,
+    "pretrained.blocks.1.attn.proj": 6144,
+    "pretrained.blocks.1.attn.qkv": 12288,
+    "pretrained.blocks.1.mlp.fc1": 15360,
+    "pretrained.blocks.1.mlp.fc2": 15360,
+    "pretrained.blocks.10.attn.proj": 6144,
+    "pretrained.blocks.10.attn.qkv": 12288,
+    "pretrained.blocks.10.mlp.fc1": 15360,
+    "pretrained.blocks.10.mlp.fc2": 15360,
+    "pretrained.blocks.11.attn.proj": 6144,
+    "pretrained.blocks.11.attn.qkv": 12288,
+    "pretrained.blocks.11.mlp.fc1": 15360,
+    "pretrained.blocks.11.mlp.fc2": 15360,
+    "pretrained.blocks.2.attn.proj": 6144,
+    "pretrained.blocks.2.attn.qkv": 12288,
+    "pretrained.blocks.2.mlp.fc1": 15360,
+    "pretrained.blocks.2.mlp.fc2": 15360,
+    "pretrained.blocks.3.attn.proj": 6144,
+    "pretrained.blocks.3.attn.qkv": 12288,
+    "pretrained.blocks.3.mlp.fc1": 15360,
+    "pretrained.blocks.3.mlp.fc2": 15360,
+    "pretrained.blocks.4.attn.proj": 6144,
+    "pretrained.blocks.4.attn.qkv": 12288,
+    "pretrained.blocks.4.mlp.fc1": 15360,
+    "pretrained.blocks.4.mlp.fc2": 15360,
+    "pretrained.blocks.5.attn.proj": 6144,
+    "pretrained.blocks.5.attn.qkv": 12288,
+    "pretrained.blocks.5.mlp.fc1": 15360,
+    "pretrained.blocks.5.mlp.fc2": 15360,
+    "pretrained.blocks.6.attn.proj": 6144,
+    "pretrained.blocks.6.attn.qkv": 12288,
+    "pretrained.blocks.6.mlp.fc1": 15360,
+    "pretrained.blocks.6.mlp.fc2": 15360,
+    "pretrained.blocks.7.attn.proj": 6144,
+    "pretrained.blocks.7.attn.qkv": 12288,
+    "pretrained.blocks.7.mlp.fc1": 15360,
+    "pretrained.blocks.7.mlp.fc2": 15360,
+    "pretrained.blocks.8.attn.proj": 6144,
+    "pretrained.blocks.8.attn.qkv": 12288,
+    "pretrained.blocks.8.mlp.fc1": 15360,
+    "pretrained.blocks.8.mlp.fc2": 15360,
+    "pretrained.blocks.9.attn.proj": 6144,
+    "pretrained.blocks.9.attn.qkv": 12288,
+    "pretrained.blocks.9.mlp.fc1": 15360,
+    "pretrained.blocks.9.mlp.fc2": 15360
+  },
+  "peft_trainable_params": 589824,
+  "results": [
+    {
+      "by_scene": {
+        "adverse_style": {
+          "best_accuracy": 0.9411764705882353,
+          "best_direction": "larger",
+          "larger_correct": 144,
+          "larger_is_closer_accuracy": 0.9411764705882353,
+          "pairs": 153,
+          "smaller_correct": 9,
+          "smaller_is_closer_accuracy": 0.058823529411764705,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "outdoor": {
+          "best_accuracy": 0.9487179487179487,
+          "best_direction": "larger",
+          "larger_correct": 148,
+          "larger_is_closer_accuracy": 0.9487179487179487,
+          "pairs": 156,
+          "smaller_correct": 7,
+          "smaller_is_closer_accuracy": 0.04487179487179487,
+          "tie_fraction": 0.00641025641025641,
+          "ties": 1
+        }
+      },
+      "evaluated_images": 128,
+      "label": "dense_teacher",
+      "missing_images": [],
+      "overall": {
+        "best_accuracy": 0.9449838187702265,
+        "best_direction": "larger",
+        "larger_correct": 292,
+        "larger_is_closer_accuracy": 0.9449838187702265,
+        "pairs": 309,
+        "smaller_correct": 16,
+        "smaller_is_closer_accuracy": 0.05177993527508091,
+        "tie_fraction": 0.003236245954692557,
+        "ties": 1
+      }
+    },
+    {
+      "by_scene": {
+        "adverse_style": {
+          "best_accuracy": 0.9281045751633987,
+          "best_direction": "larger",
+          "larger_correct": 142,
+          "larger_is_closer_accuracy": 0.9281045751633987,
+          "pairs": 153,
+          "smaller_correct": 11,
+          "smaller_is_closer_accuracy": 0.0718954248366013,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "outdoor": {
+          "best_accuracy": 0.9166666666666666,
+          "best_direction": "larger",
+          "larger_correct": 143,
+          "larger_is_closer_accuracy": 0.9166666666666666,
+          "pairs": 156,
+          "smaller_correct": 12,
+          "smaller_is_closer_accuracy": 0.07692307692307693,
+          "tie_fraction": 0.00641025641025641,
+          "ties": 1
+        }
+      },
+      "evaluated_images": 128,
+      "label": "pruned_student",
+      "missing_images": [],
+      "overall": {
+        "best_accuracy": 0.9223300970873787,
+        "best_direction": "larger",
+        "larger_correct": 285,
+        "larger_is_closer_accuracy": 0.9223300970873787,
+        "pairs": 309,
+        "smaller_correct": 23,
+        "smaller_is_closer_accuracy": 0.0744336569579288,
+        "tie_fraction": 0.003236245954692557,
+        "ties": 1
+      }
+    },
+    {
+      "by_scene": {
+        "adverse_style": {
+          "best_accuracy": 0.9215686274509803,
+          "best_direction": "larger",
+          "larger_correct": 141,
+          "larger_is_closer_accuracy": 0.9215686274509803,
+          "pairs": 153,
+          "smaller_correct": 12,
+          "smaller_is_closer_accuracy": 0.0784313725490196,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "outdoor": {
+          "best_accuracy": 0.9230769230769231,
+          "best_direction": "larger",
+          "larger_correct": 144,
+          "larger_is_closer_accuracy": 0.9230769230769231,
+          "pairs": 156,
+          "smaller_correct": 11,
+          "smaller_is_closer_accuracy": 0.07051282051282051,
+          "tie_fraction": 0.00641025641025641,
+          "ties": 1
+        }
+      },
+      "evaluated_images": 128,
+      "label": "peft_repaired_unmerged",
+      "missing_images": [],
+      "overall": {
+        "best_accuracy": 0.9223300970873787,
+        "best_direction": "larger",
+        "larger_correct": 285,
+        "larger_is_closer_accuracy": 0.9223300970873787,
+        "pairs": 309,
+        "smaller_correct": 23,
+        "smaller_is_closer_accuracy": 0.0744336569579288,
+        "tie_fraction": 0.003236245954692557,
+        "ties": 1
+      }
+    },
+    {
+      "by_scene": {
+        "adverse_style": {
+          "best_accuracy": 0.9215686274509803,
+          "best_direction": "larger",
+          "larger_correct": 141,
+          "larger_is_closer_accuracy": 0.9215686274509803,
+          "pairs": 153,
+          "smaller_correct": 12,
+          "smaller_is_closer_accuracy": 0.0784313725490196,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "outdoor": {
+          "best_accuracy": 0.9230769230769231,
+          "best_direction": "larger",
+          "larger_correct": 144,
+          "larger_is_closer_accuracy": 0.9230769230769231,
+          "pairs": 156,
+          "smaller_correct": 11,
+          "smaller_is_closer_accuracy": 0.07051282051282051,
+          "tie_fraction": 0.00641025641025641,
+          "ties": 1
+        }
+      },
+      "evaluated_images": 128,
+      "label": "folded_peft_unmasked",
+      "missing_images": [],
+      "overall": {
+        "best_accuracy": 0.9223300970873787,
+        "best_direction": "larger",
+        "larger_correct": 285,
+        "larger_is_closer_accuracy": 0.9223300970873787,
+        "pairs": 309,
+        "smaller_correct": 23,
+        "smaller_is_closer_accuracy": 0.0744336569579288,
+        "tie_fraction": 0.003236245954692557,
+        "ties": 1
+      }
+    },
+    {
+      "by_scene": {
+        "adverse_style": {
+          "best_accuracy": 0.9215686274509803,
+          "best_direction": "larger",
+          "larger_correct": 141,
+          "larger_is_closer_accuracy": 0.9215686274509803,
+          "pairs": 153,
+          "smaller_correct": 12,
+          "smaller_is_closer_accuracy": 0.0784313725490196,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "outdoor": {
+          "best_accuracy": 0.9230769230769231,
+          "best_direction": "larger",
+          "larger_correct": 144,
+          "larger_is_closer_accuracy": 0.9230769230769231,
+          "pairs": 156,
+          "smaller_correct": 11,
+          "smaller_is_closer_accuracy": 0.07051282051282051,
+          "tie_fraction": 0.00641025641025641,
+          "ties": 1
+        }
+      },
+      "evaluated_images": 128,
+      "label": "folded_peft_remasked",
+      "missing_images": [],
+      "overall": {
+        "best_accuracy": 0.9223300970873787,
+        "best_direction": "larger",
+        "larger_correct": 285,
+        "larger_is_closer_accuracy": 0.9223300970873787,
+        "pairs": 309,
+        "smaller_correct": 23,
+        "smaller_is_closer_accuracy": 0.0744336569579288,
+        "tie_fraction": 0.003236245954692557,
+        "ties": 1
+      }
+    }
+  ],
+  "score_metadata": {
+    "elapsed_seconds": 5.943175674001395,
+    "images_scored": 32,
+    "loaded_score_cache": "/home/ubuntu/eval_outputs/scalar_mask_lora_taylor2_masked_r8_b5014736_t64_e5_evalskip64_eval128/scalar_scores.pt",
+    "loss": "softplus(-margin / tau)",
+    "loss_tau": 1.0,
+    "missing_images": [],
+    "pairs_scored": 71,
+    "score_counts": {
+      "best_accuracy": 0.9295774647887324,
+      "best_direction": "larger",
+      "larger_correct": 66,
+      "larger_is_closer_accuracy": 0.9295774647887324,
+      "pairs": 71,
+      "smaller_correct": 5,
+      "smaller_is_closer_accuracy": 0.07042253521126761,
+      "tie_fraction": 0.0,
+      "ties": 0
+    },
+    "score_rule": "For DA2K margin m = depth(point1)-depth(point2), zeroing scalar w has first-order effect delta_m ~= -w * grad_m(w). positive_wgrad protects scalars whose removal lowers m; abs_wgrad is first-order scalar saliency magnitude. Taylor loss scores approximate the change in softplus(-m/tau) under w->0 using a local-linear margin model and derivatives through third order."
+  },
+  "target_modules": [
+    "pretrained.blocks.0.attn.qkv",
+    "pretrained.blocks.0.attn.proj",
+    "pretrained.blocks.0.mlp.fc1",
+    "pretrained.blocks.0.mlp.fc2",
+    "pretrained.blocks.1.attn.qkv",
+    "pretrained.blocks.1.attn.proj",
+    "pretrained.blocks.1.mlp.fc1",
+    "pretrained.blocks.1.mlp.fc2",
+    "pretrained.blocks.2.attn.qkv",
+    "pretrained.blocks.2.attn.proj",
+    "pretrained.blocks.2.mlp.fc1",
+    "pretrained.blocks.2.mlp.fc2",
+    "pretrained.blocks.3.attn.qkv",
+    "pretrained.blocks.3.attn.proj",
+    "pretrained.blocks.3.mlp.fc1",
+    "pretrained.blocks.3.mlp.fc2",
+    "pretrained.blocks.4.attn.qkv",
+    "pretrained.blocks.4.attn.proj",
+    "pretrained.blocks.4.mlp.fc1",
+    "pretrained.blocks.4.mlp.fc2",
+    "pretrained.blocks.5.attn.qkv",
+    "pretrained.blocks.5.attn.proj",
+    "pretrained.blocks.5.mlp.fc1",
+    "pretrained.blocks.5.mlp.fc2",
+    "pretrained.blocks.6.attn.qkv",
+    "pretrained.blocks.6.attn.proj",
+    "pretrained.blocks.6.mlp.fc1",
+    "pretrained.blocks.6.mlp.fc2",
+    "pretrained.blocks.7.attn.qkv",
+    "pretrained.blocks.7.attn.proj",
+    "pretrained.blocks.7.mlp.fc1",
+    "pretrained.blocks.7.mlp.fc2",
+    "pretrained.blocks.8.attn.qkv",
+    "pretrained.blocks.8.attn.proj",
+    "pretrained.blocks.8.mlp.fc1",
+    "pretrained.blocks.8.mlp.fc2",
+    "pretrained.blocks.9.attn.qkv",
+    "pretrained.blocks.9.attn.proj",
+    "pretrained.blocks.9.mlp.fc1",
+    "pretrained.blocks.9.mlp.fc2",
+    "pretrained.blocks.10.attn.qkv",
+    "pretrained.blocks.10.attn.proj",
+    "pretrained.blocks.10.mlp.fc1",
+    "pretrained.blocks.10.mlp.fc2",
+    "pretrained.blocks.11.attn.qkv",
+    "pretrained.blocks.11.attn.proj",
+    "pretrained.blocks.11.mlp.fc1",
+    "pretrained.blocks.11.mlp.fc2"
+  ],
+  "train_eval_overlap_count": 0,
+  "train_eval_overlap_items": [],
+  "train_items": [
+    "images/indoor/1009402064_7c74b0b819_k.jpg",
+    "images/indoor/12272343524_202e65dd98_k.jpg",
+    "images/indoor/17250719779_221d17a4d2_k.jpg",
+    "images/indoor/17485436718_3f0fea8f35_k.jpg",
+    "images/indoor/17621921930_cc03603441_k.jpg",
+    "images/indoor/17646951536_f4b5ada4fd_k.jpg",
+    "images/indoor/17673273195_cf6998a2ad_k.jpg",
+    "images/indoor/17673285035_df2ff485f6_k.jpg",
+    "images/indoor/18163676059_79c52d7d44_k.jpg",
+    "images/indoor/18722870906_e44d2dbba6_k.jpg",
+    "images/indoor/19077836444_cd241b92e3_k.jpg",
+    "images/indoor/19243828706_e4376d50ae_k.jpg",
+    "images/indoor/1969173024_c72f34cb25_k.jpg",
+    "images/indoor/19900306583_89a9ca1b55_k.jpg",
+    "images/indoor/20131434932_721d0b3d44_k.jpg",
+    "images/indoor/20308243458_aa9a9e096d_k.jpg",
+    "images/indoor/20395048670_09600658ee_b.jpg",
+    "images/indoor/20501489763_d2d9f63561_k.jpg",
+    "images/indoor/20655053892_70272f791f_k.jpg",
+    "images/indoor/21151235911_63401934b7_k.jpg",
+    "images/indoor/21355176469_756c9e3e6b_k.jpg",
+    "images/indoor/21414422355_9236102811_k.jpg",
+    "images/indoor/21418121385_735ffbd976_k.jpg",
+    "images/indoor/21859096620_e584730cef_k.jpg",
+    "images/indoor/22276854099_396d9b01ef_k.jpg",
+    "images/indoor/22332537470_86a37f0e22_k.jpg",
+    "images/indoor/22369606814_9c772dacc3_k.jpg",
+    "images/indoor/22661615398_e74fec6c72_k.jpg",
+    "images/indoor/22679000473_b688bc939a_k.jpg",
+    "images/indoor/2283441742_eeb9f18c89_h.jpg",
+    "images/indoor/23158459196_e3e3774a2e_b.jpg",
+    "images/indoor/23182497646_915f1fd7d6_b.jpg",
+    "images/indoor/23860541674_6b0a2bda0e_k.jpg",
+    "images/indoor/23988452856_b56dbe4ffb_k.jpg",
+    "images/indoor/24260252155_f23bd58ce3_k.jpg",
+    "images/indoor/24298131870_1a28697fe5_k.jpg",
+    "images/indoor/24416223038_6019301441_k.jpg",
+    "images/indoor/24506435112_db91579593_k.jpg",
+    "images/indoor/24511649311_59976956c7_k.jpg",
+    "images/indoor/24567629676_9130a0472d_k.jpg",
+    "images/indoor/24608899942_b1e937a1ed_k.jpg",
+    "images/indoor/24772920755_b6c13046d6_k.jpg",
+    "images/indoor/24838280350_80564b56d1_h.jpg",
+    "images/indoor/25194264923_d5e33c8eab_k.jpg",
+    "images/indoor/25468285066_74b85468f2_k.jpg",
+    "images/indoor/25803097536_c9cbc7ef1f_k.jpg",
+    "images/indoor/25983921221_d39847a674_k.jpg",
+    "images/indoor/26194684770_583689f026_k.jpg",
+    "images/indoor/26227612274_d35be93ac6_k.jpg",
+    "images/indoor/26274913653_5e4ca8c1a7_k.jpg",
+    "images/indoor/26298541148_499ff0465b_k.jpg",
+    "images/indoor/26369918914_e40c28a1c5_k.jpg",
+    "images/indoor/26384491231_8c1750069f_k.jpg",
+    "images/indoor/26618651316_8dacef37b0_k.jpg",
+    "images/indoor/26780213822_d977d0515a_k.jpg",
+    "images/indoor/26818557583_626851f025_k.jpg",
+    "images/indoor/27085825460_fb75bb9179_k.jpg",
+    "images/indoor/27267501493_e705e42435_k.jpg",
+    "images/indoor/27466645432_73df1597a1_h.jpg",
+    "images/indoor/27570847956_1934aa7d19_k.jpg",
+    "images/indoor/27642940651_6cdd56057b_k.jpg",
+    "images/indoor/27800212632_56e67e7f43_k.jpg",
+    "images/indoor/28225749219_387f4faa2a_k.jpg",
+    "images/indoor/28419884461_b18d44d080_k.jpg",
+    "images/indoor/28590589110_4b9e467162_k.jpg",
+    "images/indoor/28918358955_7dea4a91d3_b.jpg",
+    "images/indoor/28950493731_dfb2efc3da_k.jpg",
+    "images/indoor/28967748884_53d6f2e7ce_k.jpg",
+    "images/indoor/29118500991_f4f0a54d57_k.jpg",
+    "images/indoor/29334744451_44e8f00e38_k.jpg",
+    "images/indoor/30032867336_fabc30d167_k.jpg",
+    "images/indoor/30075489774_9b8ec481c9_k.jpg",
+    "images/indoor/30213192871_5c53c6dd6f_k.jpg",
+    "images/indoor/30474628312_8e04169833_k.jpg",
+    "images/indoor/30497591893_e5f7917957_o.jpg",
+    "images/indoor/32152452991_96555c5e05_k.jpg",
+    "images/indoor/32376815440_c6d78929b6_h.jpg",
+    "images/indoor/32486873862_3fc8c52c01_h.jpg",
+    "images/indoor/32695292582_2a839afd2d_k.jpg",
+    "images/indoor/33456937483_78a454f95c_k.jpg",
+    "images/indoor/33596384010_776bf863b2_k.jpg",
+    "images/indoor/33791614218_f256677710_k.jpg",
+    "images/indoor/34434271634_72b7eba547_k.jpg",
+    "images/indoor/34589121731_dd0a46f350_k.jpg",
+    "images/indoor/34943277286_5253c41534_k.jpg",
+    "images/indoor/35011857822_4241800902_b.jpg",
+    "images/indoor/35948554326_fae21838bd_h.jpg",
+    "images/indoor/36078792821_dcab81ee09_k.jpg",
+    "images/indoor/37069284214_db2d985d84_k.jpg",
+    "images/indoor/37361972754_56e868c2a2_k.jpg",
+    "images/indoor/37410541362_2fa9207a09_h.jpg",
+    "images/indoor/38439027290_f1f9bf6c81_k.jpg",
+    "images/indoor/39716036462_c0ce1bf3ac_k.jpg",
+    "images/indoor/40174257122_40a207099e_k.jpg",
+    "images/indoor/41276035205_1fe8f835d5_b.jpg",
+    "images/indoor/42096208182_a6c9375700_k.jpg",
+    "images/indoor/42120995994_9ed0d93f2e_k.jpg",
+    "images/indoor/42773026931_f553c64f8e_k.jpg",
+    "images/indoor/44496032402_5c9a36a432_k.jpg",
+    "images/indoor/44690070250_a8ecdfe38b_k.jpg",
+    "images/indoor/44811967141_554f2c7c49_k.jpg",
+    "images/indoor/45431621425_8ca4f8b123_k.jpg",
+    "images/indoor/45830890782_b3ae47078d_k.jpg",
+    "images/indoor/46476505644_0ad6d5a551_k.jpg",
+    "images/indoor/47612585411_59de23ba8b_k.jpg",
+    "images/indoor/48173812262_c05f9daa3a_h.jpg",
+    "images/indoor/49135935513_81201d823b_k.jpg",
+    "images/indoor/49982441952_83cca2d753_k.jpg",
+    "images/indoor/53313496486_230549c455_k.jpg",
+    "images/indoor/9593123583_714a04fc0f_k.jpg",
+    "images/indoor/14207812284_c4625ff7ad_k.jpg",
+    "images/indoor/1578496717_2205dd1129_o.jpg",
+    "images/indoor/19080417560_3f76ac9c36_k.jpg",
+    "images/indoor/20466773051_49fda2b130_k.jpg",
+    "images/indoor/21692617393_03905bb6b6_b.jpg",
+    "images/indoor/23477298444_9dbf11c36a_k.jpg",
+    "images/indoor/23986642424_d3e3df8642_k.jpg",
+    "images/indoor/2473010493_c3dab32ebe_k.jpg",
+    "images/indoor/2757120654_4d74169f10_h.jpg",
+    "images/indoor/32520614158_3583e201df_k.jpg",
+    "images/indoor/32603256817_a58f01f5c2_h.jpg",
+    "images/indoor/3991247448_dfa1a2397f_k.jpg",
+    "images/indoor/52070611159_ec2191a6d5_k.jpg",
+    "images/indoor/53379305385_71f1efd41a_k.jpg",
+    "images/indoor/53654528593_64c0405952_b.jpg",
+    "images/outdoor/17943623232_5f974cad30_k.jpg",
+    "images/outdoor/18052423818_37d91ac33d_k.jpg",
+    "images/outdoor/19036071240_f07e665f67_k.jpg"
+  ]
+}

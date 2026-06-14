@@ -1,0 +1,12 @@
+{
+  "channels": 384,
+  "elements": 1572864,
+  "kernel_ms": 0.3895709989592433,
+  "max_abs_error": 5.602836608886719e-06,
+  "mean_abs_error": 9.279980872634042e-07,
+  "ptx_bytes": 1852,
+  "ptx_path": "eval_outputs/cuda_fastpath_orin/affine_gelu_4096_c384/affine_gelu.ptx",
+  "rows": 4096,
+  "speedup_vs_torch_expression": 4.22880287631798,
+  "torch_ms": 1.647418960928917
+}

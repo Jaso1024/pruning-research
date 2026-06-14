@@ -1,0 +1,12 @@
+{
+  "block": 256,
+  "channels": 1536,
+  "effective_gb_s": 23.494271664651222,
+  "input_bytes": 8417280,
+  "kernel_ms": 0.40328638977371156,
+  "output_bytes": 1057640,
+  "packed_mismatches": 0,
+  "ptx_path": "eval_outputs/cuda_fastpath_orin/int4_quant_pack_m1370_k1536/int4_quant_pack.ptx",
+  "rows": 1370,
+  "scale_max_abs_error": 0.0
+}

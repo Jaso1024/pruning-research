@@ -1,0 +1,15 @@
+{
+  "embed_dim": 384,
+  "gpu_ms": 3.5481997680664064,
+  "hidden_dim": 1536,
+  "max_abs_error": 0.0,
+  "mean_abs_error": 0.0,
+  "ptx_paths": {
+    "pwl13_gelu_quantize_pack": "eval_outputs/cuda_fastpath_orin/w4a4_mlp_m1370_e384_h1536/pwl13_gelu_quantize_pack.ptx",
+    "quantize_pack": "eval_outputs/cuda_fastpath_orin/w4a4_mlp_m1370_e384_h1536/quantize_pack.ptx",
+    "w4a4_fc1": "eval_outputs/cuda_fastpath_orin/w4a4_mlp_m1370_e384_h1536/w4a4_fc1.ptx",
+    "w4a4_fc2": "eval_outputs/cuda_fastpath_orin/w4a4_mlp_m1370_e384_h1536/w4a4_fc2.ptx"
+  },
+  "rows": 1370,
+  "wall_ms": 3.548954320140183
+}

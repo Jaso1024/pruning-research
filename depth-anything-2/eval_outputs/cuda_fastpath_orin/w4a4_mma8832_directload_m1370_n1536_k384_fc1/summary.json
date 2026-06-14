@@ -1,0 +1,18 @@
+{
+  "block_x": 8,
+  "block_y": 4,
+  "cols": 1536,
+  "effective_tops": 0.5282228533580422,
+  "k": 384,
+  "kernel": "mma",
+  "kernel_ms": 3.0595377495046705,
+  "max_abs_error": 0.0,
+  "mean_abs_error": 0.0,
+  "packed_activation_bytes": 263040,
+  "packed_weight_bytes": 294912,
+  "ptx_bytes": 7409,
+  "ptx_path": "eval_outputs/cuda_fastpath_orin/w4a4_mma8832_directload_m1370_n1536_k384_fc1/w4a4_matmul_mma.ptx",
+  "rows": 1370,
+  "speedup_vs_torch_fp32_reference": 2.760988077682813,
+  "torch_fp32_reference_ms": 8.447347249602899
+}

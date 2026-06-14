@@ -1,0 +1,1020 @@
+{
+  "checkpoint_path": null,
+  "config": {
+    "budget_nodes": 10,
+    "budget_values": 0,
+    "candidate_kinds": [
+      "attn_q_head",
+      "attn_k_head",
+      "attn_v_head",
+      "attn_q_group",
+      "attn_k_group",
+      "attn_v_group",
+      "attn_proj_group",
+      "mlp_group"
+    ],
+    "checkpoint": "checkpoints/depth_anything_v2_vits.pth",
+    "circuit_summary": "/home/ubuntu/remote-work/depth-anything-2/eval_outputs/subcircuit_fine_all_zero_32_g32_h16/summary.json",
+    "dataset_root": "/home/ubuntu/vision_token_tests/datasets/DA-2K/DA-2K",
+    "device": "cuda",
+    "encoder": "vits",
+    "epochs": 5,
+    "eval_images": 128,
+    "eval_skip_images": 64,
+    "input_size": 518,
+    "log_every": 64,
+    "lora_alpha": 32.0,
+    "lora_rank": 16,
+    "lr": 0.001,
+    "output_dir": "eval_outputs/circuit_lora_safe_n10_r16_e5_pairwise_005_eval128",
+    "pairwise_label_weight": 1.0,
+    "pairwise_tau": 0.25,
+    "pairwise_teacher_weight": 0.0,
+    "pairwise_weight": 0.05,
+    "save_checkpoint": false,
+    "scene_type": "",
+    "seed": 123,
+    "selection": "safe",
+    "train_images": 64,
+    "weight_decay": 0.0
+  },
+  "device": "cuda",
+  "elapsed_seconds": 33.92757564799831,
+  "eval_image_count": 128,
+  "history": [
+    {
+      "epoch": 1,
+      "last_loss": 0.014570537954568863,
+      "mean_depth_loss": 0.004569139173099757,
+      "mean_loss": 0.01855164148764743,
+      "mean_pair_accuracy": 0.8906250009313226,
+      "mean_pair_loss": 0.2796500383591365
+    },
+    {
+      "epoch": 2,
+      "last_loss": 0.00807624775916338,
+      "mean_depth_loss": 0.006669212131782842,
+      "mean_loss": 0.013700199215236353,
+      "mean_pair_accuracy": 0.989583333954215,
+      "mean_pair_loss": 0.1406197408305161
+    },
+    {
+      "epoch": 3,
+      "last_loss": 0.019520297646522522,
+      "mean_depth_loss": 0.008528052350811777,
+      "mean_loss": 0.016261124896118417,
+      "mean_pair_accuracy": 0.966145833954215,
+      "mean_pair_loss": 0.15466144964989326
+    },
+    {
+      "epoch": 4,
+      "last_loss": 0.0187484472990036,
+      "mean_depth_loss": 0.009448223957406299,
+      "mean_loss": 0.013996265563037014,
+      "mean_pair_accuracy": 0.9947916669771075,
+      "mean_pair_loss": 0.09096082997007215
+    },
+    {
+      "epoch": 5,
+      "last_loss": 0.008739529177546501,
+      "mean_depth_loss": 0.0075963747049172525,
+      "mean_loss": 0.011877947799803223,
+      "mean_pair_accuracy": 0.9947916669771075,
+      "mean_pair_loss": 0.08563146053757009
+    }
+  ],
+  "lora_modules": {
+    "pretrained.blocks.0.attn.qkv": 24576,
+    "pretrained.blocks.0.mlp.fc1": 30720,
+    "pretrained.blocks.0.mlp.fc2": 30720,
+    "pretrained.blocks.11.mlp.fc1": 30720,
+    "pretrained.blocks.11.mlp.fc2": 30720
+  },
+  "lora_trainable_params": 147456,
+  "mask_linear_modules": [
+    "pretrained.blocks.0.attn.qkv",
+    "pretrained.blocks.0.mlp.fc1",
+    "pretrained.blocks.0.mlp.fc2",
+    "pretrained.blocks.11.mlp.fc1",
+    "pretrained.blocks.11.mlp.fc2"
+  ],
+  "mask_operations": [
+    {
+      "correct_drop": 0,
+      "end": 1504,
+      "kind": "mlp_group",
+      "masked_tensor_values": 24608,
+      "mean_abs_margin_delta": 0.01188539026278845,
+      "module_name": "pretrained.blocks.0.mlp",
+      "name": "block_00_mlp_group_46_1472_1504",
+      "parameter_estimate": 24608,
+      "start": 1472,
+      "target_names": [
+        "pretrained.blocks.0.mlp.fc1",
+        "pretrained.blocks.0.mlp.fc2"
+      ]
+    },
+    {
+      "correct_drop": 0,
+      "end": 384,
+      "kind": "attn_v_head",
+      "masked_tensor_values": 24640,
+      "mean_abs_margin_delta": 0.013615164568018116,
+      "module_name": "pretrained.blocks.0.attn",
+      "name": "block_00_v_head_05",
+      "parameter_estimate": 24640,
+      "start": 320,
+      "target_names": [
+        "pretrained.blocks.0.attn.qkv"
+      ]
+    },
+    {
+      "correct_drop": 0,
+      "end": 736,
+      "kind": "mlp_group",
+      "masked_tensor_values": 24608,
+      "mean_abs_margin_delta": 0.014077771760024865,
+      "module_name": "pretrained.blocks.0.mlp",
+      "name": "block_00_mlp_group_22_704_736",
+      "parameter_estimate": 24608,
+      "start": 704,
+      "target_names": [
+        "pretrained.blocks.0.mlp.fc1",
+        "pretrained.blocks.0.mlp.fc2"
+      ]
+    },
+    {
+      "correct_drop": 0,
+      "end": 1216,
+      "kind": "mlp_group",
+      "masked_tensor_values": 24608,
+      "mean_abs_margin_delta": 0.014993959732852141,
+      "module_name": "pretrained.blocks.11.mlp",
+      "name": "block_11_mlp_group_37_1184_1216",
+      "parameter_estimate": 24608,
+      "start": 1184,
+      "target_names": [
+        "pretrained.blocks.11.mlp.fc1",
+        "pretrained.blocks.11.mlp.fc2"
+      ]
+    },
+    {
+      "correct_drop": 0,
+      "end": 960,
+      "kind": "mlp_group",
+      "masked_tensor_values": 24608,
+      "mean_abs_margin_delta": 0.015288043022811624,
+      "module_name": "pretrained.blocks.0.mlp",
+      "name": "block_00_mlp_group_29_928_960",
+      "parameter_estimate": 24608,
+      "start": 928,
+      "target_names": [
+        "pretrained.blocks.0.mlp.fc1",
+        "pretrained.blocks.0.mlp.fc2"
+      ]
+    },
+    {
+      "correct_drop": 0,
+      "end": 1312,
+      "kind": "mlp_group",
+      "masked_tensor_values": 24608,
+      "mean_abs_margin_delta": 0.015375930274849837,
+      "module_name": "pretrained.blocks.0.mlp",
+      "name": "block_00_mlp_group_40_1280_1312",
+      "parameter_estimate": 24608,
+      "start": 1280,
+      "target_names": [
+        "pretrained.blocks.0.mlp.fc1",
+        "pretrained.blocks.0.mlp.fc2"
+      ]
+    },
+    {
+      "correct_drop": 0,
+      "end": 224,
+      "kind": "mlp_group",
+      "masked_tensor_values": 24608,
+      "mean_abs_margin_delta": 0.01644605781856767,
+      "module_name": "pretrained.blocks.0.mlp",
+      "name": "block_00_mlp_group_06_192_224",
+      "parameter_estimate": 24608,
+      "start": 192,
+      "target_names": [
+        "pretrained.blocks.0.mlp.fc1",
+        "pretrained.blocks.0.mlp.fc2"
+      ]
+    },
+    {
+      "correct_drop": 0,
+      "end": 320,
+      "kind": "mlp_group",
+      "masked_tensor_values": 24608,
+      "mean_abs_margin_delta": 0.016653681787150636,
+      "module_name": "pretrained.blocks.0.mlp",
+      "name": "block_00_mlp_group_09_288_320",
+      "parameter_estimate": 24608,
+      "start": 288,
+      "target_names": [
+        "pretrained.blocks.0.mlp.fc1",
+        "pretrained.blocks.0.mlp.fc2"
+      ]
+    },
+    {
+      "correct_drop": 0,
+      "end": 192,
+      "kind": "mlp_group",
+      "masked_tensor_values": 24608,
+      "mean_abs_margin_delta": 0.016694938655759037,
+      "module_name": "pretrained.blocks.0.mlp",
+      "name": "block_00_mlp_group_05_160_192",
+      "parameter_estimate": 24608,
+      "start": 160,
+      "target_names": [
+        "pretrained.blocks.0.mlp.fc1",
+        "pretrained.blocks.0.mlp.fc2"
+      ]
+    },
+    {
+      "correct_drop": 0,
+      "end": 288,
+      "kind": "mlp_group",
+      "masked_tensor_values": 24608,
+      "mean_abs_margin_delta": 0.016717677499810363,
+      "module_name": "pretrained.blocks.11.mlp",
+      "name": "block_11_mlp_group_08_256_288",
+      "parameter_estimate": 24608,
+      "start": 256,
+      "target_names": [
+        "pretrained.blocks.11.mlp.fc1",
+        "pretrained.blocks.11.mlp.fc2"
+      ]
+    }
+  ],
+  "masked_tensor_values": 246112,
+  "merge_rms_delta_by_module": {
+    "pretrained.blocks.0.attn.qkv": 0.004490847699344158,
+    "pretrained.blocks.0.mlp.fc1": 0.0035691247321665287,
+    "pretrained.blocks.0.mlp.fc2": 0.0021257514599710703,
+    "pretrained.blocks.11.mlp.fc1": 0.0030876665841788054,
+    "pretrained.blocks.11.mlp.fc2": 0.0011704027419909835
+  },
+  "results": [
+    {
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.8818181818181818,
+          "best_direction": "larger",
+          "larger_correct": 97,
+          "larger_is_closer_accuracy": 0.8818181818181818,
+          "pairs": 110,
+          "smaller_correct": 13,
+          "smaller_is_closer_accuracy": 0.11818181818181818,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "outdoor": {
+          "best_accuracy": 0.9617834394904459,
+          "best_direction": "larger",
+          "larger_correct": 151,
+          "larger_is_closer_accuracy": 0.9617834394904459,
+          "pairs": 157,
+          "smaller_correct": 5,
+          "smaller_is_closer_accuracy": 0.03184713375796178,
+          "tie_fraction": 0.006369426751592357,
+          "ties": 1
+        }
+      },
+      "evaluated_images": 128,
+      "label": "dense_teacher",
+      "missing_images": [],
+      "overall": {
+        "best_accuracy": 0.9288389513108615,
+        "best_direction": "larger",
+        "larger_correct": 248,
+        "larger_is_closer_accuracy": 0.9288389513108615,
+        "pairs": 267,
+        "smaller_correct": 18,
+        "smaller_is_closer_accuracy": 0.06741573033707865,
+        "tie_fraction": 0.003745318352059925,
+        "ties": 1
+      }
+    },
+    {
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.8909090909090909,
+          "best_direction": "larger",
+          "larger_correct": 98,
+          "larger_is_closer_accuracy": 0.8909090909090909,
+          "pairs": 110,
+          "smaller_correct": 12,
+          "smaller_is_closer_accuracy": 0.10909090909090909,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "outdoor": {
+          "best_accuracy": 0.9617834394904459,
+          "best_direction": "larger",
+          "larger_correct": 151,
+          "larger_is_closer_accuracy": 0.9617834394904459,
+          "pairs": 157,
+          "smaller_correct": 5,
+          "smaller_is_closer_accuracy": 0.03184713375796178,
+          "tie_fraction": 0.006369426751592357,
+          "ties": 1
+        }
+      },
+      "evaluated_images": 128,
+      "label": "pruned_student",
+      "missing_images": [],
+      "overall": {
+        "best_accuracy": 0.9325842696629213,
+        "best_direction": "larger",
+        "larger_correct": 249,
+        "larger_is_closer_accuracy": 0.9325842696629213,
+        "pairs": 267,
+        "smaller_correct": 17,
+        "smaller_is_closer_accuracy": 0.06367041198501873,
+        "tie_fraction": 0.003745318352059925,
+        "ties": 1
+      }
+    },
+    {
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.8818181818181818,
+          "best_direction": "larger",
+          "larger_correct": 97,
+          "larger_is_closer_accuracy": 0.8818181818181818,
+          "pairs": 110,
+          "smaller_correct": 13,
+          "smaller_is_closer_accuracy": 0.11818181818181818,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "outdoor": {
+          "best_accuracy": 0.9617834394904459,
+          "best_direction": "larger",
+          "larger_correct": 151,
+          "larger_is_closer_accuracy": 0.9617834394904459,
+          "pairs": 157,
+          "smaller_correct": 5,
+          "smaller_is_closer_accuracy": 0.03184713375796178,
+          "tie_fraction": 0.006369426751592357,
+          "ties": 1
+        }
+      },
+      "evaluated_images": 128,
+      "label": "lora_repaired_unmerged",
+      "missing_images": [],
+      "overall": {
+        "best_accuracy": 0.9288389513108615,
+        "best_direction": "larger",
+        "larger_correct": 248,
+        "larger_is_closer_accuracy": 0.9288389513108615,
+        "pairs": 267,
+        "smaller_correct": 18,
+        "smaller_is_closer_accuracy": 0.06741573033707865,
+        "tie_fraction": 0.003745318352059925,
+        "ties": 1
+      }
+    },
+    {
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.8818181818181818,
+          "best_direction": "larger",
+          "larger_correct": 97,
+          "larger_is_closer_accuracy": 0.8818181818181818,
+          "pairs": 110,
+          "smaller_correct": 13,
+          "smaller_is_closer_accuracy": 0.11818181818181818,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "outdoor": {
+          "best_accuracy": 0.9617834394904459,
+          "best_direction": "larger",
+          "larger_correct": 151,
+          "larger_is_closer_accuracy": 0.9617834394904459,
+          "pairs": 157,
+          "smaller_correct": 5,
+          "smaller_is_closer_accuracy": 0.03184713375796178,
+          "tie_fraction": 0.006369426751592357,
+          "ties": 1
+        }
+      },
+      "evaluated_images": 128,
+      "label": "folded_lora_unmasked",
+      "missing_images": [],
+      "overall": {
+        "best_accuracy": 0.9288389513108615,
+        "best_direction": "larger",
+        "larger_correct": 248,
+        "larger_is_closer_accuracy": 0.9288389513108615,
+        "pairs": 267,
+        "smaller_correct": 18,
+        "smaller_is_closer_accuracy": 0.06741573033707865,
+        "tie_fraction": 0.003745318352059925,
+        "ties": 1
+      }
+    },
+    {
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.9090909090909091,
+          "best_direction": "larger",
+          "larger_correct": 100,
+          "larger_is_closer_accuracy": 0.9090909090909091,
+          "pairs": 110,
+          "smaller_correct": 10,
+          "smaller_is_closer_accuracy": 0.09090909090909091,
+          "tie_fraction": 0.0,
+          "ties": 0
+        },
+        "outdoor": {
+          "best_accuracy": 0.9681528662420382,
+          "best_direction": "larger",
+          "larger_correct": 152,
+          "larger_is_closer_accuracy": 0.9681528662420382,
+          "pairs": 157,
+          "smaller_correct": 4,
+          "smaller_is_closer_accuracy": 0.025477707006369428,
+          "tie_fraction": 0.006369426751592357,
+          "ties": 1
+        }
+      },
+      "evaluated_images": 128,
+      "label": "folded_lora_remasked",
+      "missing_images": [],
+      "overall": {
+        "best_accuracy": 0.9438202247191011,
+        "best_direction": "larger",
+        "larger_correct": 252,
+        "larger_is_closer_accuracy": 0.9438202247191011,
+        "pairs": 267,
+        "smaller_correct": 14,
+        "smaller_is_closer_accuracy": 0.052434456928838954,
+        "tie_fraction": 0.003745318352059925,
+        "ties": 1
+      }
+    }
+  ],
+  "selected_circuits": [
+    {
+      "accuracy_drop": 0.0,
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.9295774647887324,
+          "best_direction": "larger",
+          "larger_correct": 66,
+          "larger_is_closer_accuracy": 0.9295774647887324,
+          "pairs": 71,
+          "smaller_correct": 5,
+          "smaller_is_closer_accuracy": 0.07042253521126761,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "correct_drop": 0,
+      "end": 1504,
+      "index": 46,
+      "kind": "mlp_group",
+      "layer_index": 0,
+      "mean_margin": 1.2490968844479842,
+      "mean_margin_drop": -0.004362365696579218,
+      "module_name": "pretrained.blocks.0.mlp",
+      "name": "block_00_mlp_group_46_1472_1504",
+      "overall": {
+        "best_accuracy": 0.9295774647887324,
+        "best_direction": "larger",
+        "larger_correct": 66,
+        "larger_is_closer_accuracy": 0.9295774647887324,
+        "pairs": 71,
+        "smaller_correct": 5,
+        "smaller_is_closer_accuracy": 0.07042253521126761,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "pair_delta": {
+        "gained_pair_count": 0,
+        "lost_pair_count": 0,
+        "max_abs_margin_delta": 0.07677924633026123,
+        "mean_abs_margin_delta": 0.01188539026278845,
+        "mean_margin_delta": -0.0047763211416526575,
+        "sign_flip_count": 0,
+        "top_gained_pairs": [],
+        "top_lost_pairs": []
+      },
+      "parameter_estimate": 24608,
+      "start": 1472,
+      "total": 48
+    },
+    {
+      "accuracy_drop": 0.0,
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.9295774647887324,
+          "best_direction": "larger",
+          "larger_correct": 66,
+          "larger_is_closer_accuracy": 0.9295774647887324,
+          "pairs": 71,
+          "smaller_correct": 5,
+          "smaller_is_closer_accuracy": 0.07042253521126761,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "correct_drop": 0,
+      "end": 384,
+      "index": 5,
+      "kind": "attn_v_head",
+      "layer_index": 0,
+      "mean_margin": 1.2433005881078618,
+      "mean_margin_drop": 0.0014339306435431354,
+      "module_name": "pretrained.blocks.0.attn",
+      "name": "block_00_v_head_05",
+      "overall": {
+        "best_accuracy": 0.9295774647887324,
+        "best_direction": "larger",
+        "larger_correct": 66,
+        "larger_is_closer_accuracy": 0.9295774647887324,
+        "pairs": 71,
+        "smaller_correct": 5,
+        "smaller_is_closer_accuracy": 0.07042253521126761,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "pair_delta": {
+        "gained_pair_count": 0,
+        "lost_pair_count": 0,
+        "max_abs_margin_delta": 0.095278799533844,
+        "mean_abs_margin_delta": 0.013615164568018116,
+        "mean_margin_delta": -0.0005097680718598651,
+        "sign_flip_count": 0,
+        "top_gained_pairs": [],
+        "top_lost_pairs": []
+      },
+      "parameter_estimate": 24640,
+      "start": 320,
+      "total": 6
+    },
+    {
+      "accuracy_drop": 0.0,
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.9295774647887324,
+          "best_direction": "larger",
+          "larger_correct": 66,
+          "larger_is_closer_accuracy": 0.9295774647887324,
+          "pairs": 71,
+          "smaller_correct": 5,
+          "smaller_is_closer_accuracy": 0.07042253521126761,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "correct_drop": 0,
+      "end": 736,
+      "index": 22,
+      "kind": "mlp_group",
+      "layer_index": 0,
+      "mean_margin": 1.2457796872671072,
+      "mean_margin_drop": -0.001045168515702244,
+      "module_name": "pretrained.blocks.0.mlp",
+      "name": "block_00_mlp_group_22_704_736",
+      "overall": {
+        "best_accuracy": 0.9295774647887324,
+        "best_direction": "larger",
+        "larger_correct": 66,
+        "larger_is_closer_accuracy": 0.9295774647887324,
+        "pairs": 71,
+        "smaller_correct": 5,
+        "smaller_is_closer_accuracy": 0.07042253521126761,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "pair_delta": {
+        "gained_pair_count": 0,
+        "lost_pair_count": 0,
+        "max_abs_margin_delta": 0.052481770515441895,
+        "mean_abs_margin_delta": 0.014077771760024865,
+        "mean_margin_delta": 0.0005786690080512158,
+        "sign_flip_count": 0,
+        "top_gained_pairs": [],
+        "top_lost_pairs": []
+      },
+      "parameter_estimate": 24608,
+      "start": 704,
+      "total": 48
+    },
+    {
+      "accuracy_drop": 0.0,
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.9295774647887324,
+          "best_direction": "larger",
+          "larger_correct": 66,
+          "larger_is_closer_accuracy": 0.9295774647887324,
+          "pairs": 71,
+          "smaller_correct": 5,
+          "smaller_is_closer_accuracy": 0.07042253521126761,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "correct_drop": 0,
+      "end": 1216,
+      "index": 37,
+      "kind": "mlp_group",
+      "layer_index": 11,
+      "mean_margin": 1.242131819036634,
+      "mean_margin_drop": 0.0026026997147710063,
+      "module_name": "pretrained.blocks.11.mlp",
+      "name": "block_11_mlp_group_37_1184_1216",
+      "overall": {
+        "best_accuracy": 0.9295774647887324,
+        "best_direction": "larger",
+        "larger_correct": 66,
+        "larger_is_closer_accuracy": 0.9295774647887324,
+        "pairs": 71,
+        "smaller_correct": 5,
+        "smaller_is_closer_accuracy": 0.07042253521126761,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "pair_delta": {
+        "gained_pair_count": 0,
+        "lost_pair_count": 0,
+        "max_abs_margin_delta": 0.13674116134643555,
+        "mean_abs_margin_delta": 0.014993959732852141,
+        "mean_margin_delta": 0.004143715760683719,
+        "sign_flip_count": 0,
+        "top_gained_pairs": [],
+        "top_lost_pairs": []
+      },
+      "parameter_estimate": 24608,
+      "start": 1184,
+      "total": 48
+    },
+    {
+      "accuracy_drop": 0.0,
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.9295774647887324,
+          "best_direction": "larger",
+          "larger_correct": 66,
+          "larger_is_closer_accuracy": 0.9295774647887324,
+          "pairs": 71,
+          "smaller_correct": 5,
+          "smaller_is_closer_accuracy": 0.07042253521126761,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "correct_drop": 0,
+      "end": 960,
+      "index": 29,
+      "kind": "mlp_group",
+      "layer_index": 0,
+      "mean_margin": 1.2427010741036308,
+      "mean_margin_drop": 0.0020334446477741075,
+      "module_name": "pretrained.blocks.0.mlp",
+      "name": "block_00_mlp_group_29_928_960",
+      "overall": {
+        "best_accuracy": 0.9295774647887324,
+        "best_direction": "larger",
+        "larger_correct": 66,
+        "larger_is_closer_accuracy": 0.9295774647887324,
+        "pairs": 71,
+        "smaller_correct": 5,
+        "smaller_is_closer_accuracy": 0.07042253521126761,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "pair_delta": {
+        "gained_pair_count": 0,
+        "lost_pair_count": 0,
+        "max_abs_margin_delta": 0.10819792747497559,
+        "mean_abs_margin_delta": 0.015288043022811624,
+        "mean_margin_delta": 0.0027418681846695468,
+        "sign_flip_count": 0,
+        "top_gained_pairs": [],
+        "top_lost_pairs": []
+      },
+      "parameter_estimate": 24608,
+      "start": 928,
+      "total": 48
+    },
+    {
+      "accuracy_drop": 0.0,
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.9295774647887324,
+          "best_direction": "larger",
+          "larger_correct": 66,
+          "larger_is_closer_accuracy": 0.9295774647887324,
+          "pairs": 71,
+          "smaller_correct": 5,
+          "smaller_is_closer_accuracy": 0.07042253521126761,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "correct_drop": 0,
+      "end": 1312,
+      "index": 40,
+      "kind": "mlp_group",
+      "layer_index": 0,
+      "mean_margin": 1.2453682355650624,
+      "mean_margin_drop": -0.0006337168136574256,
+      "module_name": "pretrained.blocks.0.mlp",
+      "name": "block_00_mlp_group_40_1280_1312",
+      "overall": {
+        "best_accuracy": 0.9295774647887324,
+        "best_direction": "larger",
+        "larger_correct": 66,
+        "larger_is_closer_accuracy": 0.9295774647887324,
+        "pairs": 71,
+        "smaller_correct": 5,
+        "smaller_is_closer_accuracy": 0.07042253521126761,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "pair_delta": {
+        "gained_pair_count": 0,
+        "lost_pair_count": 0,
+        "max_abs_margin_delta": 0.08282673358917236,
+        "mean_abs_margin_delta": 0.015375930274849837,
+        "mean_margin_delta": -0.0006597412153291451,
+        "sign_flip_count": 0,
+        "top_gained_pairs": [],
+        "top_lost_pairs": []
+      },
+      "parameter_estimate": 24608,
+      "start": 1280,
+      "total": 48
+    },
+    {
+      "accuracy_drop": 0.0,
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.9295774647887324,
+          "best_direction": "larger",
+          "larger_correct": 66,
+          "larger_is_closer_accuracy": 0.9295774647887324,
+          "pairs": 71,
+          "smaller_correct": 5,
+          "smaller_is_closer_accuracy": 0.07042253521126761,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "correct_drop": 0,
+      "end": 224,
+      "index": 6,
+      "kind": "mlp_group",
+      "layer_index": 0,
+      "mean_margin": 1.2395429448248858,
+      "mean_margin_drop": 0.005191573926519144,
+      "module_name": "pretrained.blocks.0.mlp",
+      "name": "block_00_mlp_group_06_192_224",
+      "overall": {
+        "best_accuracy": 0.9295774647887324,
+        "best_direction": "larger",
+        "larger_correct": 66,
+        "larger_is_closer_accuracy": 0.9295774647887324,
+        "pairs": 71,
+        "smaller_correct": 5,
+        "smaller_is_closer_accuracy": 0.07042253521126761,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "pair_delta": {
+        "gained_pair_count": 0,
+        "lost_pair_count": 0,
+        "max_abs_margin_delta": 0.10131222009658813,
+        "mean_abs_margin_delta": 0.01644605781856767,
+        "mean_margin_delta": 0.0019753497211970916,
+        "sign_flip_count": 0,
+        "top_gained_pairs": [],
+        "top_lost_pairs": []
+      },
+      "parameter_estimate": 24608,
+      "start": 192,
+      "total": 48
+    },
+    {
+      "accuracy_drop": 0.0,
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.9295774647887324,
+          "best_direction": "larger",
+          "larger_correct": 66,
+          "larger_is_closer_accuracy": 0.9295774647887324,
+          "pairs": 71,
+          "smaller_correct": 5,
+          "smaller_is_closer_accuracy": 0.07042253521126761,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "correct_drop": 0,
+      "end": 320,
+      "index": 9,
+      "kind": "mlp_group",
+      "layer_index": 0,
+      "mean_margin": 1.2432013569195988,
+      "mean_margin_drop": 0.0015331618318061846,
+      "module_name": "pretrained.blocks.0.mlp",
+      "name": "block_00_mlp_group_09_288_320",
+      "overall": {
+        "best_accuracy": 0.9295774647887324,
+        "best_direction": "larger",
+        "larger_correct": 66,
+        "larger_is_closer_accuracy": 0.9295774647887324,
+        "pairs": 71,
+        "smaller_correct": 5,
+        "smaller_is_closer_accuracy": 0.07042253521126761,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "pair_delta": {
+        "gained_pair_count": 0,
+        "lost_pair_count": 0,
+        "max_abs_margin_delta": 0.13033618032932281,
+        "mean_abs_margin_delta": 0.016653681787150636,
+        "mean_margin_delta": 0.0022036739211844306,
+        "sign_flip_count": 0,
+        "top_gained_pairs": [],
+        "top_lost_pairs": []
+      },
+      "parameter_estimate": 24608,
+      "start": 288,
+      "total": 48
+    },
+    {
+      "accuracy_drop": 0.0,
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.9295774647887324,
+          "best_direction": "larger",
+          "larger_correct": 66,
+          "larger_is_closer_accuracy": 0.9295774647887324,
+          "pairs": 71,
+          "smaller_correct": 5,
+          "smaller_is_closer_accuracy": 0.07042253521126761,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "correct_drop": 0,
+      "end": 192,
+      "index": 5,
+      "kind": "mlp_group",
+      "layer_index": 0,
+      "mean_margin": 1.2461104259564308,
+      "mean_margin_drop": -0.0013759072050258947,
+      "module_name": "pretrained.blocks.0.mlp",
+      "name": "block_00_mlp_group_05_160_192",
+      "overall": {
+        "best_accuracy": 0.9295774647887324,
+        "best_direction": "larger",
+        "larger_correct": 66,
+        "larger_is_closer_accuracy": 0.9295774647887324,
+        "pairs": 71,
+        "smaller_correct": 5,
+        "smaller_is_closer_accuracy": 0.07042253521126761,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "pair_delta": {
+        "gained_pair_count": 0,
+        "lost_pair_count": 0,
+        "max_abs_margin_delta": 0.11781466007232666,
+        "mean_abs_margin_delta": 0.016694938655759037,
+        "mean_margin_delta": -0.0022805750560225316,
+        "sign_flip_count": 0,
+        "top_gained_pairs": [],
+        "top_lost_pairs": []
+      },
+      "parameter_estimate": 24608,
+      "start": 160,
+      "total": 48
+    },
+    {
+      "accuracy_drop": 0.0,
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.9295774647887324,
+          "best_direction": "larger",
+          "larger_correct": 66,
+          "larger_is_closer_accuracy": 0.9295774647887324,
+          "pairs": 71,
+          "smaller_correct": 5,
+          "smaller_is_closer_accuracy": 0.07042253521126761,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "correct_drop": 0,
+      "end": 288,
+      "index": 8,
+      "kind": "mlp_group",
+      "layer_index": 11,
+      "mean_margin": 1.251546973284955,
+      "mean_margin_drop": -0.00681245453354995,
+      "module_name": "pretrained.blocks.11.mlp",
+      "name": "block_11_mlp_group_08_256_288",
+      "overall": {
+        "best_accuracy": 0.9295774647887324,
+        "best_direction": "larger",
+        "larger_correct": 66,
+        "larger_is_closer_accuracy": 0.9295774647887324,
+        "pairs": 71,
+        "smaller_correct": 5,
+        "smaller_is_closer_accuracy": 0.07042253521126761,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "pair_delta": {
+        "gained_pair_count": 0,
+        "lost_pair_count": 0,
+        "max_abs_margin_delta": 0.08529137074947357,
+        "mean_abs_margin_delta": 0.016717677499810363,
+        "mean_margin_delta": -0.007820727444634261,
+        "sign_flip_count": 0,
+        "top_gained_pairs": [],
+        "top_lost_pairs": []
+      },
+      "parameter_estimate": 24608,
+      "start": 256,
+      "total": 48
+    }
+  ],
+  "train_items": [
+    "images/indoor/1009402064_7c74b0b819_k.jpg",
+    "images/indoor/12272343524_202e65dd98_k.jpg",
+    "images/indoor/17250719779_221d17a4d2_k.jpg",
+    "images/indoor/17485436718_3f0fea8f35_k.jpg",
+    "images/indoor/17621921930_cc03603441_k.jpg",
+    "images/indoor/17646951536_f4b5ada4fd_k.jpg",
+    "images/indoor/17673273195_cf6998a2ad_k.jpg",
+    "images/indoor/17673285035_df2ff485f6_k.jpg",
+    "images/indoor/18163676059_79c52d7d44_k.jpg",
+    "images/indoor/18722870906_e44d2dbba6_k.jpg",
+    "images/indoor/19077836444_cd241b92e3_k.jpg",
+    "images/indoor/19243828706_e4376d50ae_k.jpg",
+    "images/indoor/1969173024_c72f34cb25_k.jpg",
+    "images/indoor/19900306583_89a9ca1b55_k.jpg",
+    "images/indoor/20131434932_721d0b3d44_k.jpg",
+    "images/indoor/20308243458_aa9a9e096d_k.jpg",
+    "images/indoor/20395048670_09600658ee_b.jpg",
+    "images/indoor/20501489763_d2d9f63561_k.jpg",
+    "images/indoor/20655053892_70272f791f_k.jpg",
+    "images/indoor/21151235911_63401934b7_k.jpg",
+    "images/indoor/21355176469_756c9e3e6b_k.jpg",
+    "images/indoor/21414422355_9236102811_k.jpg",
+    "images/indoor/21418121385_735ffbd976_k.jpg",
+    "images/indoor/21859096620_e584730cef_k.jpg",
+    "images/indoor/22276854099_396d9b01ef_k.jpg",
+    "images/indoor/22332537470_86a37f0e22_k.jpg",
+    "images/indoor/22369606814_9c772dacc3_k.jpg",
+    "images/indoor/22661615398_e74fec6c72_k.jpg",
+    "images/indoor/22679000473_b688bc939a_k.jpg",
+    "images/indoor/2283441742_eeb9f18c89_h.jpg",
+    "images/indoor/23158459196_e3e3774a2e_b.jpg",
+    "images/indoor/23182497646_915f1fd7d6_b.jpg",
+    "images/indoor/23860541674_6b0a2bda0e_k.jpg",
+    "images/indoor/23988452856_b56dbe4ffb_k.jpg",
+    "images/indoor/24260252155_f23bd58ce3_k.jpg",
+    "images/indoor/24298131870_1a28697fe5_k.jpg",
+    "images/indoor/24416223038_6019301441_k.jpg",
+    "images/indoor/24506435112_db91579593_k.jpg",
+    "images/indoor/24511649311_59976956c7_k.jpg",
+    "images/indoor/24567629676_9130a0472d_k.jpg",
+    "images/indoor/24608899942_b1e937a1ed_k.jpg",
+    "images/indoor/24772920755_b6c13046d6_k.jpg",
+    "images/indoor/24838280350_80564b56d1_h.jpg",
+    "images/indoor/25194264923_d5e33c8eab_k.jpg",
+    "images/indoor/25468285066_74b85468f2_k.jpg",
+    "images/indoor/25803097536_c9cbc7ef1f_k.jpg",
+    "images/indoor/25983921221_d39847a674_k.jpg",
+    "images/indoor/26194684770_583689f026_k.jpg",
+    "images/indoor/26227612274_d35be93ac6_k.jpg",
+    "images/indoor/26274913653_5e4ca8c1a7_k.jpg",
+    "images/indoor/26298541148_499ff0465b_k.jpg",
+    "images/indoor/26369918914_e40c28a1c5_k.jpg",
+    "images/indoor/26384491231_8c1750069f_k.jpg",
+    "images/indoor/26618651316_8dacef37b0_k.jpg",
+    "images/indoor/26780213822_d977d0515a_k.jpg",
+    "images/indoor/26818557583_626851f025_k.jpg",
+    "images/indoor/27085825460_fb75bb9179_k.jpg",
+    "images/indoor/27267501493_e705e42435_k.jpg",
+    "images/indoor/27466645432_73df1597a1_h.jpg",
+    "images/indoor/27570847956_1934aa7d19_k.jpg",
+    "images/indoor/27642940651_6cdd56057b_k.jpg",
+    "images/indoor/27800212632_56e67e7f43_k.jpg",
+    "images/indoor/28225749219_387f4faa2a_k.jpg",
+    "images/indoor/28419884461_b18d44d080_k.jpg"
+  ]
+}

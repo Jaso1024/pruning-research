@@ -121,12 +121,180 @@ LORA_OPTIMIZERS = {
     "adam",
     "adamax",
     "adamw",
+    "cmuon_full",
+    "cmuon_iso",
+    "muon",
     "nadam",
     "radam",
     "rmsprop",
     "sgd",
     "sgd_momentum",
 }
+
+
+class CompositionalLoRAOptimizer(torch.optim.Optimizer):
+    """CM-inspired optimizer for LoRA factors whose effective matrix is B @ A.
+
+    For A in R^{r x in} and B in R^{out x r}, the first-order composed
+    perturbation is dB @ A + B @ dA. The "full" variant uses damped partner
+    inverse square roots, while "iso" uses the paper's isotropic scalar
+    approximation. Gradients are accumulated as raw momentum and whitened with
+    the current partner geometry at every step.
+    """
+
+    def __init__(
+        self,
+        params: list[torch.Tensor],
+        *,
+        lr: float,
+        weight_decay: float = 0.0,
+        beta: float = 0.9,
+        damping: float = 1e-2,
+        variant: str = "full",
+    ) -> None:
+        if len(params) % 2 != 0:
+            raise ValueError("CompositionalLoRAOptimizer expects [A, B] parameter pairs")
+        if variant not in {"full", "iso"}:
+            raise ValueError("variant must be 'full' or 'iso'")
+        pairs: list[tuple[torch.Tensor, torch.Tensor]] = []
+        for index in range(0, len(params), 2):
+            a = params[index]
+            b = params[index + 1]
+            if a.ndim != 2 or b.ndim != 2:
+                raise ValueError("CompositionalLoRAOptimizer only supports 2D LoRA factors")
+            if a.shape[0] != b.shape[1]:
+                raise ValueError(
+                    "LoRA factor pair must satisfy A.shape[0] == B.shape[1]; "
+                    f"got {tuple(a.shape)} and {tuple(b.shape)}"
+                )
+            pairs.append((a, b))
+        defaults = {
+            "lr": lr,
+            "weight_decay": weight_decay,
+            "beta": beta,
+            "damping": damping,
+            "variant": variant,
+        }
+        super().__init__(params, defaults)
+        self.pairs = pairs
+
+    @staticmethod
+    def _matrix_sign(matrix: torch.Tensor) -> torch.Tensor:
+        if not torch.isfinite(matrix).all() or float(matrix.abs().max().detach().cpu()) == 0.0:
+            return torch.zeros_like(matrix)
+        u, _s, vh = torch.linalg.svd(matrix, full_matrices=False)
+        return u @ vh
+
+    @staticmethod
+    def _inverse_sqrt_psd(matrix: torch.Tensor, damping: float) -> torch.Tensor:
+        rank = matrix.shape[0]
+        eye = torch.eye(rank, device=matrix.device, dtype=matrix.dtype)
+        gram = 0.5 * (matrix + matrix.T) + float(damping) * eye
+        eigvals, eigvecs = torch.linalg.eigh(gram)
+        inv_sqrt = eigvals.clamp_min(1e-12).rsqrt()
+        return (eigvecs * inv_sqrt.unsqueeze(0)) @ eigvecs.T
+
+    def _momentum(self, param: torch.Tensor, grad: torch.Tensor, beta: float) -> torch.Tensor:
+        state = self.state[param]
+        if "momentum" not in state:
+            state["momentum"] = torch.zeros_like(param, memory_format=torch.preserve_format)
+        momentum = state["momentum"]
+        momentum.mul_(beta).add_(grad)
+        return momentum
+
+    @torch.no_grad()
+    def step(self, closure=None):  # type: ignore[override]
+        loss = None
+        if closure is not None:
+            with torch.enable_grad():
+                loss = closure()
+
+        group = self.param_groups[0]
+        lr = float(group["lr"])
+        weight_decay = float(group["weight_decay"])
+        beta = float(group["beta"])
+        damping = float(group["damping"])
+        variant = str(group["variant"])
+
+        for a, b in self.pairs:
+            if a.grad is None and b.grad is None:
+                continue
+            grad_a = torch.zeros_like(a) if a.grad is None else a.grad.detach()
+            grad_b = torch.zeros_like(b) if b.grad is None else b.grad.detach()
+            mom_a = self._momentum(a, grad_a, beta)
+            mom_b = self._momentum(b, grad_b, beta)
+
+            if weight_decay:
+                a.mul_(1.0 - lr * weight_decay)
+                b.mul_(1.0 - lr * weight_decay)
+
+            a_f = a.detach().float()
+            b_f = b.detach().float()
+            mom_a_f = mom_a.float()
+            mom_b_f = mom_b.float()
+
+            if variant == "iso":
+                rank = max(int(a_f.shape[0]), 1)
+                inv_a = float((a_f.square().sum() / rank + damping).rsqrt().detach().cpu())
+                inv_b = float((b_f.square().sum() / rank + damping).rsqrt().detach().cpu())
+                update_b = 0.5 * inv_a * self._matrix_sign(mom_b_f)
+                update_a = 0.5 * inv_b * self._matrix_sign(mom_a_f)
+            else:
+                inv_a = self._inverse_sqrt_psd(a_f @ a_f.T, damping)
+                inv_b = self._inverse_sqrt_psd(b_f.T @ b_f, damping)
+                update_b = 0.5 * (self._matrix_sign(mom_b_f @ inv_a) @ inv_a)
+                update_a = 0.5 * (inv_b @ self._matrix_sign(inv_b @ mom_a_f))
+
+            b.add_(update_b.to(dtype=b.dtype), alpha=-lr)
+            a.add_(update_a.to(dtype=a.dtype), alpha=-lr)
+        return loss
+
+
+class MuonLoRAOptimizer(torch.optim.Optimizer):
+    """Plain per-factor Muon for 2D LoRA parameters."""
+
+    def __init__(
+        self,
+        params: list[torch.Tensor],
+        *,
+        lr: float,
+        weight_decay: float = 0.0,
+        beta: float = 0.9,
+    ) -> None:
+        for param in params:
+            if param.ndim != 2:
+                raise ValueError("MuonLoRAOptimizer only supports 2D LoRA factors")
+        defaults = {"lr": lr, "weight_decay": weight_decay, "beta": beta}
+        super().__init__(params, defaults)
+
+    def _momentum(self, param: torch.Tensor, grad: torch.Tensor, beta: float) -> torch.Tensor:
+        state = self.state[param]
+        if "momentum" not in state:
+            state["momentum"] = torch.zeros_like(param, memory_format=torch.preserve_format)
+        momentum = state["momentum"]
+        momentum.mul_(beta).add_(grad)
+        return momentum
+
+    @torch.no_grad()
+    def step(self, closure=None):  # type: ignore[override]
+        loss = None
+        if closure is not None:
+            with torch.enable_grad():
+                loss = closure()
+
+        for group in self.param_groups:
+            lr = float(group["lr"])
+            weight_decay = float(group["weight_decay"])
+            beta = float(group["beta"])
+            for param in group["params"]:
+                if param.grad is None:
+                    continue
+                if weight_decay:
+                    param.mul_(1.0 - lr * weight_decay)
+                momentum = self._momentum(param, param.grad.detach(), beta)
+                update = CompositionalLoRAOptimizer._matrix_sign(momentum.float())
+                param.add_(update.to(dtype=param.dtype), alpha=-lr)
+        return loss
 
 
 def make_lora_optimizer(
@@ -136,6 +304,12 @@ def make_lora_optimizer(
     lr: float,
     weight_decay: float,
 ) -> torch.optim.Optimizer:
+    if name == "cmuon_full":
+        return CompositionalLoRAOptimizer(params, lr=lr, weight_decay=weight_decay, variant="full")
+    if name == "cmuon_iso":
+        return CompositionalLoRAOptimizer(params, lr=lr, weight_decay=weight_decay, variant="iso")
+    if name == "muon":
+        return MuonLoRAOptimizer(params, lr=lr, weight_decay=weight_decay)
     if name == "adamw":
         return torch.optim.AdamW(params, lr=lr, weight_decay=weight_decay)
     if name == "adam":

@@ -1,0 +1,422 @@
+{
+  "checkpoint_path": null,
+  "config": {
+    "budget_nodes": 2,
+    "budget_values": 0,
+    "candidate_kinds": [
+      "attn_q_head",
+      "attn_k_head",
+      "attn_v_head",
+      "attn_q_group",
+      "attn_k_group",
+      "attn_v_group",
+      "attn_proj_group",
+      "mlp_group"
+    ],
+    "checkpoint": "checkpoints/depth_anything_v2_vits.pth",
+    "circuit_summary": "/home/ubuntu/remote-work/depth-anything-2/eval_outputs/subcircuit_fine_all_zero_32_g32_h16/summary.json",
+    "dataset_root": "/home/ubuntu/vision_token_tests/datasets/DA-2K/DA-2K",
+    "device": "cuda",
+    "encoder": "vits",
+    "epochs": 1,
+    "eval_images": 2,
+    "eval_skip_images": 2,
+    "input_size": 518,
+    "log_every": 12,
+    "lora_alpha": 4.0,
+    "lora_module_set": "attn",
+    "lora_placement": "previous-block",
+    "lora_rank": 2,
+    "lora_window": 1,
+    "lr": 0.001,
+    "output_dir": "eval_outputs/peft_smoke_lora_bitfit",
+    "pairwise_label_weight": 1.0,
+    "pairwise_tau": 0.25,
+    "pairwise_teacher_weight": 0.0,
+    "pairwise_weight": 0.05,
+    "peft_method": "lora-bitfit",
+    "save_checkpoint": false,
+    "scene_type": "",
+    "seed": 123,
+    "selection": "weak",
+    "train_images": 2,
+    "weight_decay": 0.0
+  },
+  "device": "cuda",
+  "elapsed_seconds": 2.7344406280026305,
+  "eval_image_count": 2,
+  "history": [
+    {
+      "epoch": 1,
+      "last_loss": 0.026774803176522255,
+      "mean_depth_loss": 0.0011884635750902817,
+      "mean_loss": 0.014827684499323368,
+      "mean_pair_accuracy": 1.0,
+      "mean_pair_loss": 0.27278441935777664
+    }
+  ],
+  "lora_modules": {
+    "pretrained.blocks.2.attn.proj": 1920,
+    "pretrained.blocks.2.attn.qkv": 4224,
+    "pretrained.blocks.4.attn.proj": 1920,
+    "pretrained.blocks.4.attn.qkv": 4224
+  },
+  "lora_trainable_params": 12288,
+  "mask_linear_modules": [
+    "pretrained.blocks.3.mlp.fc1",
+    "pretrained.blocks.3.mlp.fc2",
+    "pretrained.blocks.5.attn.proj"
+  ],
+  "mask_operations": [
+    {
+      "correct_drop": -3,
+      "end": 320,
+      "kind": "mlp_group",
+      "masked_tensor_values": 24608,
+      "mean_abs_margin_delta": 0.068949894418835,
+      "module_name": "pretrained.blocks.3.mlp",
+      "name": "block_03_mlp_group_09_288_320",
+      "parameter_estimate": 24608,
+      "start": 288,
+      "target_names": [
+        "pretrained.blocks.3.mlp.fc1",
+        "pretrained.blocks.3.mlp.fc2"
+      ]
+    },
+    {
+      "correct_drop": -3,
+      "end": 288,
+      "kind": "attn_proj_group",
+      "masked_tensor_values": 12320,
+      "mean_abs_margin_delta": 0.16141607763547397,
+      "module_name": "pretrained.blocks.5.attn",
+      "name": "block_05_attn_proj_group_08_256_288",
+      "parameter_estimate": 12320,
+      "start": 256,
+      "target_names": [
+        "pretrained.blocks.5.attn.proj"
+      ]
+    }
+  ],
+  "masked_tensor_values": 36928,
+  "merge_rms_delta_by_module": {
+    "pretrained.blocks.2.attn.proj": 0.00013449459220282733,
+    "pretrained.blocks.2.attn.qkv": 0.00013402204785961658,
+    "pretrained.blocks.4.attn.proj": 0.00012821391283068806,
+    "pretrained.blocks.4.attn.qkv": 0.00013166229473426938
+  },
+  "peft_modules": {
+    "pretrained.blocks.2.attn.proj": 1920,
+    "pretrained.blocks.2.attn.qkv": 4224,
+    "pretrained.blocks.4.attn.proj": 1920,
+    "pretrained.blocks.4.attn.qkv": 4224
+  },
+  "peft_trainable_params": 12288,
+  "results": [
+    {
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.8333333333333334,
+          "best_direction": "larger",
+          "larger_correct": 5,
+          "larger_is_closer_accuracy": 0.8333333333333334,
+          "pairs": 6,
+          "smaller_correct": 1,
+          "smaller_is_closer_accuracy": 0.16666666666666666,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "evaluated_images": 2,
+      "label": "dense_teacher",
+      "missing_images": [],
+      "overall": {
+        "best_accuracy": 0.8333333333333334,
+        "best_direction": "larger",
+        "larger_correct": 5,
+        "larger_is_closer_accuracy": 0.8333333333333334,
+        "pairs": 6,
+        "smaller_correct": 1,
+        "smaller_is_closer_accuracy": 0.16666666666666666,
+        "tie_fraction": 0.0,
+        "ties": 0
+      }
+    },
+    {
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.8333333333333334,
+          "best_direction": "larger",
+          "larger_correct": 5,
+          "larger_is_closer_accuracy": 0.8333333333333334,
+          "pairs": 6,
+          "smaller_correct": 1,
+          "smaller_is_closer_accuracy": 0.16666666666666666,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "evaluated_images": 2,
+      "label": "pruned_student",
+      "missing_images": [],
+      "overall": {
+        "best_accuracy": 0.8333333333333334,
+        "best_direction": "larger",
+        "larger_correct": 5,
+        "larger_is_closer_accuracy": 0.8333333333333334,
+        "pairs": 6,
+        "smaller_correct": 1,
+        "smaller_is_closer_accuracy": 0.16666666666666666,
+        "tie_fraction": 0.0,
+        "ties": 0
+      }
+    },
+    {
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.8333333333333334,
+          "best_direction": "larger",
+          "larger_correct": 5,
+          "larger_is_closer_accuracy": 0.8333333333333334,
+          "pairs": 6,
+          "smaller_correct": 1,
+          "smaller_is_closer_accuracy": 0.16666666666666666,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "evaluated_images": 2,
+      "label": "peft_repaired_unmerged",
+      "missing_images": [],
+      "overall": {
+        "best_accuracy": 0.8333333333333334,
+        "best_direction": "larger",
+        "larger_correct": 5,
+        "larger_is_closer_accuracy": 0.8333333333333334,
+        "pairs": 6,
+        "smaller_correct": 1,
+        "smaller_is_closer_accuracy": 0.16666666666666666,
+        "tie_fraction": 0.0,
+        "ties": 0
+      }
+    },
+    {
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.8333333333333334,
+          "best_direction": "larger",
+          "larger_correct": 5,
+          "larger_is_closer_accuracy": 0.8333333333333334,
+          "pairs": 6,
+          "smaller_correct": 1,
+          "smaller_is_closer_accuracy": 0.16666666666666666,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "evaluated_images": 2,
+      "label": "folded_peft_unmasked",
+      "missing_images": [],
+      "overall": {
+        "best_accuracy": 0.8333333333333334,
+        "best_direction": "larger",
+        "larger_correct": 5,
+        "larger_is_closer_accuracy": 0.8333333333333334,
+        "pairs": 6,
+        "smaller_correct": 1,
+        "smaller_is_closer_accuracy": 0.16666666666666666,
+        "tie_fraction": 0.0,
+        "ties": 0
+      }
+    },
+    {
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.8333333333333334,
+          "best_direction": "larger",
+          "larger_correct": 5,
+          "larger_is_closer_accuracy": 0.8333333333333334,
+          "pairs": 6,
+          "smaller_correct": 1,
+          "smaller_is_closer_accuracy": 0.16666666666666666,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "evaluated_images": 2,
+      "label": "folded_peft_remasked",
+      "missing_images": [],
+      "overall": {
+        "best_accuracy": 0.8333333333333334,
+        "best_direction": "larger",
+        "larger_correct": 5,
+        "larger_is_closer_accuracy": 0.8333333333333334,
+        "pairs": 6,
+        "smaller_correct": 1,
+        "smaller_is_closer_accuracy": 0.16666666666666666,
+        "tie_fraction": 0.0,
+        "ties": 0
+      }
+    }
+  ],
+  "selected_circuits": [
+    {
+      "accuracy_drop": -0.04225352112676062,
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.971830985915493,
+          "best_direction": "larger",
+          "larger_correct": 69,
+          "larger_is_closer_accuracy": 0.971830985915493,
+          "pairs": 71,
+          "smaller_correct": 2,
+          "smaller_is_closer_accuracy": 0.028169014084507043,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "correct_drop": -3,
+      "end": 320,
+      "index": 9,
+      "kind": "mlp_group",
+      "layer_index": 3,
+      "mean_margin": 1.2534733314532787,
+      "mean_margin_drop": -0.00873881270187371,
+      "module_name": "pretrained.blocks.3.mlp",
+      "name": "block_03_mlp_group_09_288_320",
+      "overall": {
+        "best_accuracy": 0.971830985915493,
+        "best_direction": "larger",
+        "larger_correct": 69,
+        "larger_is_closer_accuracy": 0.971830985915493,
+        "pairs": 71,
+        "smaller_correct": 2,
+        "smaller_is_closer_accuracy": 0.028169014084507043,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "pair_delta": {
+        "gained_pair_count": 3,
+        "lost_pair_count": 0,
+        "max_abs_margin_delta": 0.5395666360855103,
+        "mean_abs_margin_delta": 0.068949894418835,
+        "mean_margin_delta": -0.012978974582207665,
+        "sign_flip_count": 3,
+        "top_gained_pairs": [
+          {
+            "ablated_margin": 0.2850683927536011,
+            "baseline_margin": -0.2544982433319092,
+            "image": "images/indoor/21151235911_63401934b7_k.jpg",
+            "margin_drop": -0.5395666360855103,
+            "pair_id": "images/indoor/21151235911_63401934b7_k.jpg#0",
+            "pair_index": 0,
+            "scene": "indoor"
+          },
+          {
+            "ablated_margin": 0.029985547065734863,
+            "baseline_margin": -0.5088291168212891,
+            "image": "images/indoor/21151235911_63401934b7_k.jpg",
+            "margin_drop": -0.5388146638870239,
+            "pair_id": "images/indoor/21151235911_63401934b7_k.jpg#2",
+            "pair_index": 2,
+            "scene": "indoor"
+          },
+          {
+            "ablated_margin": 0.2946525812149048,
+            "baseline_margin": -0.23044610023498535,
+            "image": "images/indoor/21151235911_63401934b7_k.jpg",
+            "margin_drop": -0.5250986814498901,
+            "pair_id": "images/indoor/21151235911_63401934b7_k.jpg#1",
+            "pair_index": 1,
+            "scene": "indoor"
+          }
+        ],
+        "top_lost_pairs": []
+      },
+      "parameter_estimate": 24608,
+      "start": 288,
+      "total": 48
+    },
+    {
+      "accuracy_drop": -0.04225352112676062,
+      "by_scene": {
+        "indoor": {
+          "best_accuracy": 0.971830985915493,
+          "best_direction": "larger",
+          "larger_correct": 69,
+          "larger_is_closer_accuracy": 0.971830985915493,
+          "pairs": 71,
+          "smaller_correct": 2,
+          "smaller_is_closer_accuracy": 0.028169014084507043,
+          "tie_fraction": 0.0,
+          "ties": 0
+        }
+      },
+      "correct_drop": -3,
+      "end": 288,
+      "index": 8,
+      "kind": "attn_proj_group",
+      "layer_index": 5,
+      "mean_margin": 1.2409753142856061,
+      "mean_margin_drop": 0.0037592044657988044,
+      "module_name": "pretrained.blocks.5.attn",
+      "name": "block_05_attn_proj_group_08_256_288",
+      "overall": {
+        "best_accuracy": 0.971830985915493,
+        "best_direction": "larger",
+        "larger_correct": 69,
+        "larger_is_closer_accuracy": 0.971830985915493,
+        "pairs": 71,
+        "smaller_correct": 2,
+        "smaller_is_closer_accuracy": 0.028169014084507043,
+        "tie_fraction": 0.0,
+        "ties": 0
+      },
+      "pair_delta": {
+        "gained_pair_count": 3,
+        "lost_pair_count": 0,
+        "max_abs_margin_delta": 1.1023507118225098,
+        "mean_abs_margin_delta": 0.16141607763547397,
+        "mean_margin_delta": -0.025121443298264916,
+        "sign_flip_count": 3,
+        "top_gained_pairs": [
+          {
+            "ablated_margin": 0.8719046115875244,
+            "baseline_margin": -0.23044610023498535,
+            "image": "images/indoor/21151235911_63401934b7_k.jpg",
+            "margin_drop": -1.1023507118225098,
+            "pair_id": "images/indoor/21151235911_63401934b7_k.jpg#1",
+            "pair_index": 1,
+            "scene": "indoor"
+          },
+          {
+            "ablated_margin": 0.81089186668396,
+            "baseline_margin": -0.2544982433319092,
+            "image": "images/indoor/21151235911_63401934b7_k.jpg",
+            "margin_drop": -1.0653901100158691,
+            "pair_id": "images/indoor/21151235911_63401934b7_k.jpg#0",
+            "pair_index": 0,
+            "scene": "indoor"
+          },
+          {
+            "ablated_margin": 0.47939610481262207,
+            "baseline_margin": -0.5088291168212891,
+            "image": "images/indoor/21151235911_63401934b7_k.jpg",
+            "margin_drop": -0.9882252216339111,
+            "pair_id": "images/indoor/21151235911_63401934b7_k.jpg#2",
+            "pair_index": 2,
+            "scene": "indoor"
+          }
+        ],
+        "top_lost_pairs": []
+      },
+      "parameter_estimate": 12320,
+      "start": 256,
+      "total": 12
+    }
+  ],
+  "train_items": [
+    "images/indoor/1009402064_7c74b0b819_k.jpg",
+    "images/indoor/12272343524_202e65dd98_k.jpg"
+  ]
+}

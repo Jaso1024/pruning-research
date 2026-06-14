@@ -7,6 +7,8 @@ This repository is a snapshot of messy preliminary research code around speculat
 - `upstream/speculative_prefill/`: a modified upstream SpecPrefill/vLLM monkey-patch tree with API eval, DeepSeek/LongBench helpers, QPS/latency harnesses, and tests.
 - `unstructured-to-structured/`: saliency and pruning experiments, including WANDA-style scoring, N:M pruning, GPTQ/Qronos experiments, affine toy checks, CIFAR AirBench Modal runs, and related tests.
 - `layer_composition/`: layer merge/distillation/removal experiments, attention-head analysis and basis compression, hybrid attention replacement, low-QK adapters, structured 2:4 sparsity, Modal launchers, and tests.
+- `depth-anything-2/`: Depth Anything V2 compression research on DA-2K, including token merging/pruning, WANDA/GPTQ-style baselines, circuit discovery and ablation, scalar saliency, activation replacement, MoE-style sparsity, and LoRA/PEFT repair sweeps. See `depth-anything-2/COMPRESSION_RESEARCH.md`.
+- `circuit-resynthesis/`: MNIST prototype for decompiling dense MLP structure into local/circuit masks and resynthesizing smaller students.
 - `research/` and top-level research notes: logs and notes from the exploratory work.
 - `superwhisper-entitlement-snapshot.sh`: a separate local research helper that redacts sensitive-looking values before printing Superwhisper entitlement/cache metadata.
 

@@ -1,0 +1,11 @@
+{
+  "cols": 1536,
+  "effective_tops": 1.3515945042604338,
+  "k": 384,
+  "kernel_ms": 1.1957119941711425,
+  "max_abs_error": 0.0,
+  "mean_abs_error": 0.0,
+  "name": "w4a4_api_auto_m1370_n1536_k384_fc1",
+  "ptx_path": "eval_outputs/cuda_fastpath_orin/w4a4_api_auto_m1370_n1536_k384_fc1/w4a4_api_auto.ptx",
+  "rows": 1370
+}
