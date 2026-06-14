@@ -27,17 +27,18 @@ The code has tests in the subproject `tests/` directories, but this snapshot sho
 ## Useful Starting Points
 
 ```bash
+# Use an activated environment with the subproject dependencies installed.
+# On bare Ubuntu hosts without a `python` alias, set this to python3.
+PYTHON=${PYTHON:-python3}
+
 # Layer-composition unit tests
-cd layer_composition
-pytest
+(cd layer_composition && $PYTHON -m pytest -q)
 
 # Unstructured-to-structured unit tests
-cd unstructured-to-structured
-pytest
+(cd unstructured-to-structured && $PYTHON -m pytest -q)
 
 # Upstream SpecPrefill tests
-cd upstream/speculative_prefill
-python -m unittest discover -s tests
+(cd upstream/speculative_prefill && $PYTHON -m unittest discover -s tests)
 ```
 
 Modal launchers:

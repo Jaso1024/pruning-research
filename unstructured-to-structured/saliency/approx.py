@@ -699,7 +699,7 @@ def qwen_attention_qkv_superset_output_gains(
     mask = attention_mask.detach().to(device=q_raw.device, dtype=torch.float32) if attention_mask is not None else None
     dense = dense_weight.detach().to(device=q_raw.device, dtype=torch.float32)
     q_gain = torch.empty_like(q_raw)
-    k_gain = torch.empty_like(k_raw)
+    k_gain = torch.zeros_like(k_raw)
     v_gain = torch.zeros_like(v)
     scale = float(scaling)
     block = 16
