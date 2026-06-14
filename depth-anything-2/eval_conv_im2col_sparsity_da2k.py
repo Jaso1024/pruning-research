@@ -39,6 +39,9 @@ class ConvIm2ColConfig:
     encoder: str = "vits"
     input_size: int = 518
     device: str = "auto"
+    activation: str = "relu"
+    stage2: str = "none"
+    stage2_shift: float = 0.0
     summary_json: Path | None = None
     variant_key: str = ""
     state_dict: Path | None = None
@@ -368,6 +371,9 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--encoder", choices=sorted(MODEL_CONFIGS), default="vits")
     parser.add_argument("--input-size", type=int, default=518)
     parser.add_argument("--device", default="auto")
+    parser.add_argument("--activation", default="relu")
+    parser.add_argument("--stage2", choices=["none", "norm2", "norm12"], default="none")
+    parser.add_argument("--stage2-shift", type=float, default=0.0)
     parser.add_argument("--summary-json", type=Path, default=None)
     parser.add_argument("--variant-key", default="")
     parser.add_argument("--state-dict", type=Path, default=None)
@@ -396,6 +402,9 @@ def main(argv: list[str] | None = None) -> None:
             encoder=args.encoder,
             input_size=args.input_size,
             device=args.device,
+            activation=args.activation,
+            stage2=args.stage2,
+            stage2_shift=args.stage2_shift,
             summary_json=args.summary_json,
             variant_key=args.variant_key,
             state_dict=args.state_dict,
