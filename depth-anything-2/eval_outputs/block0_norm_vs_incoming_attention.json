@@ -1,0 +1,111 @@
+{
+  "by_scene": {
+    "adverse_style": {
+      "images": 151,
+      "pearson_mean": 0.04353936979927301,
+      "spearman_mean": -0.37970233679427623,
+      "tokens": 314796
+    },
+    "aerial": {
+      "images": 89,
+      "pearson_mean": 0.02219964633798899,
+      "spearman_mean": -0.21161703985321761,
+      "tokens": 185185
+    },
+    "indoor": {
+      "images": 195,
+      "pearson_mean": 0.03847471092696149,
+      "spearman_mean": -0.37834684840441224,
+      "tokens": 395530
+    },
+    "non_real": {
+      "images": 163,
+      "pearson_mean": 0.028726721420710102,
+      "spearman_mean": -0.358338346654355,
+      "tokens": 299145
+    },
+    "object": {
+      "images": 96,
+      "pearson_mean": 0.047624093471803734,
+      "spearman_mean": -0.326367077925161,
+      "tokens": 191327
+    },
+    "outdoor": {
+      "images": 155,
+      "pearson_mean": 0.026840376770116105,
+      "spearman_mean": -0.33235715027250734,
+      "tokens": 318422
+    },
+    "transparent_reflective": {
+      "images": 117,
+      "pearson_mean": 0.03840336171802627,
+      "spearman_mean": -0.3423483315404335,
+      "tokens": 231768
+    },
+    "underwater": {
+      "images": 67,
+      "pearson_mean": 0.041784612347029654,
+      "spearman_mean": -0.3709641356717847,
+      "tokens": 133422
+    }
+  },
+  "definition": {
+    "attention_strength": "Incoming first-layer attention to each patch key: mean over heads and patch-token queries of block 0 attention probabilities, excluding cls/register queries and keys.",
+    "token_norm": "L2 norm of each patch token after transformer block 0 output, excluding cls/register tokens."
+  },
+  "elapsed_seconds": 77.11486478000006,
+  "global_token_level": {
+    "pearson": 0.023331426045216336,
+    "spearman": -0.37555422583290543
+  },
+  "images": 1033,
+  "incoming_attention_distribution_per_image": {
+    "mean": {
+      "max": 0.0006699873483739793,
+      "mean": 0.00043582704463894305,
+      "median": 0.000428307888796553,
+      "min": 0.0001347396319033578,
+      "std": 6.606906083290063e-05
+    },
+    "std": {
+      "max": 0.004508506506681442,
+      "mean": 0.002658941307657787,
+      "median": 0.002676030620932579,
+      "min": 0.00035114525235258043,
+      "std": 0.000759455052319709
+    }
+  },
+  "norm_distribution_per_image": {
+    "mean": {
+      "max": 2.1069300174713135,
+      "mean": 1.1715188707294446,
+      "median": 1.1497167348861694,
+      "min": 0.7912645936012268,
+      "std": 0.1742080000506564
+    },
+    "std": {
+      "max": 1.0253255367279053,
+      "mean": 0.26933261869693426,
+      "median": 0.2585703432559967,
+      "min": 0.03736786171793938,
+      "std": 0.09877052435196158
+    }
+  },
+  "per_image": {
+    "pearson": {
+      "max": 0.31175792973734423,
+      "mean": 0.03558583863216428,
+      "median": 0.028983903549728296,
+      "min": -0.0834992151784156,
+      "std": 0.041016433329847814
+    },
+    "spearman": {
+      "max": 0.24465531012163477,
+      "mean": -0.34473543562409176,
+      "median": -0.369874170283447,
+      "min": -0.7674352201137171,
+      "std": 0.16969024163177115
+    }
+  },
+  "tokens": 2069595
+}
