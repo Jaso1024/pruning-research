@@ -47,7 +47,7 @@ DEPTH_HEAD_CIRCUIT_KINDS = (
 ALL_CIRCUIT_KINDS = TRANSFORMER_CIRCUIT_KINDS + DEPTH_HEAD_CIRCUIT_KINDS
 
 TRANSFORMER_LINEAR_SUFFIXES = ("attn.qkv", "attn.proj", "mlp.fc1", "mlp.fc2")
-PEFT_METHODS = ("lora", "lora-bitfit", "dora", "loha", "ia3-out", "ia3-in", "bitfit")
+PEFT_METHODS = ("lora", "lora-bitfit", "dora", "loha", "sapt", "ia3-out", "ia3-in", "bitfit")
 LORA_PLACEMENTS = (
     "masked",
     "head",
@@ -91,6 +91,12 @@ class CircuitLoRARepairConfig:
     epochs: int = 3
     lr: float = 2e-3
     weight_decay: float = 0.0
+    optimizer: str = "adamw"
+    muon_momentum: float = 0.95
+    muon_damping: float = 1e-2
+    depth_loss_mode: str = "smoothl1"
+    kl_direction: str = "forward"
+    kl_temperature: float = 1.0
     pairwise_weight: float = 0.0
     pairwise_teacher_weight: float = 1.0
     pairwise_label_weight: float = 0.0
@@ -133,6 +139,18 @@ class CircuitLoRARepairConfig:
             raise ValueError("epochs must be positive")
         if self.lr <= 0:
             raise ValueError("lr must be positive")
+        if self.optimizer not in {"adamw", "muon", "comp-muon"}:
+            raise ValueError("optimizer must be adamw, muon, or comp-muon")
+        if not 0 <= self.muon_momentum < 1:
+            raise ValueError("muon_momentum must be in [0, 1)")
+        if self.muon_damping <= 0:
+            raise ValueError("muon_damping must be positive")
+        if self.depth_loss_mode not in {"smoothl1", "l2", "kl"}:
+            raise ValueError("depth_loss_mode must be smoothl1, l2, or kl")
+        if self.kl_direction not in {"forward", "reverse"}:
+            raise ValueError("kl_direction must be forward or reverse")
+        if self.kl_temperature <= 0:
+            raise ValueError("kl_temperature must be positive")
         if self.pairwise_weight < 0 or self.pairwise_teacher_weight < 0 or self.pairwise_label_weight < 0:
             raise ValueError("pairwise weights must be non-negative")
         if self.pairwise_tau <= 0:
@@ -277,6 +295,80 @@ class LoHALinear(nn.Module):
     @torch.no_grad()
     def merge(self) -> nn.Linear:
         self.base.weight.add_(self.delta_weight().to(device=self.base.weight.device, dtype=self.base.weight.dtype))
+        return self.base
+
+
+class SAPTLinear(nn.Module):
+    def __init__(
+        self,
+        base: nn.Linear,
+        *,
+        rank: int,
+        alpha: float,
+        pruned_weight_mask: torch.Tensor | None = None,
+    ):
+        super().__init__()
+        self.base = base
+        self.rank = int(rank)
+        self.alpha = float(alpha)
+        self.scaling = self.alpha / float(self.rank)
+        self.lora_a = nn.Parameter(torch.empty(self.rank, base.in_features, dtype=base.weight.dtype))
+        self.lora_b = nn.Parameter(torch.zeros(base.out_features, self.rank, dtype=base.weight.dtype))
+        nn.init.kaiming_uniform_(self.lora_a, a=5**0.5)
+
+        weight = base.weight.detach().float()
+        svd_rank = min(self.rank, min(weight.shape))
+        u, _s, vh = torch.linalg.svd(weight, full_matrices=False)
+        self.register_buffer("sapt_u", u[:, :svd_rank].contiguous().to(dtype=base.weight.dtype))
+        self.register_buffer("sapt_vh", vh[:svd_rank, :].contiguous().to(dtype=base.weight.dtype))
+        self.spectral_diag = nn.Parameter(torch.zeros(svd_rank, dtype=base.weight.dtype))
+        self.square_core = nn.Parameter(torch.zeros(svd_rank, svd_rank, dtype=base.weight.dtype))
+
+        self.hada_a1 = nn.Parameter(torch.empty(self.rank, base.in_features, dtype=base.weight.dtype))
+        self.hada_b1 = nn.Parameter(torch.zeros(base.out_features, self.rank, dtype=base.weight.dtype))
+        self.hada_a2 = nn.Parameter(torch.empty(self.rank, base.in_features, dtype=base.weight.dtype))
+        self.hada_b2 = nn.Parameter(torch.empty(base.out_features, self.rank, dtype=base.weight.dtype))
+        nn.init.kaiming_uniform_(self.hada_a1, a=5**0.5)
+        nn.init.kaiming_uniform_(self.hada_a2, a=5**0.5)
+        nn.init.kaiming_uniform_(self.hada_b2, a=5**0.5)
+
+        self.sapt_gates = nn.Parameter(torch.ones(4, dtype=base.weight.dtype))
+        self.base.weight.requires_grad_(False)
+        if self.base.bias is not None:
+            self.base.bias.requires_grad_(False)
+        if pruned_weight_mask is None:
+            self.register_buffer("sapt_weight_mask", None)
+        else:
+            if tuple(pruned_weight_mask.shape) != tuple(base.weight.shape):
+                raise ValueError("pruned_weight_mask must match base weight shape")
+            allowed_mask = (~pruned_weight_mask.bool()).to(dtype=base.weight.dtype)
+            self.register_buffer("sapt_weight_mask", allowed_mask)
+
+    def delta_weight(self) -> torch.Tensor:
+        gates = self.sapt_gates.to(device=self.base.weight.device, dtype=self.base.weight.dtype)
+        lora_delta = self.lora_b @ self.lora_a
+        spectral_delta = (self.sapt_u * self.spectral_diag.unsqueeze(0)) @ self.sapt_vh
+        hada_delta = (self.hada_b1 @ self.hada_a1) * (self.hada_b2 @ self.hada_a2)
+        square_delta = self.sapt_u @ self.square_core @ self.sapt_vh
+        delta = (
+            gates[0] * lora_delta
+            + gates[1] * spectral_delta
+            + gates[2] * hada_delta
+            + gates[3] * square_delta
+        )
+        if self.sapt_weight_mask is not None:
+            delta = delta * self.sapt_weight_mask.to(device=delta.device, dtype=delta.dtype)
+        return delta * self.scaling
+
+    def effective_weight(self) -> torch.Tensor:
+        return self.base.weight + self.delta_weight().to(device=self.base.weight.device, dtype=self.base.weight.dtype)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        return F.linear(x, self.effective_weight().to(device=x.device, dtype=x.dtype), self.base.bias)
+
+    @torch.no_grad()
+    def merge(self) -> nn.Linear:
+        self.base.weight.copy_(self.effective_weight().to(device=self.base.weight.device, dtype=self.base.weight.dtype))
         return self.base
 
 
@@ -550,7 +642,7 @@ class BitFitConv(nn.Module):
         return self.base
 
 
-PEFT_LINEAR_MODULES = (LoRALinear, LoRABitFitLinear, LoHALinear, DoRALinear, IA3Linear, BitFitLinear)
+PEFT_LINEAR_MODULES = (LoRALinear, LoRABitFitLinear, LoHALinear, SAPTLinear, DoRALinear, IA3Linear, BitFitLinear)
 PEFT_CONV_MODULES = (LoRAConv, LoRABitFitConv, BitFitConv)
 PEFT_MODULES = PEFT_LINEAR_MODULES + PEFT_CONV_MODULES
 
@@ -944,6 +1036,19 @@ def reapply_masks_(model: nn.Module, masks: dict[str, torch.Tensor]) -> None:
             module.weight.masked_fill_(mask.to(module.weight.device), 0)
 
 
+@torch.no_grad()
+def max_masked_weight_abs(model: nn.Module, masks: dict[str, torch.Tensor]) -> float:
+    max_abs = 0.0
+    for name, mask in masks.items():
+        module = model.get_submodule(name)
+        if not isinstance(module, (nn.Linear, nn.Conv2d, nn.ConvTranspose2d)):
+            raise TypeError(f"{name} is not Linear/Conv")
+        pruned = module.weight.detach()[mask.to(module.weight.device)]
+        if pruned.numel():
+            max_abs = max(max_abs, float(pruned.float().abs().max().item()))
+    return max_abs
+
+
 def parent_and_attr(model: nn.Module, module_name: str) -> tuple[nn.Module, str]:
     parts = module_name.split(".")
     parent = model.get_submodule(".".join(parts[:-1])) if len(parts) > 1 else model
@@ -975,6 +1080,8 @@ def add_peft_modules_(
                 wrapper = DoRALinear(module, rank=rank, alpha=alpha, pruned_weight_mask=pruned_weight_mask)
             elif method == "loha":
                 wrapper = LoHALinear(module, rank=rank, alpha=alpha, pruned_weight_mask=pruned_weight_mask)
+            elif method == "sapt":
+                wrapper = SAPTLinear(module, rank=rank, alpha=alpha, pruned_weight_mask=pruned_weight_mask)
             elif method == "ia3-out":
                 wrapper = IA3Linear(module, mode="out")
             elif method == "ia3-in":
@@ -1004,17 +1111,55 @@ def add_peft_modules_(
     return stats
 
 
-def merge_peft_modules_(model: nn.Module) -> dict[str, float]:
+def peft_pruned_weight_mask(module: nn.Module) -> torch.Tensor | None:
+    for attr in ("lora_weight_mask", "loha_weight_mask", "sapt_weight_mask", "dora_weight_mask"):
+        allowed_mask = getattr(module, attr, None)
+        if isinstance(allowed_mask, torch.Tensor):
+            return ~allowed_mask.bool()
+    return None
+
+
+def merge_peft_modules_with_safety_(model: nn.Module) -> tuple[dict[str, float], dict[str, dict[str, Any]]]:
     merge_stats: dict[str, float] = {}
+    safety_stats: dict[str, dict[str, Any]] = {}
     for name, module in list(model.named_modules()):
         if not isinstance(module, PEFT_MODULES):
             continue
         parent, attr = parent_and_attr(model, name)
         before = module.base.weight.detach().float().clone()
+        pruned_mask = peft_pruned_weight_mask(module)
+        if pruned_mask is not None:
+            pruned_mask = pruned_mask.to(device=before.device)
         merged = module.merge()
         setattr(parent, attr, merged)
         after = merged.weight.detach().float()
-        merge_stats[name] = float((after - before).pow(2).mean().sqrt().item())
+        delta = after - before
+        merge_stats[name] = float(delta.pow(2).mean().sqrt().item())
+        if pruned_mask is not None:
+            pruned_count = int(pruned_mask.sum().item())
+            if pruned_count:
+                pruned_delta = delta[pruned_mask]
+                pruned_after = after[pruned_mask]
+                safety_stats[name] = {
+                    "pruned_values": pruned_count,
+                    "pruned_delta_abs_max": float(pruned_delta.abs().max().item()),
+                    "pruned_delta_rms": float(pruned_delta.pow(2).mean().sqrt().item()),
+                    "pruned_after_abs_max": float(pruned_after.abs().max().item()),
+                    "safe": bool(pruned_delta.abs().max().item() <= 1e-12 and pruned_after.abs().max().item() <= 1e-12),
+                }
+            else:
+                safety_stats[name] = {
+                    "pruned_values": 0,
+                    "pruned_delta_abs_max": 0.0,
+                    "pruned_delta_rms": 0.0,
+                    "pruned_after_abs_max": 0.0,
+                    "safe": True,
+                }
+    return merge_stats, safety_stats
+
+
+def merge_peft_modules_(model: nn.Module) -> dict[str, float]:
+    merge_stats, _ = merge_peft_modules_with_safety_(model)
     return merge_stats
 
 
@@ -1030,6 +1175,124 @@ def freeze_except_peft_(model: nn.Module) -> None:
 
 def trainable_params(model: nn.Module) -> int:
     return sum(int(p.numel()) for p in model.parameters() if p.requires_grad)
+
+
+def matrix_sign(update: torch.Tensor) -> torch.Tensor:
+    if update.ndim != 2:
+        raise ValueError("matrix_sign expects a 2D tensor")
+    if not torch.isfinite(update).all():
+        update = torch.nan_to_num(update)
+    u, _s, vh = torch.linalg.svd(update.float(), full_matrices=False)
+    return (u @ vh).to(dtype=update.dtype)
+
+
+def inverse_sqrt_spd(matrix: torch.Tensor, damping: float) -> torch.Tensor:
+    eye = torch.eye(matrix.shape[0], device=matrix.device, dtype=torch.float32)
+    eigvals, eigvecs = torch.linalg.eigh(matrix.float() + float(damping) * eye)
+    inv_sqrt = eigvals.clamp_min(float(damping)).rsqrt()
+    return (eigvecs * inv_sqrt.unsqueeze(0)) @ eigvecs.T
+
+
+def peft_factor_pairs(model: nn.Module) -> list[tuple[str, nn.Parameter, nn.Parameter]]:
+    pairs: list[tuple[str, nn.Parameter, nn.Parameter]] = []
+    for name, module in model.named_modules():
+        if isinstance(module, (LoRALinear, LoRABitFitLinear, DoRALinear)):
+            pairs.append((f"{name}.lora", module.lora_b.weight, module.lora_a.weight))
+        elif isinstance(module, LoHALinear):
+            pairs.append((f"{name}.hada1", module.hada_b1.weight, module.hada_a1.weight))
+            pairs.append((f"{name}.hada2", module.hada_b2.weight, module.hada_a2.weight))
+        elif isinstance(module, SAPTLinear):
+            pairs.append((f"{name}.sapt_lora", module.lora_b, module.lora_a))
+            pairs.append((f"{name}.sapt_hada1", module.hada_b1, module.hada_a1))
+            pairs.append((f"{name}.sapt_hada2", module.hada_b2, module.hada_a2))
+        elif isinstance(module, (LoRAConv, LoRABitFitConv)):
+            pairs.append((f"{name}.lora", module.lora_b, module.lora_a))
+    return [(name, b, a) for name, b, a in pairs if b.requires_grad and a.requires_grad]
+
+
+class PEFTMuonOptimizer:
+    def __init__(
+        self,
+        model: nn.Module,
+        *,
+        mode: str,
+        lr: float,
+        weight_decay: float,
+        momentum: float,
+        damping: float,
+    ):
+        if mode not in {"muon", "comp-muon"}:
+            raise ValueError("mode must be muon or comp-muon")
+        self.mode = mode
+        self.lr = float(lr)
+        self.weight_decay = float(weight_decay)
+        self.momentum = float(momentum)
+        self.damping = float(damping)
+        self.params = [param for param in model.parameters() if param.requires_grad]
+        self.factor_pairs = peft_factor_pairs(model)
+        paired_ids = {id(param) for _name, b, a in self.factor_pairs for param in (b, a)}
+        self.muon_params = [
+            param
+            for param in self.params
+            if param.ndim == 2 and (self.mode == "muon" or id(param) not in paired_ids)
+        ]
+        muon_ids = {id(param) for param in self.muon_params}
+        adam_params = [
+            param
+            for param in self.params
+            if id(param) not in paired_ids and id(param) not in muon_ids
+        ]
+        self.adam = torch.optim.AdamW(adam_params, lr=lr, weight_decay=weight_decay) if adam_params else None
+        self.momentum_buffers: dict[int, torch.Tensor] = {}
+
+    def zero_grad(self, *, set_to_none: bool = True) -> None:
+        for param in self.params:
+            param.grad = None if set_to_none else torch.zeros_like(param)
+
+    def momentum_buffer(self, param: nn.Parameter) -> torch.Tensor:
+        key = id(param)
+        if key not in self.momentum_buffers:
+            self.momentum_buffers[key] = torch.zeros_like(param, dtype=torch.float32)
+        return self.momentum_buffers[key]
+
+    def update_momentum(self, param: nn.Parameter) -> torch.Tensor | None:
+        if param.grad is None:
+            return None
+        grad = param.grad.detach().float()
+        buf = self.momentum_buffer(param)
+        buf.mul_(self.momentum).add_(grad)
+        return buf
+
+    @torch.no_grad()
+    def step(self) -> None:
+        if self.adam is not None:
+            self.adam.step()
+
+        updates: list[tuple[nn.Parameter, torch.Tensor]] = []
+        if self.mode == "comp-muon":
+            for _name, b_param, a_param in self.factor_pairs:
+                b_momentum = self.update_momentum(b_param)
+                a_momentum = self.update_momentum(a_param)
+                if b_momentum is None or a_momentum is None:
+                    continue
+                a_weight = a_param.detach().float()
+                b_weight = b_param.detach().float()
+                a_inv_sqrt = inverse_sqrt_spd(a_weight @ a_weight.T, self.damping)
+                b_inv_sqrt = inverse_sqrt_spd(b_weight.T @ b_weight, self.damping)
+                b_update = matrix_sign(b_momentum @ a_inv_sqrt) @ a_inv_sqrt
+                a_update = b_inv_sqrt @ matrix_sign(b_inv_sqrt @ a_momentum)
+                updates.append((b_param, 0.5 * b_update))
+                updates.append((a_param, 0.5 * a_update))
+
+        for param in self.muon_params:
+            momentum = self.update_momentum(param)
+            if momentum is not None:
+                updates.append((param, matrix_sign(momentum)))
+
+        for param, update in updates:
+            if self.weight_decay:
+                param.mul_(1.0 - self.lr * self.weight_decay)
+            param.add_(update.to(device=param.device, dtype=param.dtype), alpha=-self.lr)
 
 
 def load_train_samples(
@@ -1134,7 +1397,7 @@ def pair_margins_from_depth(
     return depth_2d[rows1, cols1] - depth_2d[rows2, cols2]
 
 
-def depth_distill_loss(pred: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
+def smooth_depth_distill_loss(pred: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
     pred_norm = normalized_depth(pred.float())
     target_norm = normalized_depth(target.float().to(pred.device))
     value = F.smooth_l1_loss(pred_norm, target_norm)
@@ -1144,6 +1407,59 @@ def depth_distill_loss(pred: torch.Tensor, target: torch.Tensor) -> torch.Tensor
     target_dy = target_norm[:, 1:, :] - target_norm[:, :-1, :]
     grad = F.smooth_l1_loss(pred_dx, target_dx) + F.smooth_l1_loss(pred_dy, target_dy)
     return value + 0.25 * grad
+
+
+def l2_depth_distill_loss(pred: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
+    pred_norm = normalized_depth(pred.float())
+    target_norm = normalized_depth(target.float().to(pred.device))
+    value = F.mse_loss(pred_norm, target_norm)
+    pred_dx = pred_norm[:, :, 1:] - pred_norm[:, :, :-1]
+    target_dx = target_norm[:, :, 1:] - target_norm[:, :, :-1]
+    pred_dy = pred_norm[:, 1:, :] - pred_norm[:, :-1, :]
+    target_dy = target_norm[:, 1:, :] - target_norm[:, :-1, :]
+    grad = F.mse_loss(pred_dx, target_dx) + F.mse_loss(pred_dy, target_dy)
+    return value + 0.25 * grad
+
+
+def kl_depth_distill_loss(
+    pred: torch.Tensor,
+    target: torch.Tensor,
+    *,
+    direction: str,
+    temperature: float,
+) -> torch.Tensor:
+    pred_logits = normalized_depth(pred.float()).flatten(1) / temperature
+    target_logits = normalized_depth(target.float().to(pred.device)).flatten(1) / temperature
+    student_log_prob = F.log_softmax(pred_logits, dim=1)
+    teacher_log_prob = F.log_softmax(target_logits, dim=1)
+    student_prob = student_log_prob.exp()
+    teacher_prob = teacher_log_prob.exp()
+    if direction == "forward":
+        # KL(teacher || student)
+        loss = (teacher_prob * (teacher_log_prob - student_log_prob)).sum(dim=1).mean()
+    elif direction == "reverse":
+        # KL(student || teacher)
+        loss = (student_prob * (student_log_prob - teacher_log_prob)).sum(dim=1).mean()
+    else:
+        raise ValueError("direction must be forward or reverse")
+    return loss * (temperature * temperature)
+
+
+def depth_distill_loss(
+    pred: torch.Tensor,
+    target: torch.Tensor,
+    *,
+    mode: str,
+    kl_direction: str,
+    kl_temperature: float,
+) -> torch.Tensor:
+    if mode == "smoothl1":
+        return smooth_depth_distill_loss(pred, target)
+    if mode == "l2":
+        return l2_depth_distill_loss(pred, target)
+    if mode == "kl":
+        return kl_depth_distill_loss(pred, target, direction=kl_direction, temperature=kl_temperature)
+    raise ValueError("mode must be smoothl1, l2, or kl")
 
 
 def pairwise_distill_loss(
@@ -1179,7 +1495,7 @@ def pairwise_distill_loss(
     }
 
 
-def train_lora_repair(
+def train_peft_repair(
     student: nn.Module,
     samples: list[TrainSample],
     teacher_outputs: list[torch.Tensor],
@@ -1189,16 +1505,32 @@ def train_lora_repair(
     epochs: int,
     lr: float,
     weight_decay: float,
+    optimizer: str,
+    muon_momentum: float,
+    muon_damping: float,
     pairwise_weight: float,
     pairwise_teacher_weight: float,
     pairwise_label_weight: float,
     pairwise_tau: float,
     log_every: int,
+    depth_loss_mode: str = "smoothl1",
+    kl_direction: str = "forward",
+    kl_temperature: float = 1.0,
 ) -> list[dict[str, Any]]:
     params = [p for p in student.parameters() if p.requires_grad]
     if not params:
-        raise RuntimeError("no trainable LoRA parameters")
-    opt = torch.optim.AdamW(params, lr=lr, weight_decay=weight_decay)
+        raise RuntimeError("no trainable PEFT parameters")
+    if optimizer == "adamw":
+        opt = torch.optim.AdamW(params, lr=lr, weight_decay=weight_decay)
+    else:
+        opt = PEFTMuonOptimizer(
+            student,
+            mode=optimizer,
+            lr=lr,
+            weight_decay=weight_decay,
+            momentum=muon_momentum,
+            damping=muon_damping,
+        )
     history: list[dict[str, Any]] = []
     step = 0
     for epoch in range(1, epochs + 1):
@@ -1215,7 +1547,13 @@ def train_lora_repair(
             x = sample.tensor.to(device=device, non_blocking=True)
             target = teacher_outputs[item_index].to(device=device, non_blocking=True)
             pred = student(x)
-            depth_loss = depth_distill_loss(pred, target)
+            depth_loss = depth_distill_loss(
+                pred,
+                target,
+                mode=depth_loss_mode,
+                kl_direction=kl_direction,
+                kl_temperature=kl_temperature,
+            )
             pair_loss = pred.sum() * 0.0
             pair_stats = {"pair_teacher_loss": 0.0, "pair_label_loss": 0.0, "pair_accuracy": 0.0}
             if pairwise_weight > 0 and (pairwise_teacher_weight > 0 or pairwise_label_weight > 0):
@@ -1328,11 +1666,30 @@ def write_report(path: Path, summary: dict[str, Any]) -> None:
     lines.append("## Repair")
     lines.append("")
     lines.append(f"- PEFT method: `{summary['config']['peft_method']}`")
+    lines.append(f"- Optimizer: `{summary['config']['optimizer']}`")
+    if summary["config"]["optimizer"] in {"muon", "comp-muon"}:
+        lines.append(
+            f"- Muon momentum/damping: `{summary['config']['muon_momentum']}` / "
+            f"`{summary['config']['muon_damping']}`"
+        )
+    lines.append(f"- Depth loss: `{summary['config']['depth_loss_mode']}`")
+    if summary["config"]["depth_loss_mode"] == "kl":
+        lines.append(
+            f"- KL depth distillation: `{summary['config']['kl_direction']}` "
+            f"(temperature `{summary['config']['kl_temperature']}`)"
+        )
     lines.append(f"- Train/eval overlap images: `{summary['train_eval_overlap_count']}`")
     lines.append(f"- Masked tensor values: `{summary['masked_tensor_values']}`")
     lines.append(f"- PEFT trainable params: `{summary['peft_trainable_params']}`")
     lines.append(f"- PEFT modules: `{len(summary['peft_modules'])}`")
     lines.append(f"- Merge RMS deltas: `{summary['merge_rms_delta_by_module']}`")
+    lines.append(f"- Merge mask safety all safe: `{summary['merge_mask_safety_all_safe']}`")
+    lines.append(
+        f"- Folded masked weight max before/after remask: "
+        f"`{summary['folded_masked_weight_abs_max_before_remask']}` / "
+        f"`{summary['folded_masked_weight_abs_max_after_remask']}`"
+    )
+    lines.append(f"- Folded unmasked/remasked overall match: `{summary['folded_unmasked_remasked_overall_match']}`")
     path.write_text("\n".join(lines) + "\n")
 
 
@@ -1371,7 +1728,7 @@ def run(config: CircuitLoRARepairConfig) -> dict[str, Any]:
 
     student = load_model(config.encoder, config.checkpoint, device)
     masks, mask_operations = apply_circuit_weight_masks_(student, selected_rows)
-    lora_targets = lora_target_names_for_placement(
+    peft_targets = lora_target_names_for_placement(
         student,
         masked_names=sorted(masks),
         selected_rows=selected_rows,
@@ -1381,14 +1738,14 @@ def run(config: CircuitLoRARepairConfig) -> dict[str, Any]:
     )
     add_stats = add_peft_modules_(
         student,
-        lora_targets,
+        peft_targets,
         method=config.peft_method,
         rank=config.lora_rank,
         alpha=config.lora_alpha,
         masks=masks,
     )
     freeze_except_peft_(student)
-    lora_param_count = trainable_params(student)
+    peft_param_count = trainable_params(student)
 
     train_samples = load_train_samples(
         teacher,
@@ -1427,7 +1784,7 @@ def run(config: CircuitLoRARepairConfig) -> dict[str, Any]:
     if device.type == "cuda":
         torch.cuda.empty_cache()
 
-    history = train_lora_repair(
+    history = train_peft_repair(
         student,
         train_samples,
         teacher_outputs,
@@ -1436,11 +1793,17 @@ def run(config: CircuitLoRARepairConfig) -> dict[str, Any]:
         epochs=config.epochs,
         lr=config.lr,
         weight_decay=config.weight_decay,
+        optimizer=config.optimizer,
+        muon_momentum=config.muon_momentum,
+        muon_damping=config.muon_damping,
         pairwise_weight=config.pairwise_weight,
         pairwise_teacher_weight=config.pairwise_teacher_weight,
         pairwise_label_weight=config.pairwise_label_weight,
         pairwise_tau=config.pairwise_tau,
         log_every=config.log_every,
+        depth_loss_mode=config.depth_loss_mode,
+        kl_direction=config.kl_direction,
+        kl_temperature=config.kl_temperature,
     )
     results.append(
         evaluate_items(
@@ -1453,7 +1816,7 @@ def run(config: CircuitLoRARepairConfig) -> dict[str, Any]:
         )
     )
 
-    merge_stats = merge_peft_modules_(student)
+    merge_stats, merge_mask_safety = merge_peft_modules_with_safety_(student)
     results.append(
         evaluate_items(
             student,
@@ -1465,7 +1828,9 @@ def run(config: CircuitLoRARepairConfig) -> dict[str, Any]:
         )
     )
 
+    folded_masked_weight_abs_max_before_remask = max_masked_weight_abs(student, masks)
     reapply_masks_(student, masks)
+    folded_masked_weight_abs_max_after_remask = max_masked_weight_abs(student, masks)
     results.append(
         evaluate_items(
             student,
@@ -1495,12 +1860,18 @@ def run(config: CircuitLoRARepairConfig) -> dict[str, Any]:
         "masked_tensor_values": int(sum(int(op["masked_tensor_values"]) for op in mask_operations)),
         "mask_linear_modules": sorted(masks),
         "peft_modules": add_stats,
-        "peft_trainable_params": lora_param_count,
+        "peft_trainable_params": peft_param_count,
+        # Backward-compatible aliases for older result parsers.
         "lora_modules": add_stats,
-        "lora_trainable_params": lora_param_count,
+        "lora_trainable_params": peft_param_count,
         "history": history,
         "results": results,
         "merge_rms_delta_by_module": merge_stats,
+        "merge_mask_safety_by_module": merge_mask_safety,
+        "merge_mask_safety_all_safe": all(row["safe"] for row in merge_mask_safety.values()),
+        "folded_masked_weight_abs_max_before_remask": folded_masked_weight_abs_max_before_remask,
+        "folded_masked_weight_abs_max_after_remask": folded_masked_weight_abs_max_after_remask,
+        "folded_unmasked_remasked_overall_match": results[-2]["overall"] == results[-1]["overall"],
         "checkpoint_path": str(checkpoint_path) if checkpoint_path else None,
         "elapsed_seconds": time.monotonic() - started,
     }
@@ -1521,9 +1892,13 @@ def run(config: CircuitLoRARepairConfig) -> dict[str, Any]:
                     for row in results
                 ],
                 "masked_tensor_values": summary["masked_tensor_values"],
+                "merge_mask_safety_all_safe": summary["merge_mask_safety_all_safe"],
+                "folded_masked_weight_abs_max_before_remask": summary["folded_masked_weight_abs_max_before_remask"],
+                "folded_masked_weight_abs_max_after_remask": summary["folded_masked_weight_abs_max_after_remask"],
+                "folded_unmasked_remasked_overall_match": summary["folded_unmasked_remasked_overall_match"],
                 "train_eval_overlap_count": summary["train_eval_overlap_count"],
-                "peft_trainable_params": lora_param_count,
-                "lora_trainable_params": lora_param_count,
+                "peft_trainable_params": peft_param_count,
+                "lora_trainable_params": peft_param_count,
             },
             indent=2,
             sort_keys=True,
@@ -1534,7 +1909,7 @@ def run(config: CircuitLoRARepairConfig) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Prune weak DAV2 circuits, repair with LoRA distillation, fold, and evaluate.")
+    parser = argparse.ArgumentParser(description="Prune DAV2 circuits, repair with foldable PEFT distillation, fold, and evaluate.")
     parser.add_argument("--dataset-root", type=Path, default=Path("/home/ubuntu/vision_token_tests/datasets/DA-2K/DA-2K"))
     parser.add_argument("--checkpoint", type=Path, default=Path("checkpoints/depth_anything_v2_vits.pth"))
     parser.add_argument("--circuit-summary", type=Path, default=Path("/home/ubuntu/remote-work/depth-anything-2/eval_outputs/subcircuit_fine_all_zero_32_g32_h16/summary.json"))
@@ -1560,6 +1935,12 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--epochs", type=int, default=3)
     parser.add_argument("--lr", type=float, default=2e-3)
     parser.add_argument("--weight-decay", type=float, default=0.0)
+    parser.add_argument("--optimizer", choices=("adamw", "muon", "comp-muon"), default="adamw")
+    parser.add_argument("--muon-momentum", type=float, default=0.95)
+    parser.add_argument("--muon-damping", type=float, default=1e-2)
+    parser.add_argument("--depth-loss-mode", choices=("smoothl1", "l2", "kl"), default="smoothl1")
+    parser.add_argument("--kl-direction", choices=("forward", "reverse"), default="forward")
+    parser.add_argument("--kl-temperature", type=float, default=1.0)
     parser.add_argument("--pairwise-weight", type=float, default=0.0)
     parser.add_argument("--pairwise-teacher-weight", type=float, default=1.0)
     parser.add_argument("--pairwise-label-weight", type=float, default=0.0)
@@ -1598,6 +1979,12 @@ def main() -> None:
         epochs=args.epochs,
         lr=args.lr,
         weight_decay=args.weight_decay,
+        optimizer=args.optimizer,
+        muon_momentum=args.muon_momentum,
+        muon_damping=args.muon_damping,
+        depth_loss_mode=args.depth_loss_mode,
+        kl_direction=args.kl_direction,
+        kl_temperature=args.kl_temperature,
         pairwise_weight=args.pairwise_weight,
         pairwise_teacher_weight=args.pairwise_teacher_weight,
         pairwise_label_weight=args.pairwise_label_weight,
